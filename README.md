@@ -23,5 +23,5 @@ If you like to contribute: Feel free to make a pull request at any time.
 We use the [Modellfrüchte](https://casimir.bsz-bw.de/frontdoor/index/index/docId/18)
 dataset, provided by [Stiftung Schloss Friedenstein](http://www.stiftungfriedenstein.de/).
 All images are provided by Stiftung Schloss Friedenstein under 
-a [CC0 license]( https://creativecommons.org/publicdomain/zero/1.0/deed.de).
+a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
