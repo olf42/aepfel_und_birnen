@@ -1,0 +1,20 @@
+{
+  "name": "aepfel_und_birnen",
+  "version": "1.0.0",
+  "description": "Äpfel und Birnen is a hidden object browser game made with images of apples and peaches of the wax fruit collection of Stiftung Schloss Friedenstein.  It's supposed to be entered into the competition for Coding Da Vinci Ost 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com//olf42%2Faepfel_und_birnen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  }
+}
