@@ -1,6 +1,8 @@
 # Äpfel und Birnen
 
-Äpfel und Birnen is a hidden object browser game made with images of apples and
+![Äpfel und Birnen](img/aub_header.svg)
+
+Äpfel und Birnen (apples and peaches) is a hidden object browser game made with images of apples and
 peaches of the wax fruit collection of Stiftung Schloss Friedenstein. 
 It's supposed to be entered into the competition for 
 [Coding Da Vinci Ost 2018](https://codingdavinci.de/events/ost).
@@ -25,3 +27,6 @@ dataset, provided by [Stiftung Schloss Friedenstein](http://www.stiftungfriedens
 All images are provided by Stiftung Schloss Friedenstein under 
 a [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
+## Artwork
+
+![apples and peaches](img/aub_thumbnail.jpg)
