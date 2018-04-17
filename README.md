@@ -18,7 +18,9 @@ If you like to contribute: Feel free to make a pull request at any time.
 
 ## License
 
+* Software:
 [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.de.html)
+* Media: [CC-BY](https://creativecommons.org/licenses/by/2.0/)
 
 ## Data
 
