@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>pixi test</title>
+</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+    <script src="Countdown.js"></script>
+    <script src="TransitionScene.js"></script>
+    <script src="MenuScene.js"></script>
+    <script src="SearchGameScene.js"></script>
+<body>
+  <script type="text/javascript">
+
+    // create application and add it to document
+    let app = new PIXI.Application({width: 800, height: 600});
+    app.renderer.backgroundColor = 0xffffff;
+    document.body.appendChild(app.view);
+  
+    // initalize game state = menu
+    let state = menuLoop;
+    let menu, gameScene, transition;
+    let level = 1;
+
+    // load graphcs
+    PIXI.loader
+        .add("./assets/si-a-013_001.png")
+        .add("./assets/si-b-070_001.png")
+        .load(() => setup());
+
+    function setup() {
+        // initalize scenes and add them to app
+        menu = new MenuScene(app);
+        gameScene = new SearchGameScene(app, level);
+        transition = new TransitionScene(app);
+
+        // add update ticker
+        app.ticker.add(delta => gameUpdate(delta));
+    }
+
+    function gameUpdate(delta) {
+        state(delta);
+    }
+
+
+    // game scene loops
+
+    function menuLoop(delta) {
+        //menu state
+        if (menu.state === "START_GAME") {
+            gameScene.start();
+            state = gameLoop;
+        }        
+    }
+
+    function gameLoop(delta) {
+        gameScene.update(delta);
+
+        if (gameScene.state === "TIMEOUT") 
+        {
+            level = 1;
+            gameScene.stop();
+            transition.start("Game Over!", "[ retry ]");
+            state = transitionLoop;
+        }
+        if (gameScene.state === "SUCCESS"){
+            level += 1;
+            gameScene.stop();
+            transition.start("Well Done!", "[ next ]");
+            state = transitionLoop;
+        }
+    }
+
+    function transitionLoop(delta) {
+        if (transition.state == "RETRY") {
+            transition.stop();
+            app.stage.removeChild(gameScene);
+            gameScene = new SearchGameScene(app, level);
+            gameScene.start();
+            state = gameLoop;
+        }
+    }
+
+  </script>
+</body>
+</html>
