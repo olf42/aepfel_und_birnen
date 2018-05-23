@@ -5,7 +5,10 @@ import ImageManager from './images/ImageManager'
 
 import BootScene from './scenes/BootScene'
 import MenuScene from './scenes/MenuScene'
-import GameScene from './scenes/GameScene'
+
+// Minigame scenes
+import BouncyPearScene from './scenes/BouncyPearScene'
+import DdrScene from './scenes/DdrScene'
 
 var config = {
     type: Phaser.AUTO,
@@ -24,7 +27,8 @@ var config = {
     scene: [
         BootScene,
         MenuScene,
-        GameScene
+        BouncyPearScene,
+        DdrScene
     ]
 }
 

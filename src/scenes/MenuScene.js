@@ -59,7 +59,7 @@ export default class extends Phaser.Scene {
             this.startGameText.setShadow(0, 0, '#000000', false, false)
         })
         this.startGameText.on('pointerup', (event) => {
-            this.scene.start('GameScene')
+            this.scene.start('DdrScene')
         })
     }
 

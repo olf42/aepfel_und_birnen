@@ -3,7 +3,7 @@ import { randomSpacedValues } from '../utils'
 
 export default class extends Phaser.Scene {
     constructor () {
-        super({ key: 'GameScene'})
+        super({ key: 'BouncyPearScene' })
     }
 
     create () {
