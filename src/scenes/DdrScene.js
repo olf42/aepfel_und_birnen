@@ -12,6 +12,7 @@ export default class extends Phaser.Scene {
         this.appleKey = this.sys.game.im.random("apples")
         this.cooldown = 1000
 
+        // beats queues
         this.aQueue = {
             x: 300,
             apples: []
@@ -25,7 +26,10 @@ export default class extends Phaser.Scene {
             apples: []
         }
 
-        
+        // score graphics queue
+        this.scorePoints = []
+
+        // markers
         this.bgApple1 = this.add.image(300,600, this.appleKey)
         this.bgApple1.setScale(0.6)
         this.bgApple1.setAlpha(0.5)        
@@ -36,7 +40,7 @@ export default class extends Phaser.Scene {
         this.bgApple3.setScale(0.6)
         this.bgApple3.setAlpha(0.5)
 
-
+        // input
         this.input.keyboard.on('keydown', (event) => {
             switch (event.key) {
                 case "d":
@@ -54,15 +58,29 @@ export default class extends Phaser.Scene {
     }
 
     keyPressed (queue) {
-        for (const i in queue.apples) {
-            if ((queue.apples[i].y <= 605) && (queue.apples[i].y >= 595)) {
-                queue.apples[i].destroy()
+        let i = 0
+        for (let apple of queue.apples) {
+            if ((apple.y <= 605) && (apple.y >= 595)) {
+                apple.destroy()
                 queue.apples.splice(i, 1)
+                this.addScorePoint(queue.x)
                 break
             }
+            i++
         }
     } 
 
+
+    addScorePoint (x) {
+        let text = this.add.text(x+20, 550, "+50", {
+            font: '56px Ultra',
+            fill: '#4e678e'
+        })
+        this.scorePoints.push({
+            text: text,
+            duration: 1000
+        })
+    }
 
     update (time, delta) {
         this.cooldown -= delta
@@ -83,10 +101,11 @@ export default class extends Phaser.Scene {
             this.cooldown = 1000
         }
 
-        this.updateQueues(this.aQueue)
-        this.updateQueues(this.sQueue)
-        this.updateQueues(this.dQueue) 
+        this.updateQueue(this.aQueue)
+        this.updateQueue(this.sQueue)
+        this.updateQueue(this.dQueue) 
 
+        this.updateScorePoints(delta)
     } 
 
     addAppleToQueue(queue) {
@@ -95,15 +114,28 @@ export default class extends Phaser.Scene {
         queue.apples.push(apple)
     }
 
-    updateQueues(queue) {
+    updateQueue(queue) {
         // console.log(queue.apples.length)
-        for (let i in queue.apples) {
-            queue.apples[i].y += this.velocity
+        for (let apple of queue.apples) {
+            apple.y += this.velocity
         }
         if (queue.apples.length > 0) {
             if (queue.apples[0].y > 800) {
                 queue.apples[0].destroy()
                 queue.apples.shift()
+            }
+        }
+    }
+
+    updateScorePoints(delta) {
+        for (let points of this.scorePoints) {
+            points.duration -= delta
+            points.text.alpha -= delta/1000
+        }
+        if (this.scorePoints.lengths > 0) {
+            if (this.scorePoints[0].duration < 0) {
+                this.scorePoints.text.destroy()
+                this.scorePoints.shift()
             }
         }
     }
