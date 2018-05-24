@@ -109,7 +109,7 @@ export default class extends Phaser.Scene {
     } 
 
     addAppleToQueue(queue) {
-        let apple = this.add.image(queue.x, Phaser.Math.Between(20,100), this.appleKey)
+        let apple = this.add.image(queue.x, 30, this.appleKey)
         apple.setScale(0.5)
         queue.apples.push(apple)
     }
