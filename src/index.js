@@ -9,6 +9,7 @@ import MenuScene from './scenes/MenuScene'
 // Minigame scenes
 import BouncyPearScene from './scenes/BouncyPearScene'
 import DdrScene from './scenes/DdrScene'
+import SearchScene from './scenes/SearchScene'
 
 var config = {
     type: Phaser.AUTO,
@@ -28,7 +29,8 @@ var config = {
         BootScene,
         MenuScene,
         BouncyPearScene,
-        DdrScene
+        DdrScene,
+        SearchScene
     ]
 }
 
