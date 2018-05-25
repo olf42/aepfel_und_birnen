@@ -4,13 +4,15 @@ import Countdown from '../gui/Countdown'
 export default class extends Phaser.Scene{
     constructor () {
         super({ key: 'SearchScene' })
+
+        this.difficulty = 1
     }
 
     create () {
         this.appleGroup = this.add.group()
         this.apples = []
 
-
+        window.console.log(this.difficulty)
 
         for (let i = 0; i < 50; i++) {
 
@@ -33,6 +35,7 @@ export default class extends Phaser.Scene{
         }
 
         this.pear.on('pointerup', (event) => {
+            this.difficulty += 1
             this.scene.restart()
         })
 
@@ -46,15 +49,18 @@ export default class extends Phaser.Scene{
             this.scene.start('MenuScene')
         }
 
-        for (let i = 0; i < 50; i++) {
-            var rotation = this.apples[i].rotation
-            if (rotation === 360) {
-                rotation = 0
-            }
-            this.apples[i].setRotation(rotation+Phaser.Math.Between(0.01, 0.05))
-            if ( i == 0 ) {
-                this.pear.setRotation(this.pear.rotation+Phaser.Math.Between(0.01, 0.05))
+        if (this.difficulty > 2) {
+            for (let i = 0; i < 50; i++) {
+                var rotation = this.apples[i].rotation
+                if (rotation === 360) {
+                    rotation = 0
+                }
+                this.apples[i].setRotation(rotation+Phaser.Math.Between(0.01, 0.05))
+                if ( i == 0 ) {
+                    this.pear.setRotation(this.pear.rotation+Phaser.Math.Between(0.01, 0.05))
+                }
             }
         }
+
     }
 }
