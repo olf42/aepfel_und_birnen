@@ -12,8 +12,6 @@ export default class extends Phaser.Scene{
         this.appleGroup = this.add.group()
         this.apples = []
 
-        window.console.log(this.difficulty)
-
         for (let i = 0; i < 50; i++) {
 
             if (i === 45) {
@@ -27,7 +25,7 @@ export default class extends Phaser.Scene{
 
             const x = Phaser.Math.Between(0, 1024)
             const y = Phaser.Math.Between(0, 768)
-            const scale = Phaser.Math.FloatBetween(0.7, 0.9)
+            const scale = Phaser.Math.FloatBetween(0.6, 0.85)
             const rotation = Phaser.Math.Between(0, 360)
             this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
             this.apples[i].setScale(scale)
@@ -51,13 +49,9 @@ export default class extends Phaser.Scene{
 
         if (this.difficulty > 2) {
             for (let i = 0; i < 50; i++) {
-                var rotation = this.apples[i].rotation
-                if (rotation === 360) {
-                    rotation = 0
-                }
-                this.apples[i].setRotation(rotation+Phaser.Math.Between(0.01, 0.05))
+                this.apples[i].rotation += Phaser.Math.Between(0.01, 0.05)
                 if ( i == 0 ) {
-                    this.pear.setRotation(this.pear.rotation+Phaser.Math.Between(0.01, 0.05))
+                    this.pear.rotation += Phaser.Math.Between(0.01, 0.05)
                 }
             }
         }
