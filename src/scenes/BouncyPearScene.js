@@ -25,9 +25,9 @@ export default class extends Phaser.Scene {
         
         this.pears = []
         xPositions.forEach((x, i) => {
-            let y = Phaser.Math.Between(200, 500)
-            let veloY = Phaser.Math.Between(300, 600)
-            let scale = Phaser.Math.FloatBetween(0.4, 0.7)
+            let y = Phaser.Math.Between(100, 400)
+            let veloY = Phaser.Math.Between(200, 500)
+            let scale = Phaser.Math.FloatBetween(0.3, 0.6)
             this.pears[i] = this.pearGroup.create(x, y, this.sys.game.im.random("pears"))
             this.pears[i].setVelocityY(veloY)
             this.pears[i].setScale(scale)

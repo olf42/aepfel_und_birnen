@@ -13,8 +13,8 @@ import SearchScene from './scenes/SearchScene'
 
 var config = {
     type: Phaser.AUTO,
-    width:1024,
-    height: 768,
+    width:1280,
+    height: 720,
     backgroundColor: 0xffdeb9,
     physics: {
         default: 'arcade',
@@ -22,7 +22,7 @@ var config = {
             gravity: {
                 y : 300 
             },
-            debug: true
+            debug: false
         }
     },
     scene: [

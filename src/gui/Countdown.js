@@ -3,7 +3,7 @@ export default class {
         this.scene = scene
         this.duration = duration
 
-        this.text = this.scene.add.text(512, 30, this.duration, {
+        this.text = this.scene.add.text(640, 30, this.duration, {
             font: '56px Ultra',
             fill: '#4e678e'
         })

@@ -15,16 +15,16 @@ export default class extends Phaser.Scene{
         for (let i = 0; i < 50; i++) {
 
             if (i === 45) {
-                const x = Phaser.Math.Between(30, 970)
-                const y = Phaser.Math.Between(30, 720)
+                const x = Phaser.Math.Between(30, 1180)
+                const y = Phaser.Math.Between(30, 690)
                 const rotation = Phaser.Math.Between(0, 360)
                 this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
                 this.pear.setRotation(rotation)
                 this.pear.setInteractive()
             }
 
-            const x = Phaser.Math.Between(0, 1024)
-            const y = Phaser.Math.Between(0, 768)
+            const x = Phaser.Math.Between(30, 1180)
+            const y = Phaser.Math.Between(30, 690)
             const scale = Phaser.Math.FloatBetween(0.6, 0.85)
             const rotation = Phaser.Math.Between(0, 360)
             this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
@@ -39,7 +39,7 @@ export default class extends Phaser.Scene{
             const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
                 font: '56px Ultra',
                 fill: '#4e678e'
-            })
+         })
             this.score = {
                 text: pointScore,
                 duration: 600

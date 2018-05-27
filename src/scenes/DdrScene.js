@@ -14,15 +14,15 @@ export default class extends Phaser.Scene {
 
         // beats queues
         this.aQueue = {
-            x: 300,
+            x: 400,
             apples: []
         }
         this.sQueue = {
-            x: 500,
+            x: 600,
             apples: []
         }
         this.dQueue = {
-            x: 700,
+            x: 800,
             apples: []
         }
 
@@ -30,13 +30,13 @@ export default class extends Phaser.Scene {
         this.scorePoints = []
 
         // markers
-        this.bgApple1 = this.add.image(300,600, this.appleKey)
+        this.bgApple1 = this.add.image(400,600, this.appleKey)
         this.bgApple1.setScale(0.6)
         this.bgApple1.setAlpha(0.5)        
-        this.bgApple2 = this.add.image(500,600, this.appleKey)
+        this.bgApple2 = this.add.image(600,600, this.appleKey)
         this.bgApple2.setScale(0.6)
         this.bgApple2.setAlpha(0.5)
-        this.bgApple3 = this.add.image(700,600, this.appleKey)
+        this.bgApple3 = this.add.image(800,600, this.appleKey)
         this.bgApple3.setScale(0.6)
         this.bgApple3.setAlpha(0.5)
 
@@ -111,6 +111,7 @@ export default class extends Phaser.Scene {
     addAppleToQueue(queue) {
         let apple = this.add.image(queue.x, 30, this.appleKey)
         apple.setScale(0.5)
+        apple.setRotation(Phaser.Math.Between(0, 360    ))
         queue.apples.push(apple)
     }
 
@@ -118,6 +119,7 @@ export default class extends Phaser.Scene {
         // console.log(queue.apples.length)
         for (let apple of queue.apples) {
             apple.y += this.velocity
+            apple.rotation += 0.02
         }
         if (queue.apples.length > 0) {
             if (queue.apples[0].y > 800) {

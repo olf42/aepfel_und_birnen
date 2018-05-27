@@ -19,10 +19,10 @@ export default class extends Phaser.Scene {
         let veloY = Phaser.Math.Between(80, 400)
         
         this.dude = this.add.image(centerX, centerY, 'appleDude')
-        this.arm = this.add.image(677, 424, 'appleDudeArm')
+        this.arm = this.add.image(677+129, 424-25, 'appleDudeArm')
         this.arm.setOrigin(1, 0.5)
 
-        this.apple = this.add.image(589, 424, 'appleDudeApple')
+        this.apple = this.add.image(589+129, 424-25, 'appleDudeApple')
         
         this.appleTween = this.tweens.add({
             targets: this.apple,
@@ -59,7 +59,7 @@ export default class extends Phaser.Scene {
             this.startGameText.setShadow(0, 0, '#000000', false, false)
         })
         this.startGameText.on('pointerup', (event) => {
-            this.scene.start('SearchScene')
+            this.scene.start('BouncyPearScene')
         })
     }
 
@@ -74,4 +74,5 @@ export default class extends Phaser.Scene {
             this.tintCounter = 0;
 
     }
+
 }
