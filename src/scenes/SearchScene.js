@@ -12,9 +12,13 @@ export default class extends Phaser.Scene{
         this.appleGroup = this.add.group()
         this.apples = []
 
-        for (let i = 0; i < 50; i++) {
+        this.nApples = 30 + this.difficulty * 5
 
-            if (i === 45) {
+        this.pearLayer = 30
+
+        for (let i = 0; i < this.nApples; i++) {
+
+            if (i === this.pearLayer) {
                 const x = Phaser.Math.Between(30, 1180)
                 const y = Phaser.Math.Between(30, 690)
                 const rotation = Phaser.Math.Between(0, 360)
