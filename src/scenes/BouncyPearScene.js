@@ -22,7 +22,7 @@ export default class extends Phaser.Scene {
             bounceY: 1,
             collideWorldBounds: true,
         })
-        
+
         this.pears = []
         xPositions.forEach((x, i) => {
             let y = Phaser.Math.Between(100, 400)
@@ -31,7 +31,8 @@ export default class extends Phaser.Scene {
             this.pears[i] = this.pearGroup.create(x, y, this.sys.game.im.random("pears"))
             this.pears[i].setVelocityY(veloY)
             this.pears[i].setScale(scale)
-            this.pears[i].setCircle(50, 15, 20)
+            this.pears[i].setRotation(Phaser.Math.Between(0,360))
+            this.pears[i].setCircle(80, 15, 20)
         })
 
 
@@ -39,9 +40,15 @@ export default class extends Phaser.Scene {
         this.apple = this.physics.add.image(70, 440,  this.sys.game.im.random("apples"))
         this.apple.setCollideWorldBounds(true)
         this.apple.setInteractive()
+<<<<<<< HEAD
         this.apple.setScale(0.5)
         this.apple.setBounce(0.3)
         this.apple.setCircle(110, 9, 9)
+=======
+        this.apple.setScale(0.35)
+        this.apple.setBounce(0.3)
+        this.apple.setCircle(105, 7, 7)
+>>>>>>> adapted bouncypearscene to new assets
 
         this.velocity = 0
         // increase apple velocity on tab
@@ -60,14 +67,14 @@ export default class extends Phaser.Scene {
             this.winText = this.add.text(512, 369, 'you failed', {
                 font: '56px Ultra',
                 fill: '#4e678e'
-            })           
-            this.displayRetry() 
+            })
+            this.displayRetry()
 
         })
 
         this.ground = this.physics.add.staticImage(512, 768-100, 'ground1')
         //this.ground.setOrigin(0,1)
-        
+
         this.physics.add.collider(this.pears, this.ground)
         this.physics.add.collider(this.apple, this.ground)
 
@@ -98,6 +105,11 @@ export default class extends Phaser.Scene {
             this.sys.game.gc.score += 50
             this.score.setText(this.sys.game.gc.score)
         }
+
+        for (let i = 0; i < 3; i++) {
+          this.pears[i].rotation += 0.02
+        }
+
     }
 
     displayRetry() {
@@ -105,16 +117,16 @@ export default class extends Phaser.Scene {
             font: '46px Ultra',
             fill: '#999999'
         }).setInteractive()
-        
+
         this.retry.on('pointerup', (event) => {
             this.scene.restart()
         })
         this.retry.on('pointerover', (event) => {
             this.retry.setFill('#3e577e')
         })
-        this.retry.on('pointerout', (event) => {        
+        this.retry.on('pointerout', (event) => {
             this.retry.setFill('#999999',)
-        })    
+        })
     }
 
 }
