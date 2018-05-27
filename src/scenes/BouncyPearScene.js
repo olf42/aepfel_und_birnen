@@ -39,9 +39,9 @@ export default class extends Phaser.Scene {
         this.apple = this.physics.add.image(70, 440,  this.sys.game.im.random("apples"))
         this.apple.setCollideWorldBounds(true)
         this.apple.setInteractive()
-        this.apple.setScale(0.75)
+        this.apple.setScale(0.5)
         this.apple.setBounce(0.3)
-        this.apple.setCircle(72, 7, 7)
+        this.apple.setCircle(110, 9, 9)
 
         this.velocity = 0
         // increase apple velocity on tab

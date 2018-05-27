@@ -65,7 +65,6 @@ export default class extends Phaser.Scene {
 
     update (time, delta) {
         
-
         // color tint text
         const top =  this.hsv[Math.floor(this.tintCounter)].color
         const bottom = this.hsv[359 - Math.floor(this.tintCounter)].color

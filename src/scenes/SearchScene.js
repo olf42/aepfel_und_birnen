@@ -32,9 +32,18 @@ export default class extends Phaser.Scene{
             this.apples[i].setRotation(rotation)
         }
 
+
         this.pear.on('pointerup', (event) => {
-            this.difficulty += 1
-            this.scene.restart()
+
+            // display score point
+            const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
+                font: '56px Ultra',
+                fill: '#4e678e'
+            })
+            this.score = {
+                text: pointScore,
+                duration: 600
+            }
         })
 
         this.countdown = new Countdown(this, 5)
@@ -48,13 +57,26 @@ export default class extends Phaser.Scene{
         }
 
         if (this.difficulty > 2) {
-            for (let i = 0; i < 50; i++) {
-                this.apples[i].rotation += Phaser.Math.Between(0.01, 0.05)
-                if ( i == 0 ) {
-                    this.pear.rotation += Phaser.Math.Between(0.01, 0.05)
-                }
+            for (const apple of this.apples) {
+                apple.rotation += Phaser.Math.FloatBetween(0.01, 0.05)
+            }
+            this.pear.rotation += Phaser.Math.FloatBetween(0.01, 0.05)
+        }
+        this.updateScorePoint(delta)
+    }
+
+    updateScorePoint(delta) {
+        if (this.score) {
+            this.score.duration -= delta
+            this.score.text.alpha -= delta/1000
+
+            if (this.score.duration < 0) {
+                this.score.text.destroy()
+                this.score = null
+
+                this.scene.restart()
+                this.difficulty += 1
             }
         }
-
     }
 }
