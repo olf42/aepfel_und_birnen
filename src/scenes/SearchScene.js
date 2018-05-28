@@ -14,13 +14,13 @@ export default class extends Phaser.Scene{
         this.appleGroup = this.add.group()
         this.apples = []
 
-        this.nApples = 30 + this.difficulty * 5
+        this.nApples = 30 + this.difficulty * 10
 
         this.pearLayer = 30
 
         for (let i = 0; i < this.nApples; i++) {
 
-            const tweendepth = this.difficulty * 3
+            const tweendepth = this.difficulty * 20
 
             if (i === this.pearLayer) {
                 const x = Phaser.Math.Between(30, 1180)
@@ -49,7 +49,9 @@ export default class extends Phaser.Scene{
             this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
             this.apples[i].setScale(scale)
             this.apples[i].setRotation(rotation)
-
+            if (this.difficulty > 5) {
+                this.apples[i].setAlpha(0.8)
+            }
             this.appleTween = this.tweens.add({
                 targets: this.apples[i],
                 x: x + Phaser.Math.Between(-tweendepth, tweendepth),
