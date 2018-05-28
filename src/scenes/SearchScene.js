@@ -18,6 +18,8 @@ export default class extends Phaser.Scene{
 
         for (let i = 0; i < this.nApples; i++) {
 
+            const tweendepth = this.difficulty * 3
+
             if (i === this.pearLayer) {
                 const x = Phaser.Math.Between(30, 1180)
                 const y = Phaser.Math.Between(30, 690)
@@ -25,6 +27,17 @@ export default class extends Phaser.Scene{
                 this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
                 this.pear.setRotation(rotation)
                 this.pear.setInteractive()
+
+                this.pearTween = this.tweens.add({
+                    targets: this.pear,
+                    x: x + Phaser.Math.Between(-tweendepth, tweendepth),
+                    y: y + Phaser.Math.Between(-tweendepth, tweendepth),
+                    ease: function (t) {
+                        return Math.pow(Math.sin(t * 3), 3);
+                    },
+                    duration: 1000,
+                    repeat: -1,
+                })
             }
 
             const x = Phaser.Math.Between(30, 1180)
@@ -34,6 +47,18 @@ export default class extends Phaser.Scene{
             this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
             this.apples[i].setScale(scale)
             this.apples[i].setRotation(rotation)
+
+            this.appleTween = this.tweens.add({
+                targets: this.apples[i],
+                x: x + Phaser.Math.Between(-tweendepth, tweendepth),
+                y: y + Phaser.Math.Between(-tweendepth, tweendepth),
+                ease: function (t) {
+                    return Math.pow(Math.sin(t * 3), 3);
+                },
+                duration: 1000,
+                repeat: -1,
+            })
+
         }
 
 
@@ -57,6 +82,7 @@ export default class extends Phaser.Scene{
     update (time, delta) {
         this.countdown.update(delta)
         if (this.countdown.duration < 0) {
+            this.difficulty = 1
             this.scene.start('MenuScene')
         }
 
