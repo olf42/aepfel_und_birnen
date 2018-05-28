@@ -5,6 +5,8 @@ export default class extends Phaser.Scene{
     constructor () {
         super({ key: 'SearchScene' })
 
+        this.countdown_rest = 0
+
         this.difficulty = 1
     }
 
@@ -64,6 +66,10 @@ export default class extends Phaser.Scene{
 
         this.pear.on('pointerup', (event) => {
 
+            // stop countdown
+            this.countdown.running = false
+            this.countdown_rest = this.countdown.duration
+
             // display score point
             const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
                 font: '56px Ultra',
@@ -75,7 +81,7 @@ export default class extends Phaser.Scene{
             }
         })
 
-        this.countdown = new Countdown(this, 5)
+        this.countdown = new Countdown(this, 5 + this.countdown_rest)
 
     }
 
@@ -83,6 +89,7 @@ export default class extends Phaser.Scene{
         this.countdown.update(delta)
         if (this.countdown.duration < 0) {
             this.difficulty = 1
+            this.countdown_rest = 0
             this.scene.start('MenuScene')
         }
 
