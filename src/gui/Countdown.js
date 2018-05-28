@@ -3,6 +3,8 @@ export default class {
         this.scene = scene
         this.duration = duration
 
+        this.running = true
+
         this.text = this.scene.add.text(640, 30, this.duration, {
             font: '56px Ultra',
             fill: '#4e678e'
@@ -10,7 +12,9 @@ export default class {
     }
 
     update (delta) {
-        this.duration -= delta / 1000
-        this.text.setText(Math.ceil(this.duration))
+        if (this.running === true) {
+            this.duration -= delta / 1000
+            this.text.setText(Math.ceil(this.duration))
+        }
     }
 }
