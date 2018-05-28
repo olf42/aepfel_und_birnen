@@ -1,25 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Äpfel und Birnen</title>
-    <link rel="stylesheet" type="text/css" href="css/aepfel_und_birnen.css">
-</head>
-<body>
-    <canvas id="aubCanvas" width="800" height="600"></canvas>
-    <script>
-
-      var canvas = document.getElementById('aubCanvas');
-      var context = canvas.getContext('2d');
-      context.canvas.width  = window.innerWidth-5;
-      context.canvas.height = window.innerHeight-5;
-
-      var header = new Image();
-      header.onload = function() {
-          context.drawImage(header, 10, 10, canvas.width-20, canvas.height-20);
-      };
-      header.src = 'img/aub_header.svg';
-
-    </script>
-  </body>
+<html>
+    <head>
+        <title>Äpfel und Birnen</title>
+    </head>
+    <body>
+        <div id="content"></div>
+    </body>
 </html>
