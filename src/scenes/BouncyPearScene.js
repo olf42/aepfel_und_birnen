@@ -114,10 +114,10 @@ export default class extends Phaser.Scene {
             this.krugTween = this.tweens.add({
                 targets: [this.krug, this.krug_bg],
                 y: 720,
-                ease: 'Power1',
+                ease: 'Power4',
                 duration: 250,
                 yoyo: true,
-                repeat: 1
+                repeat: 0
             })
 
             this.displayRetry()
