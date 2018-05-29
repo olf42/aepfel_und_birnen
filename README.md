@@ -1,6 +1,8 @@
 # Äpfel und Birnen
 
-![Äpfel und Birnen](img/cover.png){:width="100%"}
+<p align="center">
+  <img width="100%" src="img/cover.png">
+</p>
 
 Äpfel und Birnen (apples and peaches) is a hidden object browser game made with images of apples and
 peaches of the wax fruit collection of Stiftung Schloss Friedenstein. 
