@@ -33,8 +33,8 @@ export default class extends Phaser.Scene {
             this.pears[i].setScale(scale)
             this.pears[i].setRotation(Phaser.Math.Between(0,360))
             this.pears[i].setCircle(80, 15, 20)
+            this.pears[i].setDepth(3)
         })
-
 
         // add player apple
         this.apple = this.physics.add.image(70, 440,  this.sys.game.im.random("apples"))
@@ -43,6 +43,7 @@ export default class extends Phaser.Scene {
         this.apple.setScale(0.35)
         this.apple.setBounce(0.3)
         this.apple.setCircle(105, 7, 7)
+        this.apple.setDepth(3)
 
         this.velocity = 0
         // increase apple velocity on tab
@@ -66,11 +67,26 @@ export default class extends Phaser.Scene {
 
         })
 
-        this.ground = this.physics.add.staticImage(512, 768-100, 'ground1')
-        //this.ground.setOrigin(0,1)
+        this.tempel = this.add.image(650, 184, 'tempel')
+        this.tempel.setAlpha(0.2)
+        this.tempel.setDepth(0)
 
+        this.ground = this.physics.add.staticImage(512, 768-100, 'ground1')
+        this.ground.setDepth(1)
         this.physics.add.collider(this.pears, this.ground)
         this.physics.add.collider(this.apple, this.ground)
+
+        this.krug_group = this.add.group()
+
+        this.krug_bg = this.krug_group.create(1170, 710, 'krug_bg')
+        this.krug_bg.setScale(1.0)
+        this.krug_bg.setRotation(6)
+        this.krug_bg.setDepth(2)
+
+        this.krug = this.krug_group.create(1170, 710, 'krug')
+        this.krug.setScale(1.0)
+        this.krug.setRotation(6)
+        this.krug.setDepth(4)
 
     }
 
@@ -86,13 +102,24 @@ export default class extends Phaser.Scene {
 
         }
 
-        if ((this.apple.x > 960) && (this.state === "play")) {
+        if ((this.apple.y > 670) && (this.state === "play")) {
             // add welldone text
             this.input.off('pointerup')
             this.winText = this.add.text(512, 369, 'well done', {
                 font: '56px Ultra',
                 fill: '#4e678e'
             })
+
+            //make krug move
+            this.krugTween = this.tweens.add({
+                targets: [this.krug, this.krug_bg],
+                y: 720,
+                ease: 'Power4',
+                duration: 250,
+                yoyo: true,
+                repeat: 0
+            })
+
             this.displayRetry()
             this.state = "end"
 

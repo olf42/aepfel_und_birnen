@@ -3,7 +3,7 @@ import Phaser from 'phaser'
 export default class extends Phaser.Scene {
     constructor () {
         super({ key: 'MenuScene' })
-    } 
+    }
 
     create () {
         // stuff for color tinting
@@ -17,13 +17,13 @@ export default class extends Phaser.Scene {
         // add dude with apple
         let y = Phaser.Math.Between(80,350)
         let veloY = Phaser.Math.Between(80, 400)
-        
+
         this.dude = this.add.image(centerX, centerY, 'appleDude')
         this.arm = this.add.image(677+129, 424-25, 'appleDudeArm')
         this.arm.setOrigin(1, 0.5)
 
         this.apple = this.add.image(589+129, 424-25, 'appleDudeApple')
-        
+
         this.appleTween = this.tweens.add({
             targets: this.apple,
             y: 300,
@@ -55,16 +55,34 @@ export default class extends Phaser.Scene {
         this.startGameText.on('pointerover', (event) => {
             this.startGameText.setShadow(2, 2, '#000000', false, true)
         })
-        this.startGameText.on('pointerout', (event) => {        
+        this.startGameText.on('pointerout', (event) => {
             this.startGameText.setShadow(0, 0, '#000000', false, false)
         })
         this.startGameText.on('pointerup', (event) => {
             this.scene.start('BouncyPearScene')
         })
+
+        this.DdrSceneText = this.add.text(900, 200, 'Dance', {
+            font: '24px Ultra',
+            fill: '#4e678e'
+        })
+        this.DdrSceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.DdrSceneText.on('pointerup', (event) => {
+            this.scene.start('DdrScene')
+        })
+
+        this.DdrSceneText = this.add.text(900, 400, 'Search', {
+            font: '24px Ultra',
+            fill: '#4e678e'
+        })
+        this.DdrSceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.DdrSceneText.on('pointerup', (event) => {
+            this.scene.start('SearchScene')
+        })
     }
 
     update (time, delta) {
-        
+
         // color tint text
         const top =  this.hsv[Math.floor(this.tintCounter)].color
         const bottom = this.hsv[359 - Math.floor(this.tintCounter)].color

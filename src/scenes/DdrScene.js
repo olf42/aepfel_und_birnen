@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import WinkingLady from '../images/WinkingLady'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -40,8 +41,11 @@ export default class extends Phaser.Scene {
         this.bgApple3.setScale(0.6)
         this.bgApple3.setAlpha(0.5)
 
+        this.winkingLady = new WinkingLady(this, 30,300)
+
         // input
         this.input.keyboard.on('keydown', (event) => {
+            this.winkingLady.wink()
             switch (event.key) {
                 case "d":
                     this.keyPressed(this.dQueue)
