@@ -64,6 +64,7 @@ export default class extends Phaser.Scene{
                     return Math.pow(Math.sin(t * 3), 3);
                 },
                 duration: 1000,
+                delay: Phaser.Math.Between(0, 200),
                 repeat: -1,
             })
 
