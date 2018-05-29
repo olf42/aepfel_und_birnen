@@ -4,6 +4,8 @@ import { randomSpacedValues } from '../utils'
 export default class extends Phaser.Scene {
     constructor () {
         super({ key: 'BouncyPearScene' })
+
+        this.level = 0
     }
 
     create () {
@@ -120,11 +122,22 @@ export default class extends Phaser.Scene {
                 repeat: 0
             })
 
-            this.displayRetry()
             this.state = "end"
 
             this.sys.game.gc.score += 50
             this.score.setText(this.sys.game.gc.score)
+            
+            this.level++
+            if (this.level === 2) {
+                setTimeout(() => {
+                    this.scene.start('ScoreScene')
+                }, 300)
+            }
+            else {
+                setTimeout(() => {
+                    this.scene.restart()
+                }, 300)
+            }
         }
 
         for (let i = 0; i < 3; i++) {

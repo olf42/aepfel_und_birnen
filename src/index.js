@@ -5,6 +5,8 @@ import ImageManager from './images/ImageManager'
 
 import BootScene from './scenes/BootScene'
 import MenuScene from './scenes/MenuScene'
+import ScoreScene from './scenes/ScoreScene'
+import EndScene from './scenes/EndScene'
 
 // Minigame scenes
 import BouncyPearScene from './scenes/BouncyPearScene'
@@ -28,9 +30,11 @@ var config = {
     scene: [
         BootScene,
         MenuScene,
+        ScoreScene,
         BouncyPearScene,
         DdrScene,
-        SearchScene
+        SearchScene,
+        EndScene
     ]
 }
 

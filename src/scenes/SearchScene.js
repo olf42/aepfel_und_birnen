@@ -105,7 +105,7 @@ export default class extends Phaser.Scene{
         if (this.countdown.duration < 0) {
             this.difficulty = 1
             this.countdown_rest = 0
-            this.scene.start('MenuScene')
+            this.scene.start('ScoreScene')
         }
 
         if (this.difficulty > 2) {

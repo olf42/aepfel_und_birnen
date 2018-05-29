@@ -71,13 +71,13 @@ export default class extends Phaser.Scene {
             this.scene.start('DdrScene')
         })
 
-        this.DdrSceneText = this.add.text(900, 400, 'Search', {
+        this.searchSceneText = this.add.text(900, 400, 'Search', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
-        this.DdrSceneText.setOrigin(0.5, 0.5).setInteractive()
-        this.DdrSceneText.on('pointerup', (event) => {
-            this.scene.start('DdrScene')
+        this.searchSceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.searchSceneText.on('pointerup', (event) => {
+            this.scene.start('SearchScene')
         })
     }
 
