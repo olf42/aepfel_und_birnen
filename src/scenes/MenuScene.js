@@ -71,7 +71,7 @@ export default class extends Phaser.Scene {
             this.scene.start('DdrScene')
         })
 
-        this.searchSceneText = this.add.text(900, 400, 'Search', {
+        this.searchSceneText = this.add.text(900, 300, 'Search', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
@@ -79,6 +79,16 @@ export default class extends Phaser.Scene {
         this.searchSceneText.on('pointerup', (event) => {
             this.scene.start('SearchScene')
         })
+
+        this.bouncySceneText = this.add.text(900, 400, 'Bouncy', {
+            font: '24px Ultra',
+            fill: '#4e678e'
+        })
+        this.bouncySceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.bouncySceneText.on('pointerup', (event) => {
+            this.scene.start('BouncyPearScene')
+        })
+
     }
 
     update (time, delta) {
