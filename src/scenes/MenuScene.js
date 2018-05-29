@@ -59,7 +59,7 @@ export default class extends Phaser.Scene {
             this.startGameText.setShadow(0, 0, '#000000', false, false)
         })
         this.startGameText.on('pointerup', (event) => {
-            this.scene.start('BouncyPearScene')
+            this.scene.start(this.sys.game.gc.nextScene())
         })
 
         this.DdrSceneText = this.add.text(900, 200, 'Dance', {
@@ -77,7 +77,7 @@ export default class extends Phaser.Scene {
         })
         this.DdrSceneText.setOrigin(0.5, 0.5).setInteractive()
         this.DdrSceneText.on('pointerup', (event) => {
-            this.scene.start('SearchScene')
+            this.scene.start('DdrScene')
         })
     }
 
