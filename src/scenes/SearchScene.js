@@ -11,6 +11,10 @@ export default class extends Phaser.Scene{
     }
 
     create () {
+
+        // this.cameras.main.setBackgroundColor(0xcfc4ae)
+        this.search_score = this.add.text(20, 20, this.sys.game.gc.score)
+
         this.appleGroup = this.add.group()
         this.apples = []
 
@@ -65,8 +69,16 @@ export default class extends Phaser.Scene{
 
         }
 
+        this.input.on('pointerup', (event) => {
+            this.sys.game.gc.score -= 50
+            this.search_score.setText(this.sys.game.gc.score)
+        })
+
 
         this.pear.on('pointerup', (event) => {
+
+            this.sys.game.gc.score += 100
+            this.search_score.setText(this.sys.game.gc.score)
 
             // stop countdown
             this.countdown.running = false
