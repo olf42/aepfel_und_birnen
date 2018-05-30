@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import StickDude from '../images/StickDude'
 
 export default class extends Phaser.Scene {
     constructor () {
