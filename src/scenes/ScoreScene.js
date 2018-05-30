@@ -6,6 +6,9 @@ export default class extends Phaser.Scene {
     }
 
     create () {
+
+        this.dude = this.add.image(250, 400, 'measureDude')
+
         this.text = this.add.text(640, 70, 'Points: '+this.sys.game.gc.score, {
             font: '56px Ultra',
             fill: '#4e678e'
