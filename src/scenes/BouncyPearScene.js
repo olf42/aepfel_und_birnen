@@ -38,17 +38,24 @@ export default class extends Phaser.Scene {
         this.velocity = 0
         // increase apple velocity on tab
         this.jump = false
+
+        this.n_jumps = 0
+
         this.input.on('pointerup', (event) => {
-            const delta = event.upTime - event.downTime 
+            const delta = event.upTime - event.downTime
             if (delta < 200) {
                 this.velocity += 35
                 this.apple.setVelocityX(this.velocity)
             }
             else {
                 this.jump = true
-                this.velocity += 35
-                this.apple.setVelocityX(200+(this.velocity/10))
-                this.apple.setVelocityY(-230-(this.velocity/10))
+
+                if (this.n_jumps < 2 ) {
+                    this.velocity += 35
+                    this.apple.setVelocityX(200+(this.velocity/10))
+                    this.apple.setVelocityY(-230-(this.velocity/10))
+                    this.n_jumps += 1
+                }
             }
 
         })
@@ -60,7 +67,7 @@ export default class extends Phaser.Scene {
             this.apple.disableBody(true, true)
             this.cameras.main.shake(100)
 
-            this.winText = this.add.text(512, 369, 'you failed', {
+            this.winText = this.add.text(512, 369, 'Das war nix...', {
                 font: '56px Ultra',
                 fill: '#4e678e'
             })
@@ -107,7 +114,7 @@ export default class extends Phaser.Scene {
         if ((this.apple.y > 670) && (this.state === "play")) {
             // add welldone text
             this.input.off('pointerup')
-            this.winText = this.add.text(512, 369, 'well done', {
+            this.winText = this.add.text(512, 369, 'Gut gemacht!', {
                 font: '56px Ultra',
                 fill: '#4e678e'
             })
@@ -126,7 +133,7 @@ export default class extends Phaser.Scene {
 
             this.sys.game.gc.score += 50
             this.score.setText(this.sys.game.gc.score)
-            
+
             this.level++
             if (this.level === 2) {
                 setTimeout(() => {
@@ -148,7 +155,7 @@ export default class extends Phaser.Scene {
     }
 
     displayRetry() {
-        this.retry = this.add.text(512, 469, 'retry?', {
+        this.retry = this.add.text(512, 469, 'nochmal?', {
             font: '46px Ultra',
             fill: '#999999'
         }).setInteractive()
@@ -181,7 +188,7 @@ export default class extends Phaser.Scene {
                 this.pears[i].setDepth(3)
             })
         }
-        else {  
+        else {
             const xPositions = [ Phaser.Math.Between(400,700) ]
             xPositions.forEach((x, i) => {
                 let y = 300
@@ -192,7 +199,7 @@ export default class extends Phaser.Scene {
                 this.pears[i].setDepth(3)
                 this.pears[i].setBounce(0.2)
             })
-            
+
         }
     }
 

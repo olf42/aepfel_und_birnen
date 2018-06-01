@@ -46,7 +46,7 @@ export default class extends Phaser.Scene {
         })
 
         // add start game text
-        this.startGameText = this.add.text(centerX, 600, 'start game', {
+        this.startGameText = this.add.text(centerX, 600, 'Spiel starten', {
             font: '56px Ultra',
             fill: '#4e678e'
         })
@@ -63,7 +63,7 @@ export default class extends Phaser.Scene {
             this.scene.start(this.sys.game.gc.nextScene())
         })
 
-        this.DdrSceneText = this.add.text(900, 200, 'Dance', {
+        this.DdrSceneText = this.add.text(900, 200, 'Herobst', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
@@ -72,7 +72,7 @@ export default class extends Phaser.Scene {
             this.scene.start('DdrScene')
         })
 
-        this.searchSceneText = this.add.text(900, 300, 'Search', {
+        this.searchSceneText = this.add.text(900, 300, 'Sucher', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
@@ -81,7 +81,7 @@ export default class extends Phaser.Scene {
             this.scene.start('SearchScene')
         })
 
-        this.bouncySceneText = this.add.text(900, 400, 'Bouncy', {
+        this.bouncySceneText = this.add.text(900, 400, 'Springer', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
