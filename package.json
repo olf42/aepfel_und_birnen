@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
+    "public": "webpack-dev-server --host 0.0.0.0 --open --mode development",
     "build": "webpack --mode production"
   },
   "author": "P. Mühleder",
