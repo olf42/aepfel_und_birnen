@@ -38,17 +38,24 @@ export default class extends Phaser.Scene {
         this.velocity = 0
         // increase apple velocity on tab
         this.jump = false
+
+        this.n_jumps = 0
+
         this.input.on('pointerup', (event) => {
-            const delta = event.upTime - event.downTime 
+            const delta = event.upTime - event.downTime
             if (delta < 200) {
                 this.velocity += 35
                 this.apple.setVelocityX(this.velocity)
             }
             else {
                 this.jump = true
-                this.velocity += 35
-                this.apple.setVelocityX(200+(this.velocity/10))
-                this.apple.setVelocityY(-230-(this.velocity/10))
+
+                if (this.n_jumps < 2 ) {
+                    this.velocity += 35
+                    this.apple.setVelocityX(200+(this.velocity/10))
+                    this.apple.setVelocityY(-230-(this.velocity/10))
+                    this.n_jumps += 1
+                }
             }
 
         })
