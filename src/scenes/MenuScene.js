@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import StickDude from '../images/StickDude'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -45,7 +46,7 @@ export default class extends Phaser.Scene {
         })
 
         // add start game text
-        this.startGameText = this.add.text(centerX, 600, 'start game', {
+        this.startGameText = this.add.text(centerX, 600, 'Spiel starten', {
             font: '56px Ultra',
             fill: '#4e678e'
         })
@@ -59,10 +60,10 @@ export default class extends Phaser.Scene {
             this.startGameText.setShadow(0, 0, '#000000', false, false)
         })
         this.startGameText.on('pointerup', (event) => {
-            this.scene.start('BouncyPearScene')
+            this.scene.start(this.sys.game.gc.nextScene())
         })
 
-        this.DdrSceneText = this.add.text(900, 200, 'Dance', {
+        this.DdrSceneText = this.add.text(900, 200, 'Herobst', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
@@ -71,14 +72,24 @@ export default class extends Phaser.Scene {
             this.scene.start('DdrScene')
         })
 
-        this.DdrSceneText = this.add.text(900, 400, 'Search', {
+        this.searchSceneText = this.add.text(900, 300, 'Sucher', {
             font: '24px Ultra',
             fill: '#4e678e'
         })
-        this.DdrSceneText.setOrigin(0.5, 0.5).setInteractive()
-        this.DdrSceneText.on('pointerup', (event) => {
+        this.searchSceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.searchSceneText.on('pointerup', (event) => {
             this.scene.start('SearchScene')
         })
+
+        this.bouncySceneText = this.add.text(900, 400, 'Springer', {
+            font: '24px Ultra',
+            fill: '#4e678e'
+        })
+        this.bouncySceneText.setOrigin(0.5, 0.5).setInteractive()
+        this.bouncySceneText.on('pointerup', (event) => {
+            this.scene.start('BouncyPearScene')
+        })
+
     }
 
     update (time, delta) {

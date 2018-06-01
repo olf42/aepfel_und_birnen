@@ -9,6 +9,7 @@ export default class extends Phaser.Scene {
     create () {
 
         // level config
+        this.misses = 10
         this.velocity = 3
         this.appleKey = this.sys.game.im.random("apples")
         this.cooldown = 1000
@@ -63,14 +64,19 @@ export default class extends Phaser.Scene {
 
     keyPressed (queue) {
         let i = 0
+        let hit = false
         for (let apple of queue.apples) {
             if ((apple.y <= 605) && (apple.y >= 595)) {
                 apple.destroy()
                 queue.apples.splice(i, 1)
                 this.addScorePoint(queue.x)
+                hit = true
                 break
             }
             i++
+        }
+        if (!hit) {
+            this.misses --
         }
     } 
 
@@ -110,6 +116,12 @@ export default class extends Phaser.Scene {
         this.updateQueue(this.dQueue) 
 
         this.updateScorePoints(delta)
+
+
+        if (this.misses === 0) {
+            this.scene.start('ScoreScene')
+        }
+
     } 
 
     addAppleToQueue(queue) {

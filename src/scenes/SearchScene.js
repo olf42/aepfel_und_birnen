@@ -6,7 +6,7 @@ export default class extends Phaser.Scene{
         super({ key: 'SearchScene' })
 
         this.countdown_rest = 0
-
+        this.found = false
         this.difficulty = 1
     }
 
@@ -78,22 +78,27 @@ export default class extends Phaser.Scene{
 
         this.pear.on('pointerup', (event) => {
 
-            this.sys.game.gc.score += 100
-            this.search_score.setText(this.sys.game.gc.score)
+            if (this.countdown.running) {
+                this.sys.game.gc.score += 100
+                this.search_score.setText(this.sys.game.gc.score)
 
-            // stop countdown
-            this.countdown.running = false
-            this.countdown_rest = this.countdown.duration
+                // stop countdown
+                this.countdown.running = false
+                this.countdown_rest = this.countdown.duration
 
-            // display score point
-            const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
-                font: '56px Ultra',
-                fill: '#4e678e'
-         })
-            this.score = {
-                text: pointScore,
-                duration: 600
+                // display score point
+                const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
+                    font: '56px Ultra',
+                    fill: '#4e678e'
+                })
+
+                this.score = {
+                    text: pointScore,
+                    duration: 600
+                }
+
             }
+
         })
 
         this.countdown = new Countdown(this, 5 + this.countdown_rest)
@@ -105,7 +110,7 @@ export default class extends Phaser.Scene{
         if (this.countdown.duration < 0) {
             this.difficulty = 1
             this.countdown_rest = 0
-            this.scene.start('MenuScene')
+            this.scene.start('ScoreScene')
         }
 
         if (this.difficulty > 2) {

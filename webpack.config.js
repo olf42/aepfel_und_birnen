@@ -23,6 +23,11 @@ module.exports = {
             {
                 test: [ /\.vert$/, /\.frag$/ ],
                 use: 'raw-loader'
+            },
+            {
+                test: /\.css/,
+                loaders: ['style', 'css'],
+                // include: __dirname + '/src'
             }
         ]
     },
@@ -38,7 +43,8 @@ module.exports = {
             'WEBGL_RENDERER': JSON.stringify(true)
         }),
         new CopyWebpackPlugin([{
-            from: 'assets', to: 'assets'
-        }])
+            from: 'assets', to: 'assets'},
+            {from: 'css', to: 'css'}
+        ])
     ]
 }
