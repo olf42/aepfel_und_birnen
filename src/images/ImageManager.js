@@ -43,10 +43,15 @@ export default class ImageManager {
                 "stickDudeCylinder": "./assets/hut.png",
                 "stickDudeMouth": "./assets/mund_dude_mit_stock.png"
             },
+            "instructions": {
+                "frame":"./assets/Frame1.png"
+            },
             "objects": {
                 "krug": "./assets/krug.png",
                 "krug_bg": "./assets/krug_bg.png",
-                "tempel" : "./assets/tempel.png"
+                "tempel" : "./assets/tempel.png",
+                "baum" : "./assets/baum.png",
+                "blatt" : "./assets/blatt.png"
             }
         }
     }
