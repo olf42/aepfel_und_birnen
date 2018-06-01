@@ -6,9 +6,9 @@ export default class extends Phaser.Scene {
     }
 
     create () {
-        let text = this.add.text(100, 250, "This is the end of the game.", {
+        let text = this.add.text(100, 250, "Das Spiel ist aus! Guten Appetit!", {
             font: '56px Ultra',
             fill: '#4e678e'
-        })        
+        })
     }
 }
