@@ -2,8 +2,40 @@
 <html>
     <head>
         <title>Äpfel und Birnen</title>
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
     </head>
     <body>
-        <div id="content"></div>
+        <div id="content">
+            <a href="#" id="fs">Vollbild</a>
+        </div>
+
+        <script type="text/javascript">
+
+        function fs_status() {
+            if(document.fullscreenElement) {
+                return true;
+            } else if(document.webkitFullscreenElement) {
+                return true;
+            } else if(document.mozFullScreenElement) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function goFullscreen() {
+            if(fs_status()) { return; }
+
+            var el = document.getElementsByTagName('canvas')[0];
+            var requestFullScreen = el.requestFullscreen || el.msRequestFullscreen || el.mozRequestFullScreen || el.webkitRequestFullscreen;
+
+            if(requestFullScreen) {
+                requestFullScreen.call(el);
+            }
+
+        }
+
+        document.getElementById('fs').addEventListener('click', goFullscreen);
+	   </script>
     <script type="text/javascript" src="main.js"></script></body>
 </html>
