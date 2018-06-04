@@ -29,7 +29,11 @@ export default class ImageManager {
                 "pear10": "./assets/birne_10_klein.png"
             },
             "grounds": {
-                "ground1": "./assets/ground.png"
+                "ground1": "./assets/ground.png",
+                "ground2": "./assets/ground2.png"
+            },
+            "backgrounds": {
+                "bg2": "./assets/background2.png"
             },
             "scenes": {
                 "appleDudeApple": "./assets/apfel_fuer_dude.png",
