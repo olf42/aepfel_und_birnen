@@ -19,11 +19,8 @@ var config = {
     height: 720,
     backgroundColor: 0xffdeb9,
     physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {
-                y : 300 
-            },
+        default: 'matter',
+        matter: {
             debug: true
         }
     },
