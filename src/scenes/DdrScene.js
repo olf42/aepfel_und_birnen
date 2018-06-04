@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
 import Instructions from '../images/Instructions'
+import { randomSpacedValues } from '../utils'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -34,8 +35,28 @@ export default class extends Phaser.Scene {
             apples: []
         }
         
-        this.baum = this.add.image(650, 0, 'blatt')
-        this.baum.setDepth(4)
+        this.blattGroup = this.add.group()
+        this.blaetter = []
+
+        for (let i = 0; i < 6; i++) {
+            const xPositions = randomSpacedValues(150, 1124, 3, 140) 
+            xPositions.forEach((x, i) => {
+                const rotation = Phaser.Math.Between(0, 180)
+                this.blaetter[i] = this.blattGroup.create(x, 0, 'blatt')
+                this.blaetter[i].setDepth(4)
+                this.blaetter[i].setRotation(rotation)
+            
+                this.blattTween = this.tweens.add({
+                    targets: this.blaetter[i],
+                    rotation: -0.15,
+                    ease: 'Power4',
+                    duration: 100,
+                    yoyo: true,
+                    repeat: -1,
+                    repeatDelay: 1570
+                })
+            })
+        }
 
         // score graphics queue
         this.scorePoints = []
