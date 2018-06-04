@@ -29,7 +29,11 @@ export default class ImageManager {
                 "pear10": "./assets/birne_10_klein.png"
             },
             "grounds": {
-                "ground1": "./assets/ground.png"
+                "ground1": "./assets/ground.png",
+                "ground2": "./assets/ground2.png"
+            },
+            "backgrounds": {
+                "bg2": "./assets/background2.png"
             },
             "scenes": {
                 "appleDudeApple": "./assets/apfel_fuer_dude.png",
@@ -43,10 +47,15 @@ export default class ImageManager {
                 "stickDudeCylinder": "./assets/hut.png",
                 "stickDudeMouth": "./assets/mund_dude_mit_stock.png"
             },
+            "instructions": {
+                "frame":"./assets/Frame1.png"
+            },
             "objects": {
                 "krug": "./assets/krug.png",
                 "krug_bg": "./assets/krug_bg.png",
-                "tempel" : "./assets/tempel.png"
+                "tempel" : "./assets/tempel.png",
+                "baum" : "./assets/baum.png",
+                "blatt" : "./assets/blatt.png"
             }
         }
     }

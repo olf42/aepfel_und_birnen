@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
+import Instructions from '../images/Instructions'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -7,6 +8,11 @@ export default class extends Phaser.Scene {
     }
 
     create () {
+        this.start = false
+
+        // get game center coordinates
+        const centerX = this.sys.game.config.width / 2
+        const centerY = this.sys.game.config.height / 2
 
         // level config
         this.misses = 10
@@ -27,6 +33,9 @@ export default class extends Phaser.Scene {
             x: 800,
             apples: []
         }
+        
+        this.baum = this.add.image(650, 0, 'blatt')
+        this.baum.setDepth(4)
 
         // score graphics queue
         this.scorePoints = []
@@ -43,6 +52,7 @@ export default class extends Phaser.Scene {
         this.bgApple3.setAlpha(0.5)
 
         this.winkingLady = new WinkingLady(this, 30,300)
+        //this.instructions = new Instructions(this, centerX, centerY)
 
         // input
         this.input.keyboard.on('keydown', (event) => {
@@ -59,6 +69,11 @@ export default class extends Phaser.Scene {
                     break
             }    
         })
+
+        this.baum = this.add.image(650, 320, 'baum')
+        this.baum.setScale(0.7)
+        this.baum.setAlpha(0.2)
+        this.baum.setDepth(0)
 
     }
 
@@ -122,8 +137,8 @@ export default class extends Phaser.Scene {
             this.scene.start('ScoreScene')
         }
 
-    } 
-
+    }
+    
     addAppleToQueue(queue) {
         let apple = this.add.image(queue.x, 30, this.appleKey)
         apple.setScale(0.5)
