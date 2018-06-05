@@ -46,15 +46,18 @@ export default class extends Phaser.Scene {
                 this.blaetter[i].setDepth(4)
                 this.blaetter[i].setRotation(rotation)
             
-                this.blattTween = this.tweens.add({
-                    targets: this.blaetter[i],
-                    rotation: -0.15,
-                    ease: 'Power4',
-                    duration: 100,
-                    yoyo: true,
-                    repeat: -1,
-                    repeatDelay: 1570
-                })
+                
+            })
+            this.blattTween = this.tweens.add({
+                targets: this.blaetter[i],
+                x: xPositions[i]+5,
+                ease: 'Stepped',
+                easeParams: [ 10 ],
+                duration: 200,
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 1200,
+                delay: Phaser.Math.Between(0, 500)
             })
         }
 
