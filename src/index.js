@@ -9,7 +9,8 @@ import ScoreScene from './scenes/ScoreScene'
 import EndScene from './scenes/EndScene'
 
 // Minigame scenes
-import BouncyPearScene from './scenes/BouncyPearScene'
+import BouncyScene from './scenes/BouncyScene'
+//import BouncyPearScene from './scenes/BouncyPearScene'
 import DdrScene from './scenes/DdrScene'
 import SearchScene from './scenes/SearchScene'
 
@@ -19,16 +20,21 @@ var config = {
     height: 720,
     backgroundColor: 0xffdeb9,
     physics: {
-        default: 'matter',
-        matter: {
+        //default: 'matter',
+        arcade: {
+            gravity: { y: 200 },
             debug: true
+        },
+        matter: {
+            debug: true,
+            gravity: { y: 0.5}
         }
     },
     scene: [
         BootScene,
         MenuScene,
         ScoreScene,
-        BouncyPearScene,
+        BouncyScene,
         DdrScene,
         SearchScene,
         EndScene
