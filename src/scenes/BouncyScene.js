@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Level1 from './bouncyLevels/Level1'
 import Level2 from './bouncyLevels/Level2'
 import Level3 from './bouncyLevels/Level3'
+import GameScore from '../gui/GameScore'
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -35,9 +36,13 @@ export default class extends Phaser.Scene {
 
         this.level.generateObstacles()
 
+        this.scoreGui = new GameScore(this)
     }
 
     update(time, delta) {
+
+        this.scoreGui.update(time, delta)
+
         this.level.update(time, delta)
 
         if (this.level.state === 'gameover') {

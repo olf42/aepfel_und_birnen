@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Countdown from '../gui/Countdown'
 import ScreenMessages from '../gui/ScreenMessages'
+import GameScore from '../gui/GameScore'
 
 export default class extends Phaser.Scene{
     constructor () {
@@ -89,7 +90,7 @@ export default class extends Phaser.Scene{
         this.pear.on('pointerup', (event) => {
 
             if (this.countdown.running) {
-                this.sys.game.gc.score += 100
+                this.sys.game.gc.score += 50
                 this.search_score.setText(this.sys.game.gc.score)
 
                 // stop countdown
@@ -98,18 +99,25 @@ export default class extends Phaser.Scene{
 
                 this.messages.add(event.x+20, event.y, "+50", "#4e678e", 56, 1000)
 
-                setTimeout(() => { this.scene.restart() }, 600)
+                setTimeout(() => { 
+                    this.difficulty += 1
+                    this.scene.restart() 
+                }, 600)
 
             }
 
         })
 
         this.countdown = new Countdown(this, 5 + this.countdown_rest)
+        this.scoreGui = new GameScore(this)
 
     }
 
     update (time, delta) {
+        //update gui elements
         this.countdown.update(delta)
+        this.scoreGui.update(time, delta)
+
         if (this.countdown.duration < 0) {
             this.difficulty = 1
             this.countdown_rest = 0
