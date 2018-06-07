@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Countdown from '../gui/Countdown'
+import ScreenMessages from '../gui/ScreenMessages'
 
 export default class extends Phaser.Scene{
     constructor () {
@@ -12,14 +13,14 @@ export default class extends Phaser.Scene{
 
     create () {
 
+        this.messages = new ScreenMessages(this)
+
         // this.cameras.main.setBackgroundColor(0xcfc4ae)
         this.search_score = this.add.text(20, 20, this.sys.game.gc.score)
 
         this.appleGroup = this.add.group()
         this.apples = []
-
         this.nApples = 30 + this.difficulty * 10
-
         this.pearLayer = 30
 
         for (let i = 0; i < this.nApples; i++) {
@@ -34,6 +35,7 @@ export default class extends Phaser.Scene{
                 this.pear.setRotation(rotation)
                 this.pear.setInteractive()
 
+
                 this.pearTween = this.tweens.add({
                     targets: this.pear,
                     x: x + Phaser.Math.Between(-tweendepth, tweendepth),
@@ -45,6 +47,7 @@ export default class extends Phaser.Scene{
                     repeat: -1,
                 })
             }
+            
 
             const x = Phaser.Math.Between(30, 1180)
             const y = Phaser.Math.Between(30, 690)
@@ -53,6 +56,7 @@ export default class extends Phaser.Scene{
             this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
             this.apples[i].setScale(scale)
             this.apples[i].setRotation(rotation)
+
             if (this.difficulty > 5) {
                 this.apples[i].setAlpha(0.8)
             }
@@ -71,8 +75,14 @@ export default class extends Phaser.Scene{
         }
 
         this.input.on('pointerup', (event) => {
-            this.sys.game.gc.score -= 50
-            this.search_score.setText(this.sys.game.gc.score)
+            if ((event.x <= this.pear.x-120 || event.x >= this.pear.x+120) || (event.y <= this.pear.y-120 || event.y >= this.pear.y+120)) {
+                this.cameras.main.shake(300)
+                this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
+                this.sys.game.gc.score -= 50
+                this.search_score.setText(this.sys.game.gc.score)
+            }
+
+
         })
 
 
@@ -86,16 +96,9 @@ export default class extends Phaser.Scene{
                 this.countdown.running = false
                 this.countdown_rest = this.countdown.duration
 
-                // display score point
-                const pointScore = this.add.text(this.pear.x+20, this.pear.y+20, "+50", {
-                    font: '56px Ultra',
-                    fill: '#4e678e'
-                })
+                this.messages.add(event.x+20, event.y, "+50", "#4e678e", 56, 1000)
 
-                this.score = {
-                    text: pointScore,
-                    duration: 600
-                }
+                setTimeout(() => { this.scene.restart() }, 600)
 
             }
 
@@ -119,21 +122,7 @@ export default class extends Phaser.Scene{
             }
             this.pear.rotation += Phaser.Math.FloatBetween(0.01, 0.05)
         }
-        this.updateScorePoint(delta)
-    }
 
-    updateScorePoint(delta) {
-        if (this.score) {
-            this.score.duration -= delta
-            this.score.text.alpha -= delta/1000
-
-            if (this.score.duration < 0) {
-                this.score.text.destroy()
-                this.score = null
-
-                this.scene.restart()
-                this.difficulty += 1
-            }
-        }
+        this.messages.update(time, delta)
     }
 }

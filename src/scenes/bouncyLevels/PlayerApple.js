@@ -3,6 +3,32 @@ export default class {
         this.scene = scene
         this.physics = physics
         this.sprite = this.addAppleImage(x, y)
+
+        this.scene.input.on('pointerup', (event) => {
+            const delta = event.upTime - event.downTime 
+            if (delta < 200) {
+                if (this.physics === 'arcade') {
+                    const veloX = this.sprite.body.velocity.x
+                    this.sprite.setVelocityX(veloX+20)  
+                }
+                else {
+                    const veloX = this.sprite.body.velocity.x
+                    this.sprite.setVelocityX(veloX+1)                  
+                }
+            }
+            else {
+                if (this.physics === 'arcade') {
+                    this.sprite.setVelocityX(200)
+                    this.sprite.setVelocityY(-230)
+                }
+                else {
+
+                    this.sprite.setVelocityX(200)
+                    this.sprite.setVelocityY(-230)
+                    
+                }               
+            }
+        })
     }
 
     addAppleImage (x, y) {
@@ -15,7 +41,6 @@ export default class {
             return apple
         }
         else {
-        // set up player
             apple = this.scene.matter.add.image(100, 300, this.scene.sys.game.im.random('apples'))
             apple.setBounce(0.3)
             apple.setBody({
@@ -27,19 +52,20 @@ export default class {
             apple.setFriction(0.1)
             apple.setVelocityY(-2)
             return apple
-            // // controlling
-            // this.input.on('pointerup', (event) => {
-            //     const velX = this.apple.body.velocity.x
-            //     this.apple.setVelocityX(velX + 0.6)
-            // })
-
-            // // collision event
-            // this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
-            //     if (bodyA === this.apple.body || bodyB === this.apple.body)
-            //         if (bodyA === this.level.pear.body || bodyB === this.level.pear.body)
-            //             this.scene.restart()
-            // })
         }
     }
 
+    update (time, delta) {
+        if (this.sprite.body) {
+            if (this.physics === 'arcade') {
+                if (this.sprite.body.velocity.x > 0) {
+                    this.sprite.body.velocity.x -= 1
+                    this.sprite.rotation += this.sprite.body.velocity.x/2000
+                }
+                else {
+                    this.sprite.body.setVelocityX(0)
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,5 @@
 import PlayerApple from './PlayerApple'
+import { randomSpacedValues } from '../../utils'
 
 export default class  {
     constructor (scene) {
@@ -7,40 +8,51 @@ export default class  {
     }
 
     setup () {
-        this.background = this.scene.add.image(640, 335, 'bg2')
-        this.ground = this.scene.matter.add.image(640, 768 - 75, 'ground2', null, { isStatic: true })
-        this.ground.setAngle(-2.5)
+        this.background = this.scene.add.image(640, 335, this.scene.sys.game.im.random('korkbg'))
+        this.background.setAlpha(0.6)
 
-        //setup player
-        this.player = new PlayerApple(this.scene, 'matter', 200, 200)
+        this.ground1 = this.scene.physics.add.staticImage(100, 768 - 75, 'ground_s')
+        this.ground2 = this.scene.physics.add.staticImage(500, 768 - 75, 'ground_s')
+        this.ground3 = this.scene.physics.add.staticImage(900, 768 - 75, 'ground_s')
+
+        // setup player
+        this.player = new PlayerApple(this.scene, 'arcade', 200, 300)
+        this.scene.physics.add.collider(this.ground1, this.player.sprite)
+        this.scene.physics.add.collider(this.ground2, this.player.sprite)
+        this.scene.physics.add.collider(this.ground3, this.player.sprite)
     }
 
     addObstacle () {
-        // set up obstacles
-        const pear = this.scene.matter.add.image(1100, 80, 'pear05')
-
-        pear.setBody({
-            type: 'circle',
-            radius: 90
-        })
-        pear.setScale(0.8)
-        pear.setVelocityX(0)
-        pear.setFrictionAir(0)
-        pear.setFriction(0.0)
-        pear.setBounce(1)        
-
-        return pear
     }
 
     generateObstacles () {
-        this.pear = this.addObstacle()
+        // generate obstacles
+        this.pearGroup = this.scene.physics.add.group({
+            bounceX: 0,
+            bounceY: 1,
+            collideWorldBounds: true
+        })
+        this.pears = []
+        const xPositions = [300, 700]
+        xPositions.forEach((x, i) => {
+            const y = Phaser.Math.Between(100,300)
+            const veloY = Phaser.Math.Between(400,600)
+            const scale = Phaser.Math.FloatBetween(0.3, 0.6)
+            this.pears[i] = this.pearGroup.create(x, y, this.scene.sys.game.im.random('pears'))
+            this.pears[i].setVelocityY(veloY).setScale(scale)
+            this.pears[i].setRotation(Phaser.Math.Between(0, 360))
+            this.pears[i].setCircle(80, 15, 20)
+        })
+
+        // add colliders
+        this.scene.physics.add.collider(this.ground1, this.pearGroup)
+        this.scene.physics.add.collider(this.player.sprite, this.pearGroup, () => {
+            this.state = 'gameover'
+        })
+
     }
 
     update (time, delta) {
-
-        if (this.pear.x < 0) {
-            this.pear.destroy()
-            this.pear = this.addObstacle()    
-        }
+        this.player.update(time, delta)
     }
 }

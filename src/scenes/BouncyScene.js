@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Level1 from './bouncyLevels/Level1'
 import Level2 from './bouncyLevels/Level2'
+import Level3 from './bouncyLevels/Level3'
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -18,15 +19,16 @@ export default class extends Phaser.Scene {
             }   
         })
 
-        this.level = 0
+        this.difficulty = 1
         this.levels = [
             Level1,
-            Level2
+            Level2,
+            Level3
         ]
     }
 
     create() {
-        const CurrentLevel = this.levels[this.level]
+        const CurrentLevel = this.levels[this.difficulty]
         this.level = new CurrentLevel(this)
 
         this.level.setup()
@@ -38,6 +40,14 @@ export default class extends Phaser.Scene {
     update(time, delta) {
         this.level.update(time, delta)
 
+        if (this.level.state === 'gameover') {
+            this.cameras.main.shake(200)
+            this.level.player.sprite.destroy()
+            setTimeout(() => {
+                this.scene.start('ScoreScene')
+            }, 500)
+            
+        }
     }
 }
 
