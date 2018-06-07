@@ -3,6 +3,7 @@ export default class {
         this.scene = scene
         this.physics = physics
         this.sprite = this.addAppleImage(x, y)
+        this.sprite.setDepth(3)
 
         this.scene.input.on('pointerup', (event) => {
             const delta = event.upTime - event.downTime 
@@ -35,7 +36,7 @@ export default class {
         let apple
         if (this.physics === 'arcade') {
             apple = this .scene.physics.add.image(70, 440, this.scene.sys.game.im.random('apples'))
-            apple.setCollideWorldBounds(true)
+            //apple.setCollideWorldBounds(true)
             apple.setInteractive()
             apple.setScale(0.35).setBounce(0.3).setCircle(104, 7, 7)
             return apple
@@ -56,6 +57,7 @@ export default class {
     }
 
     update (time, delta) {
+
         if (this.sprite.body) {
             if (this.physics === 'arcade') {
                 if (this.sprite.body.velocity.x > 0) {
