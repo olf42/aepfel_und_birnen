@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Level1 from './bouncyLevels/Level1'
 import Level2 from './bouncyLevels/Level2'
 import Level3 from './bouncyLevels/Level3'
+import Instructions from '../images/Instructions'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
 
@@ -32,7 +33,7 @@ export default class extends Phaser.Scene {
 
     create() {
 
-        this.state = 'play'
+        this.state = 'init'
         console.log(this.levels)
         let CurrentLevel = this.levels[this.difficulty]
         this.level = new CurrentLevel(this)
@@ -43,9 +44,11 @@ export default class extends Phaser.Scene {
 
         this.scoreGui = new GameScore(this)
         this.messages = new ScreenMessages(this)
+
     }
 
     update(time, delta) {
+
 
         this.scoreGui.update(time, delta)
 

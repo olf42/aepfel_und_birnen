@@ -13,6 +13,7 @@ import BouncyScene from './scenes/BouncyScene'
 //import BouncyPearScene from './scenes/BouncyPearScene'
 import DdrScene from './scenes/DdrScene'
 import SearchScene from './scenes/SearchScene'
+import InstructionScene from './scenes/InstructionScene'
 
 var config = {
     type: Phaser.AUTO,
@@ -37,7 +38,8 @@ var config = {
         BouncyScene,
         DdrScene,
         SearchScene,
-        EndScene
+        EndScene,
+        InstructionScene
     ]
 }
 
