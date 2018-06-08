@@ -50,6 +50,7 @@ export default class  {
         // add colliders
         this.scene.physics.add.collider(this.ground1, this.pearGroup)
         this.scene.physics.add.collider(this.player.sprite, this.pearGroup, () => {
+            console.log("gameover")
             this.state = 'gameover'
         })
 

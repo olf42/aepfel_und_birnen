@@ -24,7 +24,7 @@ var config = {
         //default: 'matter',
         arcade: {
             gravity: { y: 200 },
-            debug: true
+            debug: false
         },
         matter: {
             debug: true,

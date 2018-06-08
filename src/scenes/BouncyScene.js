@@ -13,7 +13,7 @@ export default class extends Phaser.Scene {
             physics: {
                 arcade: {
                     gravity: { y: 200 },
-                    debug: true
+                    debug: false
                 },
                 matter: {
                     debug: true,
@@ -33,7 +33,7 @@ export default class extends Phaser.Scene {
 
     create() {
 
-        this.state = 'init'
+        this.state = 'play'
         console.log(this.levels)
         let CurrentLevel = this.levels[this.difficulty]
         this.level = new CurrentLevel(this)
@@ -66,7 +66,12 @@ export default class extends Phaser.Scene {
             this.messages.add(640, 360, "weiter so!", "#ef3483", 100, 2000)
             setTimeout( () => {
                 this.difficulty += 1
-                this.scene.restart()
+                if (this.difficulty > 1) {
+                    this.scene.start('ScoreScene')
+                }
+                else {
+                    this.scene.restart()
+                }
             }, 2000)
             this.state = 'end'
         }
