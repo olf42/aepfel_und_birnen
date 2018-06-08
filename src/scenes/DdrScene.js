@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
-import Instructions from '../images/Instructions'
 import { randomSpacedValues } from '../utils'
 import GameScore from '../gui/GameScore'
 

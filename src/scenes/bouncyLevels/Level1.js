@@ -1,10 +1,11 @@
 import PlayerApple from './PlayerApple'
+import Pot from './Pot'
 import { randomSpacedValues } from '../../utils'
 
 export default class  {
     constructor (scene) {
         this.scene = scene
-        this.status = 'init'
+        this.state = 'play'
     }
 
     setup () {
@@ -15,6 +16,8 @@ export default class  {
         // setup player
         this.player = new PlayerApple(this.scene, 'arcade', 200, 300)
         this.scene.physics.add.collider(this.ground, this.player.sprite)
+
+        this.pot = new Pot(this.scene, 1170, 710)        
     }
 
     addObstacle () {
@@ -49,5 +52,10 @@ export default class  {
 
     update (time, delta) {
         this.player.update(time, delta)
+
+        if (this.player.sprite.x > 1000 && this.player.sprite.y > 710 && this.state === 'play') {
+            this.pot.bounce()
+            this.state = 'success'
+        }        
     }
 }
