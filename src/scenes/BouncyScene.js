@@ -21,7 +21,9 @@ export default class extends Phaser.Scene {
             }   
         })
 
+        this.fails = 0
         this.difficulty = 0
+        this.currentLevel = 0
         this.levels = [
             Level1,
             Level2,
@@ -31,11 +33,11 @@ export default class extends Phaser.Scene {
     }
 
     create() {
-
+        
         this.state = 'play'
         console.log(this.levels)
-        let CurrentLevel = this.levels[this.difficulty]
-        this.level = new CurrentLevel(this)
+        let CurrentLevel = this.levels[this.currentLevel]
+        this.level = new CurrentLevel(this, this.difficulty - (this.currentLevel*2) )
 
         this.level.setup()
 
@@ -57,10 +59,16 @@ export default class extends Phaser.Scene {
         if (this.level.state === 'gameover' && this.state == 'play') {
             this.messages.add(640, 360, ":-(", "#ef3483", 100, 500)
             setTimeout( () => {
+                this.fails++
                 this.cameras.main.shake(200)
                 this.level.player.sprite.destroy()
                 setTimeout(() => {
-                    this.scene.restart()
+                    if (this.fails > 2) {
+                        this.scene.start('ScoreScene')
+                    }
+                    else {
+                        this.scene.restart()
+                    }
                 }, 1000)
             })
             this.state = 'end'
@@ -73,7 +81,10 @@ export default class extends Phaser.Scene {
             }, 300)
             setTimeout( () => {
                 this.difficulty += 1
-                if (this.difficulty > 1) {
+                if (this.difficulty % 2 === 0) {
+                    this.currentLevel += 1
+                }
+                if (this.currentLevel > 1) {
                     this.scene.start('ScoreScene')
                 }
                 else {

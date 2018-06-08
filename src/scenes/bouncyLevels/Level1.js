@@ -3,9 +3,10 @@ import Pot from './Pot'
 import { randomSpacedValues } from '../../utils'
 
 export default class  {
-    constructor (scene) {
+    constructor (scene, difficulty) {
         this.scene = scene
         this.state = 'play'
+        this.difficulty = difficulty
     }
 
     setup () {
@@ -31,7 +32,8 @@ export default class  {
             collideWorldBounds: true
         })
         this.pears = []
-        const xPositions = randomSpacedValues(200, 850, 3, 150)
+
+        const xPositions = randomSpacedValues(200, 850, this.difficulty+2, 150)
         xPositions.forEach((x, i) => {
             const y = Phaser.Math.Between(100,300)
             const veloY = Phaser.Math.Between(200,400)
