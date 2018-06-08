@@ -30,10 +30,15 @@ export default class ImageManager {
             },
             "grounds": {
                 "ground1": "./assets/ground.png",
-                "ground2": "./assets/ground2.png"
+                "ground2": "./assets/ground2.png",
+                "ground_s": "./assets/ground_small.png"
             },
             "backgrounds": {
                 "bg2": "./assets/background2.png"
+            },
+            "korkbg": {
+                "korkbg1": "./assets/bg2.png",
+                "korkbg2": "./assets/bg3.png"
             },
             "scenes": {
                 "appleDudeApple": "./assets/apfel_fuer_dude.png",

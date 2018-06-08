@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
 import Instructions from '../images/Instructions'
 import { randomSpacedValues } from '../utils'
+import GameScore from '../gui/GameScore'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -46,15 +47,18 @@ export default class extends Phaser.Scene {
                 this.blaetter[i].setDepth(4)
                 this.blaetter[i].setRotation(rotation)
             
-                this.blattTween = this.tweens.add({
-                    targets: this.blaetter[i],
-                    rotation: -0.15,
-                    ease: 'Power4',
-                    duration: 100,
-                    yoyo: true,
-                    repeat: -1,
-                    repeatDelay: 1570
-                })
+                
+            })
+            this.blattTween = this.tweens.add({
+                targets: this.blaetter[i],
+                x: xPositions[i]+5,
+                ease: 'Stepped',
+                easeParams: [ 10 ],
+                duration: 200,
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 1200,
+                delay: Phaser.Math.Between(0, 500)
             })
         }
 
@@ -96,6 +100,7 @@ export default class extends Phaser.Scene {
         this.baum.setAlpha(0.2)
         this.baum.setDepth(0)
 
+        this.scoreGui = new GameScore(this)
     }
 
     keyPressed (queue) {
@@ -129,6 +134,10 @@ export default class extends Phaser.Scene {
     }
 
     update (time, delta) {
+
+        //update gui elements
+        this.scoreGui.update(time, delta)
+
         this.cooldown -= delta
         if (this.cooldown < 0) {
             let chance = Phaser.Math.Between(0, 2)
