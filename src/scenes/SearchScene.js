@@ -75,38 +75,40 @@ export default class extends Phaser.Scene{
 
         }
 
-        this.input.on('pointerup', (event) => {
-            if ((event.x <= this.pear.x-120 || event.x >= this.pear.x+120) || (event.y <= this.pear.y-120 || event.y >= this.pear.y+120)) {
-                this.cameras.main.shake(300)
-                this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
-                this.sys.game.gc.score -= 50
-                this.search_score.setText(this.sys.game.gc.score)
-            }
+        setTimeout(() => {
+            this.input.on('pointerup', (event) => {
+                if ((event.x <= this.pear.x-120 || event.x >= this.pear.x+120) || (event.y <= this.pear.y-120 || event.y >= this.pear.y+120)) {
+                    this.cameras.main.shake(300)
+                    this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
+                    this.sys.game.gc.score -= 50
+                    this.search_score.setText(this.sys.game.gc.score)
+                }
+    
+    
+            })
+    
+            this.pear.on('pointerup', (event) => {
+    
+                if (this.countdown.running) {
+                    this.sys.game.gc.score += 50
+                    this.search_score.setText(this.sys.game.gc.score)
+    
+                    // stop countdown
+                    this.countdown.running = false
+                    this.countdown_rest = this.countdown.duration
+    
+                    this.messages.add(event.x+20, event.y, "+50", "#4e678e", 56, 1000)
+    
+                    setTimeout(() => { 
+                        this.difficulty += 1
+                        this.scene.restart() 
+                    }, 600)
+    
+                }
+    
+            })
+        }, 500)
 
-
-        })
-
-
-        this.pear.on('pointerup', (event) => {
-
-            if (this.countdown.running) {
-                this.sys.game.gc.score += 50
-                this.search_score.setText(this.sys.game.gc.score)
-
-                // stop countdown
-                this.countdown.running = false
-                this.countdown_rest = this.countdown.duration
-
-                this.messages.add(event.x+20, event.y, "+50", "#4e678e", 56, 1000)
-
-                setTimeout(() => { 
-                    this.difficulty += 1
-                    this.scene.restart() 
-                }, 600)
-
-            }
-
-        })
 
         this.countdown = new Countdown(this, 5 + this.countdown_rest)
         this.scoreGui = new GameScore(this)

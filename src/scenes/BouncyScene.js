@@ -61,7 +61,7 @@ export default class extends Phaser.Scene {
             setTimeout( () => {
                 this.fails++
                 this.cameras.main.shake(200)
-                this.level.player.sprite.destroy()
+                this.level.player.destroy()
                 setTimeout(() => {
                     if (this.fails > 2) {
                         this.scene.start('ScoreScene')

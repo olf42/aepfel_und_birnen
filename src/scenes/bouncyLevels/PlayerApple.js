@@ -70,4 +70,9 @@ export default class {
             }
         }
     }
+
+    destroy () {
+        this.sprite.destroy()
+        this.scene.input.off('pointerup')
+    }
 }
