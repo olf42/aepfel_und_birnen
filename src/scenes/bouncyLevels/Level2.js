@@ -64,5 +64,8 @@ export default class  {
             this.pot.bounce()
             this.state = 'success'
         }
+        else if (this.player.sprite.y > 740) {
+            this.state = 'gameover'
+        }
     }
 }

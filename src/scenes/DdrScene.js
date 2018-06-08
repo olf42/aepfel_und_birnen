@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
 import { randomSpacedValues } from '../utils'
 import GameScore from '../gui/GameScore'
+import ScreenMessages from '../gui/ScreenMessages'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -11,18 +12,15 @@ export default class extends Phaser.Scene {
     create () {
         this.start = false
 
+        this.messages = new ScreenMessages(this)
         // get game center coordinates
         const centerX = this.sys.game.config.width / 2
         const centerY = this.sys.game.config.height / 2
 
         // level config
-        this.misses = 10
+        this.misses = 500
         this.velocity = 3
         this.appleKey = this.sys.game.im.random("apples")
-        this.cooldown = 1000
-
-        //music
-        this.music = this.sys.game.ac.play(this, 'ddr')
 
 
         // beats queues
@@ -70,13 +68,13 @@ export default class extends Phaser.Scene {
 
         // markers
         this.bgApple1 = this.add.image(400,600, this.appleKey)
-        this.bgApple1.setScale(0.6)
+        this.bgApple1.setScale(0.4)
         this.bgApple1.setAlpha(0.5)        
         this.bgApple2 = this.add.image(600,600, this.appleKey)
-        this.bgApple2.setScale(0.6)
+        this.bgApple2.setScale(0.4)
         this.bgApple2.setAlpha(0.5)
         this.bgApple3 = this.add.image(800,600, this.appleKey)
-        this.bgApple3.setScale(0.6)
+        this.bgApple3.setScale(0.4)
         this.bgApple3.setAlpha(0.5)
 
         this.winkingLady = new WinkingLady(this, 30,300)
@@ -104,16 +102,34 @@ export default class extends Phaser.Scene {
         this.baum.setDepth(0)
 
         this.scoreGui = new GameScore(this)
+
+        //music
+        this.music = this.sys.game.ac.play(this, '120bpm')
+        console.log(this.music)
+
+        this.beatCount = 0 
+
+        // this.beatEvent = this.time.addEvent({
+        //     delay: 500,
+        //     callback: () => { 
+        //         console.log(this.music.source.context.currentTime-this.music.startTime)
+        //         this.addAppleToQueue(this.aQueue) 
+        //         this.bgApple1.rotation += 90
+        //     },
+        //     callbackScope: this,
+        //     repeat: -1
+        // })        
     }
 
     keyPressed (queue) {
         let i = 0
         let hit = false
         for (let apple of queue.apples) {
-            if ((apple.y <= 605) && (apple.y >= 595)) {
-                apple.destroy()
+            if ((apple.obj.y <= 630) && (apple.obj.y >= 570)) {
+                this.sys.game.gc.score += 10
+                this.messages.add(queue.x+20, 400, "+10", "#ef3483", 64, 500)
+                apple.obj.destroy()
                 queue.apples.splice(i, 1)
-                this.addScorePoint(queue.x)
                 hit = true
                 break
             }
@@ -126,7 +142,8 @@ export default class extends Phaser.Scene {
 
 
     addScorePoint (x) {
-        let text = this.add.text(x+20, 550, "+50", {
+        this.sys.game.gc.score += 10
+        let text = this.add.text(x+20, 550, "+10", {
             font: '56px Ultra',
             fill: '#4e678e'
         })
@@ -137,72 +154,53 @@ export default class extends Phaser.Scene {
     }
 
     update (time, delta) {
-
-        //update gui elements
-        this.scoreGui.update(time, delta)
-
-        this.cooldown -= delta
-        if (this.cooldown < 0) {
-            let chance = Phaser.Math.Between(0, 2)
-            console.log("add apple")
-            switch (chance) {
-                case 0:
-                    this.addAppleToQueue(this.aQueue)
-                    break
-                case 1:
-                    this.addAppleToQueue(this.sQueue)  
-                    break
-                case 2:
-                    this.addAppleToQueue(this.dQueue)
-                    break
-            }
-            this.cooldown = 1000
+        
+        const elapsed = this.music.source.context.currentTime - this.music.startTime
+        //console.log(elapsed)
+        const diff =  elapsed*1000 - (this.beatCount + 1) *1000
+        if (diff >= 0) {
+            this.beatCount++
+            this.addAppleToQueue(this.aQueue)
         }
 
-        this.updateQueue(this.aQueue)
-        this.updateQueue(this.sQueue)
-        this.updateQueue(this.dQueue) 
 
-        this.updateScorePoints(delta)
-
+        this.messages.update(time, delta)
+        //update gui elements
+        this.scoreGui.update(time, delta)
 
         if (this.misses === 0) {
             this.scene.start('ScoreScene')
         }
-
-    }
-    
-    addAppleToQueue(queue) {
-        let apple = this.add.image(queue.x, 30, this.appleKey)
-        apple.setScale(0.5)
-        apple.setRotation(Phaser.Math.Between(0, 360    ))
-        queue.apples.push(apple)
+        this.updateQueue(this.aQueue)
     }
 
     updateQueue(queue) {
-        // console.log(queue.apples.length)
-        for (let apple of queue.apples) {
-            apple.y += this.velocity
-            apple.rotation += 0.02
-        }
-        if (queue.apples.length > 0) {
-            if (queue.apples[0].y > 800) {
-                queue.apples[0].destroy()
-                queue.apples.shift()
-            }
+        //console.log(queue)
+        for (const apple of queue.apples) {
+            const diff = this.music.source.context.currentTime - apple.start 
+            const pixelPerMs = 1000/2000
+            apple.obj.y += pixelPerMs * diff
         }
     }
-
-    updateScorePoints(delta) {
-        for (let points of this.scorePoints) {
-            points.duration -= delta
-            points.text.alpha -= delta/1000
-        }
-        if (this.scorePoints.lengths > 0) {
-            if (this.scorePoints[0].duration < 0) {
-                this.scorePoints.text.destroy()
-                this.scorePoints.shift()
-            }
-        }
+    
+    addAppleToQueue(queue) {
+        this.bgApple1.rotation += 90
+        this.bgApple2.rotation += 90
+        this.bgApple3.rotation += 90
+        let apple = this.add.image(queue.x, -390, this.appleKey)
+        apple.setScale(0.3)
+        apple.setRotation(Phaser.Math.Between(0, 360 ))
+        queue.apples.push({
+            obj: apple,
+            // tween: this.add.tween({
+            //     delay: 0,
+            //     targets: apple,
+            //     ease: 'normal',
+            //     y: 1600,
+            //     duration: 8000,
+            //     repeat: 0
+            // }),
+            start: this.music.source.context.currentTime
+        })
     }
 }
