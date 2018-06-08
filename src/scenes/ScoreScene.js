@@ -13,18 +13,18 @@ export default class extends Phaser.Scene {
 
 
 
-        this.quote = this.add.text(400, 200, '"'+quote+'"', {
+        this.quote = this.add.text(400, 180, '"'+quote+'"', {
             font: '24px Bree Serif',
             fill: '#888888'
         })
 
-        this.score = this.add.text(640, 450, 'Punkte: '+this.sys.game.gc.score, {
+        this.score = this.add.text(640, 450, this.sys.game.gc.score+' Punkte', {
             font: '48px Ultra',
             fill: '#4e678e'
         })
         this.score.setOrigin(0,0)
 
-        this.next = this.add.text(640, 550, "Weiter", {
+        this.next = this.add.text(640, 550, 'Weiter', {
             font: '48px Ultra',
             fill: '#4e678e'
         })

@@ -48,7 +48,6 @@ export default class GameController {
     }
 
     randomFact () {
-        console.log(sample(this.facts))
         return sample(this.facts)
     }
 
@@ -57,7 +56,6 @@ export default class GameController {
     }
 
     nextScene () {
-        console.log(this.scenes)
         if (this.scenes.length > 1) {
             this.level += 1
             const scene = this.scenes[0]
