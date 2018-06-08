@@ -22,6 +22,10 @@ export default class extends Phaser.Scene {
         this.appleKey = this.sys.game.im.random("apples")
         this.cooldown = 1000
 
+        //music
+        this.music = this.sys.game.ac.play(this, 'ddr')
+
+
         // beats queues
         this.aQueue = {
             x: 400,

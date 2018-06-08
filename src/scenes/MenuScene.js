@@ -90,6 +90,9 @@ export default class extends Phaser.Scene {
             this.scene.start('BouncyPearScene')
         })
 
+
+        //music
+        this.music = this.sys.game.ac.play(this, 'menu')
     }
 
     update (time, delta) {

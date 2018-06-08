@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
 import GameController from './controller/GameController'
+import AudioController from './controller/AudioController'
 import ImageManager from './images/ImageManager'
 
 import BootScene from './scenes/BootScene'
@@ -48,6 +49,7 @@ class Game extends Phaser.Game {
         super(config)
         this.im = new ImageManager()
         this.gc = new GameController()
+        this.ac = new AudioController()
     }
 }
 

@@ -9,7 +9,7 @@ export default class extends Phaser.Scene {
     preload () {
 
         this.sys.game.im.load(this)
-
+        this.sys.game.ac.load(this)
         // load webfont
         this.fontsReady = false
         this.loadingFonts = this.loadingFonts.bind(this)
