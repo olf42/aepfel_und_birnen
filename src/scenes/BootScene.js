@@ -15,7 +15,7 @@ export default class extends Phaser.Scene {
         this.loadingFonts = this.loadingFonts.bind(this)
         WebFont.load({
             google: {
-                families: ['Ultra']
+                families: ['Ultra', 'Bree Serif']
             },
             active: this.loadingFonts
         })

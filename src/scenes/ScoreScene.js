@@ -11,20 +11,24 @@ export default class extends Phaser.Scene {
 
         this.dude = this.add.image(250, 400, 'measureDude')
 
-        this.text = this.add.text(800, 60, 'Punkte: '+this.sys.game.gc.score, {
-            font: '56px Ultra',
-            fill: '#4e678e'
-        })
 
-        this.quote = this.add.text(400, 140, '"'+quote+'"', {
-            font: '16px Ultra',
+
+        this.quote = this.add.text(400, 200, '"'+quote+'"', {
+            font: '24px Bree Serif',
             fill: '#888888'
         })
 
-        this.next = this.add.text(640, 400, "Weiterspielen", {
-            font: '56px Ultra',
+        this.score = this.add.text(640, 450, 'Punkte: '+this.sys.game.gc.score, {
+            font: '48px Ultra',
             fill: '#4e678e'
         })
+        this.score.setOrigin(0,0)
+
+        this.next = this.add.text(640, 550, "Weiter", {
+            font: '48px Ultra',
+            fill: '#4e678e'
+        })
+        this.next.setOrigin(0,0)
 
         this.next.setInteractive()
         this.next.on('pointerup', () => {

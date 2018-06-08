@@ -10,37 +10,45 @@ export default class extends Phaser.Scene {
         const y = 360
         const sceneConfig = this.sys.game.gc.currentScene()
         const level = this.sys.game.gc.level
+        const fact = this.sys.game.gc.randomFact()
 
         this.frame = this.add.image(x, y, 'frame')
         this.frame.setScale(0.7)
         this.frame.setDepth(100)
 
-        this.heading = this.add.text(x-250, y-250, 'Kapitel '+level+": "+sceneConfig.title, {
+        this.heading = this.add.text(x-250, y-230, 'Kapitel '+level+": "+sceneConfig.title, {
             font: '40px Ultra',
             fill: '#fff'
         })
         this.heading.setDepth(101)
 
-        this.goalText = this.add.text(250, 200, 'Ziel:', {
+
+        this.controlHeader = this.add.text(250, 250, 'Anweisung:', {
             font: '24px Ultra',
             fill: '#fff'
         })
-        this.goalText.setDepth(101)
-
-        this.controlText = this.add.text(250, 350, 'Steuerung:', {
-            font: '24px Ultra',
-            fill: '#fff'
+        this.controlHeader.setDepth(101)
+        
+        this.controlText = this.add.text(250, 300, sceneConfig.control, {
+            font: '24px Bree Serif',
+            fill: '#eee'
         })
         this.controlText.setDepth(101)
 
-        this.ratingText = this.add.text(250, 500, 'Wertung:', {
+        this.factHeader = this.add.text(250, 400, 'Fact:', {
             font: '24px Ultra',
             fill: '#fff'
         })
-        this.ratingText.setDepth(101)
+        this.factHeader.setDepth(101)
 
-        this.startGame = this.add.text(950, 550, 'Start', {
-            font: '24px Ultra',
+        this.factText = this.add.text(250, 450, fact, {
+            font: '24px Bree Serif',
+            fill: '#eee'
+        })
+        this.factText.setDepth(101)
+
+        this.startGame = this.add.text(950, 570, 'Start', {
+            font: '36px Ultra',
             fill: '#fff'
         })
         this.startGame.setDepth(101)

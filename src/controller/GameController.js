@@ -1,17 +1,17 @@
 
-import { shuffle } from 'lodash'
+import { shuffle, sample } from 'lodash'
 
 export default class GameController {
     constructor () {
 
         this.facts = [
-            "Als Vorfahre unseres Kulturapfels gilt eine Gen-Wildart (Malus sieversii), heute noch vorkommend in Kasachstan, in der Gegend um Alma Ata.",
-            "Der Apfel gehört botanisch zur gleichen Familie wie beispielsweise die Birne, die Himbeere, die Kirsche und – die Rose!",
-            "Bereits im antiken Persien galt der Apfel als Symbol herrschaftlicher Macht, eine Symbolik, die von den mittelalterlichen Kaisern weitergeführt wurde.",
-            "Äpfel gedeihen in der Region um Bamberg sehr gut wegen des milden Klimas.",
-            "Neben seinem Vitaminreichtum ist der Apfel auch in der Lage, die Darmtätigkeit zu regulieren.",
-            "Innerhalb Europas produziert Polen mit 3,5 Millionen Tonnen die meisten Äpfel. Kurz darauf folgt Italien mit 2,4 Millionen Tonnen Äpfeln.",
-            "Bei einem Unfall mit einem Kühllaster sind am späten Donnerstagabend mehrere Tonnen Äpfel über die A27 bei Verden gekullert."
+            "Als Vorfahre unseres Kulturapfels gilt eine Gen-Wildart (Malus \nsieversii), heute noch vorkommend in Kasachstan, in \nder Gegend um Alma Ata.",
+            "Der Apfel gehört botanisch zur gleichen Familie wie beispielsweise \ndie Birne, die Himbeere, die Kirsche und – die Rose!",
+            "Bereits im antiken Persien galt der Apfel als Symbol  \nherrschaftlicher Macht, eine Symbolik, die von den \nmittelalterlichen Kaisern weitergeführt wurde.",
+            "Äpfel gedeihen in der Region um Bamberg sehr gut wegen des \nmilden Klimas.",
+            "Neben seinem Vitaminreichtum ist der Apfel auch in der Lage, \ndie Darmtätigkeit zu regulieren.",
+            "Innerhalb Europas produziert Polen mit 3,5 Millionen Tonnen die \nmeisten Äpfel. Kurz darauf folgt Italien mit 2,4 Millionen Tonnen.",
+            "Bei einem Unfall mit einem Kühllaster sind am 21. Juli 2017 \nmehrere Tonnen Äpfel über die A27 bei Verden gekullert."
         ]
 
         this.story = [
@@ -25,23 +25,31 @@ export default class GameController {
             {
                 key: 'BouncyPearScene',
                 title: 'Der Sprung',
-                text: "bla"
+                text: "bla",
+                control: "Bringe den Apfel in den Topf\nBeschleunige mit schnellen Tab oder Klick; Sprung mit langem Tab o. Klick "
             },
             {
                 key: 'SearchScene',
                 title: 'Die Suche',
-                text: "bla"
+                text: "bla",
+                control: "Finde die Birne unter den ganzen Äpfel\n Tab/Klicke auf die Birne"
             },
             {
                 key: 'DdrScene',
                 title: 'Der Tanz',
-                text: "bla"
+                text: "bla",
+                control: "Drücke die entsprechende Taste (a, s, d) im Takt der Musik"
             }                        
         ]
 
         this.score = 0
         this.level = 1
         this.scenes = shuffle(this.games)
+    }
+
+    randomFact () {
+        console.log(sample(this.facts))
+        return sample(this.facts)
     }
 
     currentScene () {
