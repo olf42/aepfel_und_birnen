@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
+import Silhouette from '../images/Silhouette'
+import RatingBar from './ddr/RatingBar'
 import { randomSpacedValues } from '../utils'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
@@ -18,7 +20,7 @@ export default class extends Phaser.Scene {
         const centerY = this.sys.game.config.height / 2
 
         // level config
-        this.misses = 500
+        this.misses = 50
         this.velocity = 3
         this.appleKey = this.sys.game.im.random("apples")
 
@@ -101,7 +103,10 @@ export default class extends Phaser.Scene {
         this.baum.setAlpha(0.2)
         this.baum.setDepth(0)
 
+        //gui
         this.scoreGui = new GameScore(this)
+        this.ratingBar = new RatingBar(this, 1100, 380, this.misses)
+
 
         //music
         this.music = this.sys.game.ac.play(this, '120bpm')
@@ -137,6 +142,13 @@ export default class extends Phaser.Scene {
         }
         if (!hit) {
             this.misses --
+            this.ratingBar.updateLevel(this.misses)
+        }
+        else {
+            if (this.misses < 100) {
+                this.misses += 1
+                this.ratingBar.updateLevel(this.misses)
+            }
         }
     } 
 
@@ -192,14 +204,6 @@ export default class extends Phaser.Scene {
         apple.setRotation(Phaser.Math.Between(0, 360 ))
         queue.apples.push({
             obj: apple,
-            // tween: this.add.tween({
-            //     delay: 0,
-            //     targets: apple,
-            //     ease: 'normal',
-            //     y: 1600,
-            //     duration: 8000,
-            //     repeat: 0
-            // }),
             start: this.music.source.context.currentTime
         })
     }

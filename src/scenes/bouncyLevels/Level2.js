@@ -52,18 +52,7 @@ export default class  {
         this.scene.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
             if (checkCollision(bodyA, bodyB, this.player.sprite, this.pears)) {
                 this.state = 'gameover'
-            }
-
-            // if (bodyA === this.player.sprite.body || bodyB === this.player.sprite.body) {
-            //     for (const pear of this.pears) {
-            //         if (pear.body) {
-            //             if (bodyA === pear.body || bodyB === pear.body) {
-            //                 this.state = 'gameover'
-            //             }
-            //         }
-            //     }
-            // }
-    
+            }    
         })   
 
     }

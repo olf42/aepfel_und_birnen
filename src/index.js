@@ -17,6 +17,7 @@ import SearchScene from './scenes/SearchScene'
 import InstructionScene from './scenes/InstructionScene'
 
 var config = {
+    //type: Phaser.CANVAS,
     type: Phaser.AUTO,
     width:1280,
     height: 720,

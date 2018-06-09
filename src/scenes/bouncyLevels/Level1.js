@@ -8,7 +8,6 @@ export default class  {
         this.scene = scene
         this.state = 'play'
         this.difficulty = difficulty
-
     }
 
     setup () {
@@ -56,24 +55,13 @@ export default class  {
 
             if (checkCollision(bodyA, bodyB, this.player.sprite, this.pears)) {
                 this.state = 'gameover'
-            }
-            // if (bodyA === this.player.sprite.body || bodyB === this.player.sprite.body) {
-            //     for (const pear of this.pears) {
-            //         if (pear.body) {
-            //             if (bodyA === pear.body || bodyB === pear.body) {
-            //                 this.state = 'gameover'
-            //             }
-            //         }
-            //     }
-            // }
-    
+            }   
         })        
     }
 
     update (time, delta) {
         this.player.update(time, delta)
         if (this.player.sprite.body) {
-            // if (this.player.sprite.x > this.pot.x-250 && this.player.sprite.x < this.pot.x+250 && this.player.sprite.y > this.pot.y && this.state === 'play') {
             if (this.pot.hit(this.player) && this.state === 'play') {
                 this.pot.bounce()
                 this.state = 'success'

@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import StickDude from '../images/StickDude'
+import Silhouette from '../images/Silhouette'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -90,7 +91,6 @@ export default class extends Phaser.Scene {
         this.bouncySceneText.on('pointerup', (event) => {
             this.scene.start('BouncyPearScene')
         })
-
 
         //music
         this.music = this.sys.game.ac.play(this, 'menu')

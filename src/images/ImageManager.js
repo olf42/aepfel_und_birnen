@@ -60,7 +60,8 @@ export default class ImageManager {
                 "krug_bg": "./assets/krug_bg.png",
                 "tempel" : "./assets/tempel.png",
                 "baum" : "./assets/baum.png",
-                "blatt" : "./assets/blatt.png"
+                "blatt" : "./assets/blatt.png",
+                "ddr_bar": "./assets/ddr-bar.png"
             }
         }
     }
