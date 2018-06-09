@@ -3,6 +3,8 @@ import Phaser from 'phaser'
 export default class {
     constructor (scene, x, y) {
         this.scene = scene
+        this.x = x
+        this.y = y
 
         this.obj = this.scene.add.group()
 
@@ -27,4 +29,11 @@ export default class {
             repeat: 0
         })        
     }
+
+    hit (player) {
+        if (player.sprite.x > this.x-210 && player.sprite.x < this.x+250 && player.sprite.y > this.y) {
+            return true
+        }   
+        return false
+    }    
 }

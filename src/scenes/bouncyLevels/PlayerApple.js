@@ -14,7 +14,7 @@ export default class {
                 }
                 else {
                     const veloX = this.sprite.body.velocity.x
-                    this.sprite.setVelocityX(veloX+1)                  
+                    this.sprite.setVelocityX(veloX+0.7)                  
                 }
             }
             else {
@@ -24,8 +24,8 @@ export default class {
                 }
                 else {
 
-                    this.sprite.setVelocityX(200)
-                    this.sprite.setVelocityY(-230)
+                    this.sprite.setVelocityX(5)
+                    this.sprite.setVelocityY(-5)
                     
                 }               
             }
@@ -43,15 +43,17 @@ export default class {
         }
         else {
             apple = this.scene.matter.add.image(100, 300, this.scene.sys.game.im.random('apples'))
-            apple.setBounce(0.3)
+
             apple.setBody({
                 type: 'circle',
-                radius: 80
+                radius: 100,
+                density: 0
             })
-            apple.setScale(0.5)
-            apple.setFrictionAir(0)
-            apple.setFriction(0.1)
-            apple.setVelocityY(-2)
+            apple.setBounce(0.3)
+            apple.setScale(0.3)
+            apple.setFrictionAir(0.02)
+            apple.setFriction(0.0)
+            //apple.setVelocityY(-2)
             return apple
         }
     }
@@ -59,14 +61,8 @@ export default class {
     update (time, delta) {
 
         if (this.sprite.body) {
-            if (this.physics === 'arcade') {
-                if (this.sprite.body.velocity.x > 0) {
-                    this.sprite.body.velocity.x -= 1
-                    this.sprite.rotation += this.sprite.body.velocity.x/2000
-                }
-                else {
-                    this.sprite.body.setVelocityX(0)
-                }
+            if (this.sprite.body.velocity.x > 0.01) {
+                this.sprite.rotation += this.sprite.body.velocity.x*100/1500
             }
         }
     }
@@ -75,4 +71,5 @@ export default class {
         this.sprite.destroy()
         this.scene.input.off('pointerup')
     }
+
 }

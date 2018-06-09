@@ -10,13 +10,8 @@ export default class extends Phaser.Scene {
         super({ 
             key: 'BouncyPearScene',
             physics: {
-                arcade: {
-                    gravity: { y: 200 },
-                    debug: false
-                },
                 matter: {
-                    debug: true,
-                    gravity: { y: 0.5}
+                    debug: true
                 }
             }   
         })
@@ -33,6 +28,7 @@ export default class extends Phaser.Scene {
     }
 
     create() {
+        //this.matter.world.setBounds()
         
         this.state = 'play'
         console.log(this.levels)
@@ -81,7 +77,7 @@ export default class extends Phaser.Scene {
             }, 300)
             setTimeout( () => {
                 this.difficulty += 1
-                if (this.difficulty % 2 === 0) {
+                if (this.difficulty % 3 === 0) {
                     this.currentLevel += 1
                 }
                 if (this.currentLevel > 1) {
