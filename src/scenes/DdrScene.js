@@ -60,7 +60,7 @@ export default class extends Phaser.Scene {
         this.baum.setAlpha(0.2)
         this.baum.setDepth(0)        
 
-        this.winkingLady = new WinkingLady(this, 180,330)
+        this.winkingLady = new WinkingLady(this, 180,400)
 
 
         // setup queus and beat markers
@@ -206,6 +206,7 @@ export default class extends Phaser.Scene {
         const diff =  elapsed * 1000 - (this.beatCount + 1) * 500
         if (diff >= 0) {
             this.beatCount++
+            this.winkingLady.pulse()
             this.updateDifficulty()
             if (this.beatCount % this.difficulty.beat === 0) {
                 const track = Phaser.Math.Between(0, this.difficulty.tracks-1)
@@ -230,6 +231,8 @@ export default class extends Phaser.Scene {
         this.messages.update(time, delta)
         this.scoreGui.update(time, delta)
 
+        this.winkingLady.update(time, delta)
+
         // check gameover condition
         if (this.misses <= 0) {
             this.scene.start('ScoreScene')
@@ -249,6 +252,13 @@ export default class extends Phaser.Scene {
             for (const blatt of this.blaetter) {
                 this.psychedelicFilter.clear(blatt)
             }            
+        }
+
+        if (this.misses > 60) {
+            this.winkingLady.disco = true
+        }
+        else {
+            this.winkingLady.disco = false
         }
     }
 }

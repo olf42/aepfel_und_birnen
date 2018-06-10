@@ -62,6 +62,9 @@ export default class ImageManager {
                 "baum" : "./assets/baum.png",
                 "blatt" : "./assets/blatt.png",
                 "ddr_bar": "./assets/ddr-bar.png"
+            },
+            "lightMasks": {
+                "star01": "./assets/lights/star.png"
             }
         }
     }
