@@ -12,7 +12,11 @@ export default class extends Phaser.Scene {
     }
 
     create () {
-        this.start = false
+        this.difficulty = {
+            tracks: 1,
+            chance: 1,
+            beat: 2
+        }
 
         this.messages = new ScreenMessages(this)
         // get game center coordinates
@@ -80,7 +84,6 @@ export default class extends Phaser.Scene {
         this.bgApple3.setAlpha(0.5)
 
         this.winkingLady = new WinkingLady(this, 30,300)
-        //this.instructions = new Instructions(this, centerX, centerY)
 
         // input
         this.input.keyboard.on('keydown', (event) => {
@@ -112,18 +115,7 @@ export default class extends Phaser.Scene {
         this.music = this.sys.game.ac.play(this, '120bpm')
         console.log(this.music)
 
-        this.beatCount = 0 
-
-        // this.beatEvent = this.time.addEvent({
-        //     delay: 500,
-        //     callback: () => { 
-        //         console.log(this.music.source.context.currentTime-this.music.startTime)
-        //         this.addAppleToQueue(this.aQueue) 
-        //         this.bgApple1.rotation += 90
-        //     },
-        //     callbackScope: this,
-        //     repeat: -1
-        // })        
+        this.beatCount = 0     
     }
 
     keyPressed (queue) {
@@ -141,64 +133,41 @@ export default class extends Phaser.Scene {
             i++
         }
         if (!hit) {
-            this.misses --
+            this.misses -= 2
             this.ratingBar.updateLevel(this.misses)
         }
         else {
             if (this.misses < 100) {
-                this.misses += 1
+                this.misses += 2
                 this.ratingBar.updateLevel(this.misses)
             }
         }
     } 
 
-
-    addScorePoint (x) {
-        this.sys.game.gc.score += 10
-        let text = this.add.text(x+20, 550, "+10", {
-            font: '56px Ultra',
-            fill: '#4e678e'
-        })
-        this.scorePoints.push({
-            text: text,
-            duration: 1000
-        })
-    }
-
-    update (time, delta) {
-        
-        const elapsed = this.music.source.context.currentTime - this.music.startTime
-        //console.log(elapsed)
-        const diff =  elapsed*1000 - (this.beatCount + 1) *1000
-        if (diff >= 0) {
-            this.beatCount++
-            this.addAppleToQueue(this.aQueue)
-        }
-
-
-        this.messages.update(time, delta)
-        //update gui elements
-        this.scoreGui.update(time, delta)
-
-        if (this.misses === 0) {
-            this.scene.start('ScoreScene')
-        }
-        this.updateQueue(this.aQueue)
-    }
-
     updateQueue(queue) {
-        //console.log(queue)
-        for (const apple of queue.apples) {
-            const diff = this.music.source.context.currentTime - apple.start 
-            const pixelPerMs = 1000/2000
-            apple.obj.y += pixelPerMs * diff
+        if (queue.apples.length > 0) {
+            for (const apple of queue.apples) {
+                const diff = this.music.source.context.currentTime - apple.start 
+                const pixelPerMs = 1000/2000
+                apple.obj.y += pixelPerMs * diff
+            }
+
+            if (queue.apples[0].obj.y > 760) {
+                this.misses--
+                this.ratingBar.updateLevel(this.misses)
+                queue.apples[0].obj.destroy()
+                queue.apples.shift()
+            }
         }
     }
     
-    addAppleToQueue(queue) {
+    addAppleToQueue (queue) {
+        // rotate background apples
         this.bgApple1.rotation += 90
         this.bgApple2.rotation += 90
         this.bgApple3.rotation += 90
+
+        // add new apple beat image
         let apple = this.add.image(queue.x, -390, this.appleKey)
         apple.setScale(0.3)
         apple.setRotation(Phaser.Math.Between(0, 360 ))
@@ -207,4 +176,74 @@ export default class extends Phaser.Scene {
             start: this.music.source.context.currentTime
         })
     }
+
+    updateDifficulty () {
+        // change difficulty based and passed beats
+        switch (this.beatCount) {
+            case 20:
+                this.difficulty.tracks = 2
+                break
+            case 40:
+                this.difficulty.chance = 1.0
+                break
+            case 60:
+                this.difficulty.tracks = 3
+                this.difficulty.chance = 0.8
+                break
+            case 80:
+                this.difficulty.beat = 1
+                this.difficulty.chance = 0.6
+                break
+            case 100:
+                this.difficulty.chance = 0.8
+                break
+            case 120:
+                this.difficulty.chance = 1
+                break
+        }
+    }
+
+    update (time, delta) {
+
+        // add new apple every beat
+        const elapsed = this.music.source.context.currentTime - this.music.startTime
+        const diff =  elapsed * 1000 - (this.beatCount + 1) * 500
+        if (diff >= 0) {
+            this.beatCount++
+            this.updateDifficulty()
+            if (this.beatCount % this.difficulty.beat === 0) {
+                const track = Phaser.Math.Between(0, this.difficulty.tracks-1)
+                const chance = Phaser.Math.FloatBetween(0, 1)
+                if (chance > (1-this.difficulty.chance)) {
+                    switch (track) {
+                        case 0:
+                            this.addAppleToQueue(this.sQueue)
+                            break
+                        case 1:
+                            this.addAppleToQueue(this.aQueue)
+                            break
+                        case 2:
+                            this.addAppleToQueue(this.dQueue)
+                            break
+                    }
+                }
+            }
+        }
+
+        // update gui + screene elements
+        this.messages.update(time, delta)
+        this.scoreGui.update(time, delta)
+
+        // check gameover condition
+        if (this.misses === 0) {
+            this.scene.start('ScoreScene')
+        }
+
+        // update apple beat queues
+        this.updateQueue(this.aQueue)
+        this.updateQueue(this.sQueue)
+        this.updateQueue(this.dQueue)
+    }
 }
+
+
