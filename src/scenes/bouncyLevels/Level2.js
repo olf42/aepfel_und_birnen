@@ -38,7 +38,7 @@ export default class  {
                 this.pears[0] = addTweenObstacle(this.scene, 275, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
                 y = Phaser.Math.Between(100, 300)
                 setTimeout(() => {
-                    this.pears[0] = addTweenObstacle(this.scene, 625, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
+                    this.pears[1] = addTweenObstacle(this.scene, 625, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
                 }, Phaser.Math.Between(100, 800))
                 break
         }
