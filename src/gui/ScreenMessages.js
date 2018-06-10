@@ -10,7 +10,7 @@ export default class {
         let msg = this.scene.add.text(x, y, text, {
             font: size+'px Ultra',
             fill: color
-        })
+        }).setDepth(50)
         this.queue.push({
             obj: msg,
             duration: duration

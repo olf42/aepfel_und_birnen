@@ -65,6 +65,9 @@ export default class ImageManager {
             },
             "lightMasks": {
                 "star01": "./assets/lights/star.png"
+            },
+            "coulds": {
+                "cloud01": "./assets/lights/cloud01.png"
             }
         }
     }

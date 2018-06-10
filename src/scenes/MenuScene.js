@@ -53,7 +53,7 @@ export default class extends Phaser.Scene {
             fill: '#4e678e'
         })
         this.startGameText.setOrigin(0.5, 0.5).setInteractive()
-        
+
         // add event handling to text
         this.startGameText.on('pointerover', (event) => {
             this.startGameText.setShadow(2, 2, '#000000', false, true)
@@ -95,6 +95,7 @@ export default class extends Phaser.Scene {
 
         //music
         this.music = this.sys.game.ac.play(this, 'menu')
+
     }
 
     update (time, delta) {

@@ -1,5 +1,5 @@
 export default class {
-    constructor (scene, duration, color='#4e678e', x=640, y=30) {
+    constructor (scene, duration, color='#4e678e', x=180, y=30) {
         this.scene = scene
         this.duration = duration
         this.color = color

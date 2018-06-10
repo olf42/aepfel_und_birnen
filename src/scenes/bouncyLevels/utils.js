@@ -5,7 +5,7 @@ export const addBouncyObstacle = (scene, x, y, image, scale, veloX, veloY) => {
         type: 'circle',
         radius: 70
     })      
-    pear.setScale(scale)  
+    pear.setScale(scale).setDepth(20) 
     pear.setFriction(0)
     pear.setVelocityY(veloY)
     pear.setVelocityX(veloX)
@@ -21,7 +21,7 @@ export const addStaticObstacle = (scene, x, y, image, scale) => {
         type: 'circle',
         radius: 70
     })     
-    pear.setScale(scale).setStatic(true)
+    pear.setScale(scale).setStatic(true).setDepth(20) 
     return pear
 }
 
@@ -32,7 +32,7 @@ export const addTweenObstacle = (scene, x, y, image, scale, xGoal, yGoal, durati
         radius: 70
     })
     pear.setScale(scale).setIgnoreGravity(true)
-    pear.setFrictionAir(0)
+    pear.setFrictionAir(0).setDepth(20) 
     scene.tweens.add({
         targets: pear,
         x: x+xGoal,
@@ -48,7 +48,7 @@ export const addTweenObstacle = (scene, x, y, image, scale, xGoal, yGoal, durati
 export const addPlatform = (scene, x, y) => {
     const pf = scene.matter.add.image(x, y, 'ground_s')
     pf.setStatic(true)
-    pf.setFriction(0)
+    pf.setFriction(0).setDepth(15) 
     return pf
 }
 
@@ -65,3 +65,25 @@ export const checkCollision = (bodyA, bodyB, targetA, targetsB) => {
     return false  
 }
 
+export const addCloudEmitter = (scene) => {
+    // this.cloud = this.add.image(500, 500, 'cloud01').setScale(0.7).setAlpha(0.4).setDepth(-19)
+    let particles = scene.add.particles('cloud01');
+
+    particles.createEmitter({
+        x: { min: 1300, max: 2500 },
+        scale: 0.7,
+        alpha: 0.3,
+        y: { min: 0, max:4500 },
+        lifespan: 500000,
+        speedX: { min: -10, max: -20 },
+        quantity: 2,
+        frequency: 8000,
+        depth: -15
+        //delay: {min: 100, max: 400}
+    })
+    for (let i = 0; i < Phaser.Math.Between(25,35); i++) {
+        particles.emitParticleAt(Phaser.Math.Between(-100, 1300), Phaser.Math.Between(0, 600) )
+    }
+
+    return particles
+}

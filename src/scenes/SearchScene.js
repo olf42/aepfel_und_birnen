@@ -17,7 +17,7 @@ export default class extends Phaser.Scene{
         this.messages = new ScreenMessages(this)
 
         // this.cameras.main.setBackgroundColor(0xcfc4ae)
-        this.search_score = this.add.text(20, 20, this.sys.game.gc.score)
+        //this.search_score = this.add.text(20, 20, this.sys.game.gc.score)
 
         this.appleGroup = this.add.group()
         this.apples = []
@@ -81,7 +81,7 @@ export default class extends Phaser.Scene{
                     this.cameras.main.shake(300)
                     this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
                     this.sys.game.gc.score -= 50
-                    this.search_score.setText(this.sys.game.gc.score)
+                    //this.search_score.setText(this.sys.game.gc.score)
                 }
     
     
@@ -91,7 +91,7 @@ export default class extends Phaser.Scene{
     
                 if (this.countdown.running) {
                     this.sys.game.gc.score += 50
-                    this.search_score.setText(this.sys.game.gc.score)
+                    //this.search_score.setText(this.sys.game.gc.score)
     
                     // stop countdown
                     this.countdown.running = false

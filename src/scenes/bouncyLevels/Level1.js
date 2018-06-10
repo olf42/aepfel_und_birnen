@@ -12,10 +12,10 @@ export default class  {
 
     setup () {
         this.background = this.scene.add.image(580, 335, 'tempel')
-        this.background.setAlpha(0.6)
+        this.background.setAlpha(0.6).setDepth(-20)
         
         this.ground = this.scene.matter.add.image(512, 768-75, 'ground1', null, { isStatic: true, })
-        this.ground.setFriction(0)
+        this.ground.setFriction(0).setDepth(15)
 
         this.player = new PlayerApple(this.scene, 'matter', 200, 300)
 

@@ -3,7 +3,7 @@ export default class {
         this.scene = scene
         this.physics = physics
         this.sprite = this.addAppleImage(x, y)
-        this.sprite.setDepth(3)
+        this.sprite.setDepth(35)
 
         this.scene.input.on('pointerup', (event) => {
             const delta = event.upTime - event.downTime 

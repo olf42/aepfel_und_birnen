@@ -5,6 +5,7 @@ import Level3 from './bouncyLevels/Level3'
 import LivesDisplay from './bouncylevels/LivesDisplay'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
+import { addCloudEmitter } from './bouncyLevels/utils'
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -42,6 +43,8 @@ export default class extends Phaser.Scene {
         this.scoreGui = new GameScore(this)
         this.messages = new ScreenMessages(this)
         this.livesDisplay = new LivesDisplay(this, 3-this.fails )
+
+        this.cloudEmitter = addCloudEmitter(this)
     }
 
     update(time, delta) {
