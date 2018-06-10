@@ -1,5 +1,3 @@
-import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from "constants";
-
 export const addBouncyObstacle = (scene, x, y, image, scale, veloX, veloY) => {
 
     const pear = scene.matter.add.image(x, y, image)

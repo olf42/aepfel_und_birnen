@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Level1 from './bouncyLevels/Level1'
 import Level2 from './bouncyLevels/Level2'
 import Level3 from './bouncyLevels/Level3'
+import LivesDisplay from './bouncylevels/LivesDisplay'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
 
@@ -28,34 +29,36 @@ export default class extends Phaser.Scene {
     }
 
     create() {
-        //this.matter.world.setBounds()
-        
+        // scene state
         this.state = 'play'
-        console.log(this.levels)
+        
+        // initialize level
         let CurrentLevel = this.levels[this.currentLevel]
         this.level = new CurrentLevel(this, this.difficulty - (this.currentLevel*2) )
-
         this.level.setup()
-
         this.level.generateObstacles()
 
+        // initialize gui elements
         this.scoreGui = new GameScore(this)
         this.messages = new ScreenMessages(this)
-
+        this.livesDisplay = new LivesDisplay(this, 3-this.fails )
     }
 
     update(time, delta) {
 
-
+        // update gui elements
         this.scoreGui.update(time, delta)
         this.messages.update(time, delta)
 
+        // update level
         this.level.update(time, delta)
 
+        // check gameover and level success conditions
         if (this.level.state === 'gameover' && this.state == 'play') {
             this.messages.add(640, 360, ":-(", "#ef3483", 100, 500)
             setTimeout( () => {
                 this.fails++
+                this.livesDisplay.lostLive()
                 this.cameras.main.shake(200)
                 this.level.player.destroy()
                 setTimeout(() => {

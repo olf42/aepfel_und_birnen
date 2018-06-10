@@ -12,9 +12,6 @@ export default class extends Phaser.Scene {
         const level = this.sys.game.gc.level
         const fact = this.sys.game.gc.randomFact()
 
-        //music
-        this.music = this.sys.game.ac.play(this, 'menu')
-
         this.frame = this.add.image(x, y, 'frame')
         this.frame.setScale(0.7)
         this.frame.setDepth(100)
@@ -59,6 +56,9 @@ export default class extends Phaser.Scene {
         this.startGame.setOrigin(0.5, 0.5).setInteractive()
         this.startGame.on('pointerup', (event) => {
             this.scene.start(sceneConfig.key)
-        })        
+        })    
+
+        //music
+        this.music = this.sys.game.ac.play(this, 'menu')            
     }
 }

@@ -86,7 +86,7 @@ export default class extends Phaser.Scene {
 
         //gui
         this.messages = new ScreenMessages(this)
-        this.scoreGui = new GameScore(this)
+        this.scoreGui = new GameScore(this, '#ff748f', 950)
         this.ratingBar = new RatingBar(this, 1100, 380, this.misses)
 
 

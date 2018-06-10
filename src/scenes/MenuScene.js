@@ -13,10 +13,6 @@ export default class extends Phaser.Scene {
         // init filters
         this.psychedelicFilter = new PsychedelicFilter()
 
-        // stuff for color tinting
-        this.hsv = Phaser.Display.Color.HSVColorWheel()
-        this.tintCounter = 0
-
         // get game center coordinates
         const centerX = this.sys.game.config.width / 2
         const centerY = this.sys.game.config.height / 2
@@ -56,8 +52,8 @@ export default class extends Phaser.Scene {
             font: '56px Ultra',
             fill: '#4e678e'
         })
-
         this.startGameText.setOrigin(0.5, 0.5).setInteractive()
+        
         // add event handling to text
         this.startGameText.on('pointerover', (event) => {
             this.startGameText.setShadow(2, 2, '#000000', false, true)
@@ -102,16 +98,7 @@ export default class extends Phaser.Scene {
     }
 
     update (time, delta) {
-
-        // // color tint text
-        // const top =  this.hsv[Math.floor(this.tintCounter)].color
-        // const bottom = this.hsv[359 - Math.floor(this.tintCounter)].color
-        // this.startGameText.setTint(top, bottom, bottom, top)
-        // this.tintCounter += 2;
-        // if (this.tintCounter >= this.hsv.length)
-        //     this.tintCounter = 0;
         this.psychedelicFilter.apply(this.startGameText)
-
     }
 
 }
