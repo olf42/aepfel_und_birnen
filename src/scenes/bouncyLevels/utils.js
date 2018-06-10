@@ -73,11 +73,11 @@ export const addCloudEmitter = (scene) => {
         x: { min: 1300, max: 2500 },
         scale: 0.7,
         alpha: 0.3,
-        y: { min: 0, max:4500 },
+        y: { min: 0, max: 4500 },
         lifespan: 500000,
         speedX: { min: -10, max: -20 },
         quantity: 2,
-        frequency: 8000,
+        frequency: 650,
         depth: -15
         //delay: {min: 100, max: 400}
     })
