@@ -1,10 +1,14 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
 import Silhouette from '../images/Silhouette'
+import PsychedelicFiler from '../images/PsychedelicFilter'
+
 import RatingBar from './ddr/RatingBar'
 import { randomSpacedValues } from '../utils'
+
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
+import PsychedelicFilter from '../images/PsychedelicFilter';
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -12,37 +16,21 @@ export default class extends Phaser.Scene {
     }
 
     create () {
+
+        // filters
+        this.psychedelicFilter = new PsychedelicFilter()
+
+        // level config
+        this.misses = 50
+        this.appleKey = this.sys.game.im.random("apples")
+
         this.difficulty = {
             tracks: 1,
             chance: 1,
             beat: 2
         }
 
-        this.messages = new ScreenMessages(this)
-        // get game center coordinates
-        const centerX = this.sys.game.config.width / 2
-        const centerY = this.sys.game.config.height / 2
-
-        // level config
-        this.misses = 50
-        this.velocity = 3
-        this.appleKey = this.sys.game.im.random("apples")
-
-
-        // beats queues
-        this.aQueue = {
-            x: 400,
-            apples: []
-        }
-        this.sQueue = {
-            x: 600,
-            apples: []
-        }
-        this.dQueue = {
-            x: 800,
-            apples: []
-        }
-        
+        // setup level bg and  deco graphics
         this.blattGroup = this.add.group()
         this.blaetter = []
 
@@ -53,8 +41,6 @@ export default class extends Phaser.Scene {
                 this.blaetter[i] = this.blattGroup.create(x, 0, 'blatt')
                 this.blaetter[i].setDepth(4)
                 this.blaetter[i].setRotation(rotation)
-            
-                
             })
             this.blattTween = this.tweens.add({
                 targets: this.blaetter[i],
@@ -69,23 +55,47 @@ export default class extends Phaser.Scene {
             })
         }
 
-        // score graphics queue
-        this.scorePoints = []
+        this.baum = this.add.image(650, 320, 'baum')
+        this.baum.setScale(0.7)
+        this.baum.setAlpha(0.2)
+        this.baum.setDepth(0)        
 
-        // markers
-        this.bgApple1 = this.add.image(400,600, this.appleKey)
-        this.bgApple1.setScale(0.4)
-        this.bgApple1.setAlpha(0.5)        
-        this.bgApple2 = this.add.image(600,600, this.appleKey)
-        this.bgApple2.setScale(0.4)
-        this.bgApple2.setAlpha(0.5)
-        this.bgApple3 = this.add.image(800,600, this.appleKey)
-        this.bgApple3.setScale(0.4)
-        this.bgApple3.setAlpha(0.5)
+        this.winkingLady = new WinkingLady(this, 180,330)
 
-        this.winkingLady = new WinkingLady(this, 30,300)
 
-        // input
+        // setup queus and beat markers
+        this.aQueue = {
+            x: 500,
+            apples: []
+        }
+        this.sQueue = {
+            x: 675,
+            apples: []
+        }
+        this.dQueue = {
+            x: 850,
+            apples: []
+        }
+        
+        this.bgApple1 = this.add.image(this.aQueue.x, 600, this.appleKey)
+        this.bgApple1.setScale(0.4).setAlpha(0.5)        
+        this.bgApple2 = this.add.image(this.sQueue.x, 600, this.appleKey)
+        this.bgApple2.setScale(0.4).setAlpha(0.5)
+        this.bgApple3 = this.add.image(this.dQueue.x, 600, this.appleKey)
+        this.bgApple3.setScale(0.4).setAlpha(0.5)
+
+        //gui
+        this.messages = new ScreenMessages(this)
+        this.scoreGui = new GameScore(this)
+        this.ratingBar = new RatingBar(this, 1100, 380, this.misses)
+
+
+        //music
+        this.music = this.sys.game.ac.play(this, '120bpm')
+        this.beatCount = 0     
+
+
+        // input handler
         this.input.keyboard.on('keydown', (event) => {
             this.winkingLady.wink()
             switch (event.key) {
@@ -99,23 +109,7 @@ export default class extends Phaser.Scene {
                     this.keyPressed(this.aQueue)
                     break
             }    
-        })
-
-        this.baum = this.add.image(650, 320, 'baum')
-        this.baum.setScale(0.7)
-        this.baum.setAlpha(0.2)
-        this.baum.setDepth(0)
-
-        //gui
-        this.scoreGui = new GameScore(this)
-        this.ratingBar = new RatingBar(this, 1100, 380, this.misses)
-
-
-        //music
-        this.music = this.sys.game.ac.play(this, '120bpm')
-        console.log(this.music)
-
-        this.beatCount = 0     
+        })        
     }
 
     keyPressed (queue) {
@@ -124,7 +118,7 @@ export default class extends Phaser.Scene {
         for (let apple of queue.apples) {
             if ((apple.obj.y <= 630) && (apple.obj.y >= 570)) {
                 this.sys.game.gc.score += 10
-                this.messages.add(queue.x+20, 400, "+10", "#ef3483", 64, 500)
+                this.messages.add(queue.x+20, 450, "+10", "#ef3483", 64, 500)
                 apple.obj.destroy()
                 queue.apples.splice(i, 1)
                 hit = true
@@ -145,6 +139,7 @@ export default class extends Phaser.Scene {
     } 
 
     updateQueue(queue) {
+        // calculate new position for each apple element in beat queue
         if (queue.apples.length > 0) {
             for (const apple of queue.apples) {
                 const diff = this.music.source.context.currentTime - apple.start 
@@ -152,6 +147,7 @@ export default class extends Phaser.Scene {
                 apple.obj.y += pixelPerMs * diff
             }
 
+            // remove apple element if outside of frame
             if (queue.apples[0].obj.y > 760) {
                 this.misses--
                 this.ratingBar.updateLevel(this.misses)
@@ -205,7 +201,7 @@ export default class extends Phaser.Scene {
 
     update (time, delta) {
 
-        // add new apple every beat
+        // check elapsed song time for new beat
         const elapsed = this.music.source.context.currentTime - this.music.startTime
         const diff =  elapsed * 1000 - (this.beatCount + 1) * 500
         if (diff >= 0) {
@@ -235,7 +231,7 @@ export default class extends Phaser.Scene {
         this.scoreGui.update(time, delta)
 
         // check gameover condition
-        if (this.misses === 0) {
+        if (this.misses <= 0) {
             this.scene.start('ScoreScene')
         }
 
@@ -243,6 +239,17 @@ export default class extends Phaser.Scene {
         this.updateQueue(this.aQueue)
         this.updateQueue(this.sQueue)
         this.updateQueue(this.dQueue)
+
+        if (this.misses > 70) {
+            for (const blatt of this.blaetter) {
+                this.psychedelicFilter.apply(blatt)
+            }
+        }
+        else {
+            for (const blatt of this.blaetter) {
+                this.psychedelicFilter.clear(blatt)
+            }            
+        }
     }
 }
 

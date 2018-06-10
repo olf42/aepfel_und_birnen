@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import StickDude from '../images/StickDude'
 import Silhouette from '../images/Silhouette'
+import PsychedelicFilter from '../images/PsychedelicFilter'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -8,6 +9,10 @@ export default class extends Phaser.Scene {
     }
 
     create () {
+
+        // init filters
+        this.psychedelicFilter = new PsychedelicFilter()
+
         // stuff for color tinting
         this.hsv = Phaser.Display.Color.HSVColorWheel()
         this.tintCounter = 0
@@ -98,13 +103,14 @@ export default class extends Phaser.Scene {
 
     update (time, delta) {
 
-        // color tint text
-        const top =  this.hsv[Math.floor(this.tintCounter)].color
-        const bottom = this.hsv[359 - Math.floor(this.tintCounter)].color
-        this.startGameText.setTint(top, bottom, bottom, top)
-        this.tintCounter += 2;
-        if (this.tintCounter >= this.hsv.length)
-            this.tintCounter = 0;
+        // // color tint text
+        // const top =  this.hsv[Math.floor(this.tintCounter)].color
+        // const bottom = this.hsv[359 - Math.floor(this.tintCounter)].color
+        // this.startGameText.setTint(top, bottom, bottom, top)
+        // this.tintCounter += 2;
+        // if (this.tintCounter >= this.hsv.length)
+        //     this.tintCounter = 0;
+        this.psychedelicFilter.apply(this.startGameText)
 
     }
 

@@ -7,9 +7,9 @@ export default class WinkingLady {
         this.y = y
 
         this.lady = this.scene.add.image(x, y, 'winkingLady')
-        this.lid = this.scene.add.image(x+34, y-63, 'winkingLadyLid')
-        this.lady.setScale(0.5)
-        this.lid.setScale(0.5)
+        this.lid = this.scene.add.image(x+28, y-51, 'winkingLadyLid')
+        this.lady.setScale(0.4)
+        this.lid.setScale(0.4)
         this.lid.visible = false
     }
 
