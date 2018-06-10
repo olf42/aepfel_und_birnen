@@ -50,10 +50,12 @@ export default class ImageManager {
                 "stickDude": "./assets/dude_ohne_stock_und_hut_und_mund.png",
                 "stickDudeStick": "./assets/stock.png",
                 "stickDudeCylinder": "./assets/hut.png",
-                "stickDudeMouth": "./assets/mund_dude_mit_stock.png"
+                "stickDudeMouth": "./assets/mund_dude_mit_stock.png",
+                "scoreDude": "./assets/score_dude.png"
             },
-            "instructions": {
-                "frame":"./assets/Frame1.png"
+            "frames": {
+                "frame01": "./assets/Frame1.png",
+                "frame02": "./assets/frame02.png"
             },
             "objects": {
                 "krug": "./assets/krug.png",

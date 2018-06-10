@@ -8,8 +8,9 @@ export default class extends Phaser.Scene {
     create () {
         const quote = this.sys.game.gc.story[3]
 
+        this.frame = this.add.image(610,260, 'frame02').setScale(1)
 
-        this.quote = this.add.text(300, 180, '"'+quote+'"', {
+        this.quote = this.add.text(320, 160, '"'+quote+'"', {
             font: '24px Bree Serif',
             fill: '#888888'
         })
@@ -24,7 +25,7 @@ export default class extends Phaser.Scene {
 
 
         setTimeout(() => {
-            this.text = this.add.text(100, 450, "Das Spiel ist aus! Guten Appetit!", {
+            this.text = this.add.text(100, 490, "Das Spiel ist aus! Guten Appetit!", {
                 font: '56px Ultra',
                 fill: '#4e678e'
             })

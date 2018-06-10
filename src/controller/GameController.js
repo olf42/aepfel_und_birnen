@@ -15,10 +15,10 @@ export default class GameController {
         ]
 
         this.story = [
-            "Wenn ich mir aus den wirklichen Äpfeln, Birnen, Erdbeeren, Mandeln \ndie allgemeine Vorstellung »Frucht« bilde, wenn ich weitergehe und mir \neinbilde, daß meine aus den wirklichen Früchten gewonnene abstrakte \nVorstellung »die Frucht« ein außer mir existierendes Wesen, ja das wahre \nWesen der Birne des Apfels etc. sei, so erkläre ich – spekulativ ausgedrückt \n– »die Frucht« für die »Substanz« der Birne, des Apfels, der Mandel etc.",
-            "Ich sage also, der Birne sei es unwesentlich, Birne, dem Apfel sei \nes unwesentlich, Apfel zu sein. Das Wesentliche an diesen Dingen sei \nnicht ihr wirkliches, sinnlich anschaubares Dasein, sondern das von \nmir aus ihnen abstrahierte und ihnen untergeschobene Wesen, das Wesen \nmeiner Vorstellung,»die Frucht.«",
-            "Ich erkläre dann Apfel, Birne, Mandel etc. für bloße Existenzweisen, \nModi »der Frucht.« Mein endlicher, von den Sinnen unterstützter Verstand \nunterscheidet allerdings einen Apfel von einer Birne und eine Birne von \neiner Mandel, aber meine spekulative Vernunft erklärt diese sinnliche \nVerschiedenheit für unwesentlich und gleichgültig.",
-            "Sie sieht in dem Apfel dasselbe wie in der Birne und in der Birne \ndasselbe wie in der Mandel, nämlich »die Frucht.« Die besondern \nwirklichen Früchte gelten nur mehr als Scheinfrüchte, deren wahres \nWesen »die Substanz«, »die Frucht« ist."
+            "Wenn ich mir aus den wirklichen Äpfeln, Birnen, \nErdbeeren, Mandeln die allgemeine Vorstellung \n»Frucht« bilde, wenn ich weitergehe und mir einbilde, \ndaß meine aus den wirklichen Früchten gewonnene \nabstrakte Vorstellung »die Frucht« ein außer mir \nexistierendes Wesen, ja das wahre Wesen der Birne des \nApfels etc. sei, so erkläre ich – spekulativ ausgedrückt \n– »die Frucht« für die »Substanz« der Birne, des Apfels, \nder Mandel etc.",
+            "Ich sage also, der Birne sei es unwesentlich, Birne, \ndem Apfel sei es unwesentlich, Apfel zu sein. Das \nWesentliche an diesen Dingen sei nicht ihr wirkliches, \nsinnlich anschaubares Dasein, sondern das von mir aus \nihnen abstrahierte und ihnen untergeschobene Wesen, das \nWesen meiner Vorstellung,»die Frucht.«",
+            "Ich erkläre dann Apfel, Birne, Mandel etc. für bloße \nExistenzweisen, Modi »der Frucht.« Mein endlicher, \nvon den Sinnen unterstützter Verstand unterscheidet \nallerdings einen Apfel von einer Birne und eine Birne \nvon einer Mandel, aber meine spekulative Vernunft erklärt \ndiese sinnliche Verschiedenheit für unwesentlich und \ngleichgültig.",
+            "Sie sieht in dem Apfel dasselbe wie in der Birne und \nin der Birne dasselbe wie in der Mandel, nämlich »die \nFrucht.« Die besondern wirklichen Früchte gelten nur \nmehr als Scheinfrüchte, deren wahres Wesen \n»die Substanz«, »die Frucht« ist."
         ]
 
         this.games = [

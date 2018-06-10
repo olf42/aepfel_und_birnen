@@ -12,7 +12,7 @@ export default class extends Phaser.Scene {
         const level = this.sys.game.gc.level
         const fact = this.sys.game.gc.randomFact()
 
-        this.frame = this.add.image(x, y, 'frame')
+        this.frame = this.add.image(x, y, 'frame01')
         this.frame.setScale(0.7)
         this.frame.setDepth(100)
 

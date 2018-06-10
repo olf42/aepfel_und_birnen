@@ -9,22 +9,24 @@ export default class extends Phaser.Scene {
         const level = this.sys.game.gc.level - 1
         const quote = this.sys.game.gc.story[level]
 
-        this.dude = this.add.image(250, 400, 'measureDude')
+        this.frame = this.add.image(810,250, 'frame02').setScale(1)
+
+        this.dude = this.add.image(250, 400, 'scoreDude')
 
 
 
-        this.quote = this.add.text(400, 180, '"'+quote+'"', {
+        this.quote = this.add.text(520, 130, '"'+quote+'"', {
             font: '24px Bree Serif',
             fill: '#888888'
         })
 
-        this.score = this.add.text(640, 450, this.sys.game.gc.score+' Punkte', {
+        this.score = this.add.text(470, 550, this.sys.game.gc.score+' Punkte', {
             font: '48px Ultra',
             fill: '#4e678e'
         })
         this.score.setOrigin(0,0)
 
-        this.next = this.add.text(640, 550, 'Weiter', {
+        this.next = this.add.text(870, 550, 'Weiter', {
             font: '48px Ultra',
             fill: '#4e678e'
         })
