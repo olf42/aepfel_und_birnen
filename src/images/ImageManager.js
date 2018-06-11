@@ -51,7 +51,8 @@ export default class ImageManager {
                 "stickDudeStick": "./assets/stock.png",
                 "stickDudeCylinder": "./assets/hut.png",
                 "stickDudeMouth": "./assets/mund_dude_mit_stock.png",
-                "scoreDude": "./assets/score_dude.png"
+                "scoreDude": "./assets/score_dude.png",
+                "randomDude": "./assets/random_dude.png"
             },
             "frames": {
                 "frame01": "./assets/Frame1.png",
@@ -66,7 +67,8 @@ export default class ImageManager {
                 "ddr_bar": "./assets/ddr-bar.png"
             },
             "lightMasks": {
-                "star01": "./assets/lights/star.png"
+                "star01": "./assets/lights/star.png",
+                "flare01": "./assets/lights/flare.png"
             },
             "coulds": {
                 "cloud01": "./assets/lights/cloud01.png"

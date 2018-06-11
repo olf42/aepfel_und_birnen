@@ -25,7 +25,7 @@ export default class extends Phaser.Scene {
             duration: 2000,
         })
 
-        this.score = this.add.text(680, 500, this.sys.game.gc.score+' Punkte', {
+        this.score = this.add.text(680, 500, this.sys.game.gc.getLastScore()+' Punkte', {
             font: '48px Ultra',
             fill: '#4e678e'
         })

@@ -10,6 +10,8 @@ export default class extends Phaser.Scene{
         this.countdown_rest = 0
         this.found = false
         this.difficulty = 1
+
+        this.score = 0
     }
 
     create () {
@@ -89,7 +91,8 @@ export default class extends Phaser.Scene{
                 if ((event.x <= this.pear.x-120 || event.x >= this.pear.x+120) || (event.y <= this.pear.y-120 || event.y >= this.pear.y+120)) {
                     this.cameras.main.shake(300)
                     this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
-                    this.sys.game.gc.score -= 50
+                    // this.sys.game.gc.score -= 50
+                    this.score -= 50
                     //this.search_score.setText(this.sys.game.gc.score)
                 }
     
@@ -99,9 +102,10 @@ export default class extends Phaser.Scene{
             this.pear.on('pointerup', (event) => {
     
                 if (this.countdown.running) {
-                    this.sys.game.gc.score += 50
+                    //this.sys.game.gc.score += 50
                     //this.search_score.setText(this.sys.game.gc.score)
-    
+                    this.score += 50
+
                     // stop countdown
                     this.countdown.running = false
                     this.countdown_rest = this.countdown.duration
@@ -132,6 +136,9 @@ export default class extends Phaser.Scene{
         if (this.countdown.duration < 0) {
             this.difficulty = 1
             this.countdown_rest = 0
+
+            this.sys.game.gc.addScore('Die Suche', this.score)
+
             this.scene.start('ScoreScene')
         }
 

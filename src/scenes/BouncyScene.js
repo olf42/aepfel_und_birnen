@@ -17,7 +17,7 @@ export default class extends Phaser.Scene {
                 }
             }   
         })
-
+        this.score = 0
         this.fails = 0
         this.difficulty = 0
         this.currentLevel = 0
@@ -66,6 +66,7 @@ export default class extends Phaser.Scene {
                 this.level.player.destroy()
                 setTimeout(() => {
                     if (this.fails > 2) {
+                        this.sys.game.gc.addScore('Der Sprung', this.score)
                         this.scene.start('ScoreScene')
                     }
                     else {
@@ -76,7 +77,8 @@ export default class extends Phaser.Scene {
             this.state = 'end'
         }
         else if (this.level.state === 'success' && this.state == 'play') {
-            this.sys.game.gc.score += 100
+            // this.sys.game.gc.score += 100
+            this.score += 100
             this.messages.add(540, 260, "+100", "#ef3483", 100, 1500)
             setTimeout( () => {
                 this.messages.add(640, 360, "weiter so!", "#ef3483", 100, 1500)
@@ -87,6 +89,7 @@ export default class extends Phaser.Scene {
                     this.currentLevel += 1
                 }
                 if (this.currentLevel > 1) {
+                    this.sys.game.gc.addScore('Der Sprung', this.score)
                     this.scene.start('ScoreScene')
                 }
                 else {

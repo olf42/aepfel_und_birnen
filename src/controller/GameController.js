@@ -12,9 +12,9 @@ export default class GameController {
             "Neben seinem Vitaminreichtum ist der Apfel auch in der Lage, \ndie Darmtätigkeit zu regulieren.",
             "Innerhalb Europas produziert Polen mit 3,5 Millionen Tonnen die \nmeisten Äpfel. Kurz darauf folgt Italien mit 2,4 Millionen Tonnen.",
             "Bei einem Unfall mit einem Kühllaster sind am 21. Juli 2017 \nmehrere Tonnen Äpfel über die A27 bei Verden gekullert.",
-            "Den Beinamen „Klapperapfel“ trägt der Hasenkopp, weil die Kerne einzelner Exemplare lose im Gehäuse liegen und bei kräftigem Schütteln gut hörbar klappern.",
-            "Die Äpfel und Birnen dieses Spiels stammen aus einer Sammlung von Wachsfruchtmodellen aus dem 18. Jahrhundert der Stiftung Schloss Friedenstein, Gotha.",
-            "Der größte Apfel der Welt wurde laut Guinness Buch der Rekorde 2005 in Japan von Chisato Iwasaki geerntet. Der Apfel wog 1,8 Kilo."
+            "Den Beinamen „Klapperapfel“ trägt der Hasenkopp, weil die Kerne \neinzelner Exemplare lose im Gehäuse liegen und bei \nkräftigem Schütteln gut hörbar klappern.",
+            "Die Äpfel und Birnen dieses Spiels stammen aus einer Sammlung \nvon Wachsfruchtmodellen aus dem 18. Jahrhundert der \nStiftung Schloss Friedenstein, Gotha.",
+            "Der größte Apfel der Welt wurde laut Guinness Buch der Rekorde \n2005 in Japan von Chisato Iwasaki geerntet. \nDer Apfel wog 1,8 Kilo."
         ]
 
         this.story = [
@@ -46,8 +46,20 @@ export default class GameController {
         ]
 
         this.score = 0
+        this.scoring = []
         this.level = 1
         this.scenes = shuffle(this.games)
+    }
+
+    addScore (title, score) {
+        this.scoring.push({
+            name: title,
+            score: score
+        })
+    }
+
+    getLastScore () {
+        return this.scoring[this.scoring.length-1].score
     }
 
     randomFact () {

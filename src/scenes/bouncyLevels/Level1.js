@@ -17,7 +17,7 @@ export default class  {
         this.ground = this.scene.matter.add.image(512, 768-75, 'ground1', null, { isStatic: true, })
         this.ground.setFriction(0).setDepth(15)
 
-        this.player = new PlayerApple(this.scene, 'matter', 200, 300)
+        this.player = new PlayerApple(this.scene, 200, 300)
 
         this.pot = new Pot(this.scene, 1170, 710)        
     }

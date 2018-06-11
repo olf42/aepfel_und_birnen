@@ -13,6 +13,8 @@ import PsychedelicFilter from '../images/PsychedelicFilter';
 export default class extends Phaser.Scene {
     constructor () {
         super({ "key": "DdrScene" })
+
+        this.score = 0
     }
 
     create () {
@@ -117,7 +119,8 @@ export default class extends Phaser.Scene {
         let hit = false
         for (let apple of queue.apples) {
             if ((apple.obj.y <= 630) && (apple.obj.y >= 570)) {
-                this.sys.game.gc.score += 10
+                // this.sys.game.gc.score += 10
+                this.score += 10
                 this.messages.add(queue.x+20, 450, "+10", "#ef3483", 64, 500)
                 apple.obj.destroy()
                 queue.apples.splice(i, 1)
@@ -127,6 +130,8 @@ export default class extends Phaser.Scene {
             i++
         }
         if (!hit) {
+            this.score -= 5
+            this.messages.add(queue.x+20, 450, "-5", "#ef3483", 64, 500)
             this.misses -= 2
             this.ratingBar.updateLevel(this.misses)
         }
@@ -235,6 +240,7 @@ export default class extends Phaser.Scene {
 
         // check gameover condition
         if (this.misses <= 0) {
+            this.sys.game.gc.addScore('Der Tanz', this.score)
             this.scene.start('ScoreScene')
         }
 

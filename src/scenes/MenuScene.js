@@ -30,7 +30,7 @@ export default class extends Phaser.Scene {
         this.appleTween = this.tweens.add({
             targets: this.apple,
             y: 300,
-            ease: 'Power1',
+            ease: 'Power2',
             duration: 500,
             yoyo: true,
             repeat: -1,
