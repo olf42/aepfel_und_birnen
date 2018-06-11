@@ -108,7 +108,7 @@ export default class extends Phaser.Scene {
         
         this.startCredits.setOrigin(0.5, 0.5).setInteractive()
         this.startCredits.on('pointerup', (event) => {
-            this.scene.start('CreditScene')
+            this.scene.start('CreditsScene')
         })   
 
 

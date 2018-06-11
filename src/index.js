@@ -8,6 +8,7 @@ import BootScene from './scenes/BootScene'
 import MenuScene from './scenes/MenuScene'
 import ScoreScene from './scenes/ScoreScene'
 import EndScene from './scenes/EndScene'
+import CreditsScene from './scenes/CreditsScene'
 
 // Minigame scenes
 import BouncyScene from './scenes/BouncyScene'
@@ -41,7 +42,8 @@ var config = {
         DdrScene,
         SearchScene,
         EndScene,
-        InstructionScene
+        InstructionScene,
+        CreditsScene
     ]
 }
 
