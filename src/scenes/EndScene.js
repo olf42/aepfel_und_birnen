@@ -8,20 +8,24 @@ export default class extends Phaser.Scene {
     create () {
         const quote = this.sys.game.gc.story[3]
 
-        this.frame = this.add.image(610,260, 'frame02').setScale(1)
+        this.frame = this.add.image(610,260, 'frame02').setScale(1).setAlpha(0)
 
-        this.quote = this.add.text(320, 160, '"'+quote+'"', {
+        this.quote = this.add.text(320, 160, quote, {
             font: '24px Bree Serif',
             fill: '#888888'
+        }).setAlpha(0)
+
+        this.citation = this.add.text(450, 320, '- Karl Marx u. Friedrich Engels\n Die heilige Familie oder Kritik der kritischen Kritik', {
+            font: '20px Bree Serif',
+            fill: '#888888'
+        }).setAlpha(0)
+    
+        this.tweens.add({
+            targets: [ this.frame, this.quote, this.citation ],
+            alpha: 1,
+            ease: 'Linear',
+            duration: 2000,
         })
-
-        setTimeout(() => {
-            this.citation = this.add.text(450, 320, '- Karl Marx u. Friedrich Engels\n Die heilige Familie oder Kritik der kritischen Kritik', {
-                font: '20px Bree Serif',
-                fill: '#888888'
-            })
-        }, 4000)
-
 
 
         setTimeout(() => {

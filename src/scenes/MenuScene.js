@@ -93,6 +93,15 @@ export default class extends Phaser.Scene {
             this.scene.start('BouncyPearScene')
         })
 
+        this.endText = this.add.text(900, 500, 'End', {
+            font: '24px Ultra',
+            fill: '#4e678e'
+        })
+        this.endText.setOrigin(0.5, 0.5).setInteractive()
+        this.endText.on('pointerup', (event) => {
+            this.scene.start('EndScene')
+        })
+
         //music
         this.music = this.sys.game.ac.play(this, 'menu')
 
