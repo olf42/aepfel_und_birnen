@@ -32,21 +32,27 @@ export default class extends Phaser.Scene{
                 const x = Phaser.Math.Between(30, 1180)
                 const y = Phaser.Math.Between(30, 690)
                 const rotation = Phaser.Math.Between(0, 360)
-                this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
-                this.pear.setRotation(rotation)
-                this.pear.setInteractive()
 
+                setTimeout( () => {
+                    this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
+                    this.pear.setRotation(rotation)
+                    this.pear.setInteractive()
 
-                this.pearTween = this.tweens.add({
-                    targets: this.pear,
-                    x: x + Phaser.Math.Between(-tweendepth, tweendepth),
-                    y: y + Phaser.Math.Between(-tweendepth, tweendepth),
-                    ease: function (t) {
-                        return Math.pow(Math.sin(t * 3), 3);
-                    },
-                    duration: 1000,
-                    repeat: -1,
-                })
+                    if (this.difficulty > 5) {
+                        this.pear.setAlpha(0.8)
+                    }
+
+                    this.pearTween = this.tweens.add({
+                        targets: this.pear,
+                        x: x + Phaser.Math.Between(-tweendepth, tweendepth),
+                        y: y + Phaser.Math.Between(-tweendepth, tweendepth),
+                        ease: function (t) {
+                            return Math.pow(Math.sin(t * 3), 3);
+                        },
+                        duration: 1000,
+                        repeat: -1,
+                    })
+                }, i*20)
             }
             
 
@@ -54,26 +60,29 @@ export default class extends Phaser.Scene{
             const y = Phaser.Math.Between(30, 690)
             const scale = Phaser.Math.FloatBetween(0.6, 0.85)
             const rotation = Phaser.Math.Between(0, 360)
-            this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
-            this.apples[i].setScale(scale)
-            this.apples[i].setRotation(rotation)
 
-            if (this.difficulty > 5) {
-                this.apples[i].setAlpha(0.8)
-            }
-            this.appleTween = this.tweens.add({
-                targets: this.apples[i],
-                x: x + Phaser.Math.Between(-tweendepth, tweendepth),
-                y: y + Phaser.Math.Between(-tweendepth, tweendepth),
-                ease: function (t) {
-                    return Math.pow(Math.sin(t * 3), 3);
-                },
-                duration: 1000,
-                delay: Phaser.Math.Between(0, 200),
-                repeat: -1,
-            })
+            setTimeout( () => {
+                this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
+                this.apples[i].setScale(scale)
+                this.apples[i].setRotation(rotation)
 
+                if (this.difficulty > 5) {
+                    this.apples[i].setAlpha(0.8)
+                }
+                this.appleTween = this.tweens.add({
+                    targets: this.apples[i],
+                    x: x + Phaser.Math.Between(-tweendepth, tweendepth),
+                    y: y + Phaser.Math.Between(-tweendepth, tweendepth),
+                    ease: function (t) {
+                        return Math.pow(Math.sin(t * 3), 3);
+                    },
+                    duration: 1000,
+                    delay: Phaser.Math.Between(0, 200),
+                    repeat: -1,
+                })
+            }, i * 20)
         }
+
 
         setTimeout(() => {
             this.input.on('pointerup', (event) => {
@@ -107,7 +116,7 @@ export default class extends Phaser.Scene{
                 }
     
             })
-        }, 500)
+        }, 1000)
 
 
         this.countdown = new Countdown(this, 5 + this.countdown_rest)
