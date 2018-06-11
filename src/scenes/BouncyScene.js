@@ -13,7 +13,7 @@ export default class extends Phaser.Scene {
             key: 'BouncyPearScene',
             physics: {
                 matter: {
-                    debug: true
+                    debug: false
                 }
             }   
         })

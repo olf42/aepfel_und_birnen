@@ -71,7 +71,7 @@ export const addCloudEmitter = (scene) => {
 
     particles.createEmitter({
         x: { min: 1300, max: 2500 },
-        scale: 0.7,
+        scale: { min: 0.6, max: 0.8},
         alpha: 0.3,
         y: { min: 0, max: 4500 },
         lifespan: 500000,
