@@ -72,7 +72,7 @@ export default class extends Phaser.Scene {
         let block = {
             header: "the peargroup",
             lines:[
-                "Tracy Hoffman",
+                "Tracy Hoffmann",
                 "Peter Mühleder",
                 "Florian Rämisch"
             ]
@@ -98,19 +98,19 @@ export default class extends Phaser.Scene {
                 targets: this.apple,
                 x: -200,
                 y: Phaser.Math.Between(0, 600),
-                duration: 14000
+                duration: 15000
             })
-        }, this.timer + 7000)
+        }, this.timer + 9000)
         setTimeout(() => {
             this.pear = this.add.image(-200, Phaser.Math.Between(100,650), this.sys.game.im.random('pears'))
             this.pear.setTint(randomColor()).setAlpha(0.3)
             this.tweens.add({
                 targets: this.pear,
-                x: 1400,
+                x: 1500,
                 y: Phaser.Math.Between(0, 600),
-                duration: 14000
+                duration: 15000
             })
-        }, this.timer + 15000)
+        }, this.timer + 17000)
 
         block = {
             header: "Äpfel & Birnen",
@@ -148,7 +148,11 @@ export default class extends Phaser.Scene {
         stickDude.fadeIn(5000, this.timer+22000)
         stickDude.fadeOut(5000, this.timer+75000)
 
-        const lines = sampleSize(booksellers, 100)
+        const lines = sampleSize(booksellers, 96)
+        lines.push(" ")
+        lines.push("Buchhändlerportraits")
+        lines.push(" Deutsche Nationalbibliothek")
+        lines.push("Deutsches Buch- und Schriftmuseum Leipzig")
         block = {
             header: "Buchhändlerinnen",
             lines: lines
