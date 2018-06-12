@@ -2,6 +2,8 @@ import Phaser from 'phaser'
 import { booksellers } from './credits/booksellers'
 import { sampleSize } from 'lodash'
 import StickDude from '../images/StickDude'
+import { randomColor} from '../utils'
+import { addCloudEmitter } from './bouncyLevels/utils'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -88,6 +90,28 @@ export default class extends Phaser.Scene {
         this.addBlock(block, 4000, 640-250)
 
         // apple and pears block
+
+        setTimeout(() => {
+            this.apple = this.add.image(1400, Phaser.Math.Between(100,650), this.sys.game.im.random('apples'))
+            this.apple.setTint(randomColor()).setAlpha(0.3)
+            this.tweens.add({
+                targets: this.apple,
+                x: -200,
+                y: Phaser.Math.Between(0, 600),
+                duration: 14000
+            })
+        }, this.timer + 7000)
+        setTimeout(() => {
+            this.pear = this.add.image(-200, Phaser.Math.Between(100,650), this.sys.game.im.random('pears'))
+            this.pear.setTint(randomColor()).setAlpha(0.3)
+            this.tweens.add({
+                targets: this.pear,
+                x: 1400,
+                y: Phaser.Math.Between(0, 600),
+                duration: 14000
+            })
+        }, this.timer + 15000)
+
         block = {
             header: "Äpfel & Birnen",
             lines:[
@@ -121,7 +145,7 @@ export default class extends Phaser.Scene {
 
         // bookseller block
         const stickDude = new StickDude(this, 890, 360, 240)
-        stickDude.fadeIn(5000, this.timer+25000)
+        stickDude.fadeIn(5000, this.timer+22000)
         stickDude.fadeOut(5000, this.timer+75000)
 
         const lines = sampleSize(booksellers, 100)
@@ -131,8 +155,19 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640-250)        
 
-
+        setTimeout(() => {
+            this.cloudEmitter = addCloudEmitter(this, false)
+        }, this.timer+0)
         //credits end
         this.endLine()
+    }
+
+    update(time, delta) {
+        if (this.apple) {
+            this.apple.rotation -= delta/700
+        }
+        if (this.pear) {
+            this.pear.rotation += delta/700
+        }
     }
 }

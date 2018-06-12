@@ -14,8 +14,7 @@ export default class GrayScale extends Phaser.Renderer.WebGL.Pipelines.TextureTi
             {
                 vec4 texel = texture2D(uMainSampler, outTexCoord);
                 float gray = (texel.r + texel.g + texel.b) / 3.0;
-                texel = vec4(outTint.rgb * gray, texel.a);
-                //texel = vec4(0.2,0.2,0.2, texel.a);
+                texel = vec4(outTint.rgb * gray, outTint.a*texel.a);
                 gl_FragColor = texel;
             }
 

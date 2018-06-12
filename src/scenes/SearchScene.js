@@ -41,7 +41,7 @@ export default class extends Phaser.Scene{
                     //let color = Phaser.Math.Between(0, 256)
                     this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
                     this.pear.setRotation(rotation)
-                    this.pear.setInteractive().setPipeline('SolidColor')
+                    this.pear.setInteractive()//.setPipeline('SolidColor')
                     this.pear.setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
 
                     if (this.difficulty > 5) {
@@ -71,7 +71,7 @@ export default class extends Phaser.Scene{
                 this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
                 this.apples[i].setScale(scale)
                 //let color = Phaser.Math.Between(0, 256)
-                this.apples[i].setRotation(rotation).setPipeline('SolidColor')
+                this.apples[i].setRotation(rotation)//.setPipeline('SolidColor')
                 this.apples[i].setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
 
                 if (this.difficulty > 5) {

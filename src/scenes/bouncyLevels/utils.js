@@ -65,12 +65,12 @@ export const checkCollision = (bodyA, bodyB, targetA, targetsB) => {
     return false  
 }
 
-export const addCloudEmitter = (scene) => {
+export const addCloudEmitter = (scene, init=true) => {
     // this.cloud = this.add.image(500, 500, 'cloud01').setScale(0.7).setAlpha(0.4).setDepth(-19)
     let particles = scene.add.particles('cloud01');
 
     particles.createEmitter({
-        x: { min: 1300, max: 2500 },
+        x: { min: 1400, max: 2500 },
         scale: { min: 0.6, max: 0.8},
         alpha: 0.3,
         y: { min: 0, max: 4500 },
@@ -81,8 +81,10 @@ export const addCloudEmitter = (scene) => {
         depth: -15
         //delay: {min: 100, max: 400}
     })
-    for (let i = 0; i < Phaser.Math.Between(25,35); i++) {
-        particles.emitParticleAt(Phaser.Math.Between(-100, 1300), Phaser.Math.Between(0, 600) )
+    if (init) {
+        for (let i = 0; i < Phaser.Math.Between(25,35); i++) {
+            particles.emitParticleAt(Phaser.Math.Between(-100, 1300), Phaser.Math.Between(0, 600) )
+        }
     }
 
     return particles
