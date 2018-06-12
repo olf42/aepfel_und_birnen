@@ -8,13 +8,13 @@ export default class Stickdude {
         this.bpm = bpm // beats per minute for stick tween
 
         this.dude = this.scene.add.image(x, y, 'stickDude')
-        this.stick = this.scene.add.image(x-5, y+48, 'stickDudeStick')
-        this.cylinder = this.scene.add.image(x+25, y-220, 'stickDudeCylinder')
-        this.mouth = this.scene.add.image(x+53, y-165, 'stickDudeMouth')
-        this.dude.setScale(0.8)
-        this.stick.setScale(0.8)
-        this.cylinder.setScale(0.8)
-        this.mouth.setScale(0.8)
+        this.stick = this.scene.add.image(x+5, y+48, 'stickDudeStick')
+        this.cylinder = this.scene.add.image(x-25, y-220, 'stickDudeCylinder')
+        this.mouth = this.scene.add.image(x-53, y-165, 'stickDudeMouth')
+        this.dude.setScale(0.8).setAlpha(0).setFlipX(true)
+        this.stick.setScale(0.8).setAlpha(0).setFlipX(true)
+        this.cylinder.setScale(0.8).setAlpha(0).setFlipX(true)
+        this.mouth.setScale(0.8).setAlpha(0).setFlipX(true)
 
         this.stickTween = this.scene.tweens.add({
             targets: this.stick,
@@ -27,29 +27,47 @@ export default class Stickdude {
             delay: 200
         })
 
-        this.cylinderTween = this.scene.tweens.add({
-            targets: this.cylinder,
-            y: 75,
-            x: 168,
-            rotation: -0.15,
-            ease: 'Power1',
-            duration: 900,
-            yoyo: true,
-            repeat: -1,
-            repeatDelay: 257
-        })
+        // this.cylinderTween = this.scene.tweens.add({
+        //     targets: this.cylinder,
+        //     y: 75,
+        //     x: 168,
+        //     rotation: -0.15,
+        //     ease: 'Power1',
+        //     duration: 900,
+        //     yoyo: true,
+        //     repeat: -1,
+        //     repeatDelay: 257
+        // })
 
-        this.mouthTween = this.scene.tweens.add({
-            targets: this.mouth,
-            y: 143,
-            x: 200,
-            rotation: 0.2,
-            ease: 'Power1',
-            duration: 900,
-            yoyo: true,
-            repeat: -1,
-            repeatDelay: 257
-        })
+        // this.mouthTween = this.scene.tweens.add({
+        //     targets: this.mouth,
+        //     y: 143,
+        //     x: 200,
+        //     rotation: 0.2,
+        //     ease: 'Power1',
+        //     duration: 900,
+        //     yoyo: true,
+        //     repeat: -1,
+        //     repeatDelay: 257
+        // })
     }
     
+    fadeIn (duration, delay) {
+        this.scene.tweens.add({
+            targets: [this.dude, this.stick, this.cylinder, this.mouth],
+            alpha: 1,
+            duration: duration,
+            delay: delay
+        })      
+    }
+
+    fadeOut (duration, delay) {
+        this.scene.tweens.add({
+            targets: [this.dude, this.stick, this.cylinder, this.mouth],
+            alpha: 0,
+            duration: duration,
+            delay: delay
+        })      
+    }
+
 }

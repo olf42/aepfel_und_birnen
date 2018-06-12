@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import { booksellers } from './credits/booksellers'
 import { sampleSize } from 'lodash'
-
+import StickDude from '../images/StickDude'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -77,6 +77,7 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 7000)
 
+        // music block
         block = {
             header: "Musik",
             lines:[
@@ -86,6 +87,7 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640-250)
 
+        // apple and pears block
         block = {
             header: "Äpfel & Birnen",
             lines:[
@@ -116,8 +118,13 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640+250)
 
-        const lines = sampleSize(booksellers, 100)
 
+        // bookseller block
+        const stickDude = new StickDude(this, 890, 360, 240)
+        stickDude.fadeIn(5000, this.timer+25000)
+        stickDude.fadeOut(5000, this.timer+75000)
+
+        const lines = sampleSize(booksellers, 100)
         block = {
             header: "Buchhändlerinnen",
             lines: lines
@@ -125,6 +132,7 @@ export default class extends Phaser.Scene {
         this.addBlock(block, 4000, 640-250)        
 
 
+        //credits end
         this.endLine()
     }
 }
