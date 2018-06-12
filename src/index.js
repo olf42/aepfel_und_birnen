@@ -53,6 +53,7 @@ class Game extends Phaser.Game {
         this.im = new ImageManager()
         this.gc = new GameController()
         this.ac = new AudioController()
+        this.shaders = {}
     }
 }
 

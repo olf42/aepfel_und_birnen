@@ -12,6 +12,8 @@ export default class extends Phaser.Scene{
         this.difficulty = 1
 
         this.score = 0
+
+        this.hsv = Phaser.Display.Color.HSVColorWheel()
     }
 
     create () {
@@ -23,7 +25,7 @@ export default class extends Phaser.Scene{
 
         this.appleGroup = this.add.group()
         this.apples = []
-        this.nApples = 30 + this.difficulty * 10
+        this.nApples = 30 + this.difficulty * 5
         this.pearLayer = 30
 
         for (let i = 0; i < this.nApples; i++) {
@@ -36,9 +38,11 @@ export default class extends Phaser.Scene{
                 const rotation = Phaser.Math.Between(0, 360)
 
                 setTimeout( () => {
+                    //let color = Phaser.Math.Between(0, 256)
                     this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
                     this.pear.setRotation(rotation)
-                    this.pear.setInteractive()
+                    this.pear.setInteractive().setPipeline('SolidColor')
+                    this.pear.setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
 
                     if (this.difficulty > 5) {
                         this.pear.setAlpha(0.8)
@@ -54,7 +58,7 @@ export default class extends Phaser.Scene{
                         duration: 1000,
                         repeat: -1,
                     })
-                }, i*20)
+                }, i*10)
             }
             
 
@@ -66,7 +70,9 @@ export default class extends Phaser.Scene{
             setTimeout( () => {
                 this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
                 this.apples[i].setScale(scale)
-                this.apples[i].setRotation(rotation)
+                //let color = Phaser.Math.Between(0, 256)
+                this.apples[i].setRotation(rotation).setPipeline('SolidColor')
+                this.apples[i].setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
 
                 if (this.difficulty > 5) {
                     this.apples[i].setAlpha(0.8)
@@ -82,7 +88,7 @@ export default class extends Phaser.Scene{
                     delay: Phaser.Math.Between(0, 200),
                     repeat: -1,
                 })
-            }, i * 20)
+            }, i * 10)
         }
 
 

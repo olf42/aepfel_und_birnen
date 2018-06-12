@@ -8,6 +8,7 @@ export default class extends Phaser.Scene {
         super({ key: 'MenuScene' })
     }
 
+
     create () {
 
         // init filters
@@ -107,7 +108,7 @@ export default class extends Phaser.Scene {
 
     }
 
-    update (time, delta) {
+    update (time1, delta) {
         this.psychedelicFilter.apply(this.startGameText)
     }
 

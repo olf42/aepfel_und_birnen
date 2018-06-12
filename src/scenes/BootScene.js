@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
+import Grayscale from '../shader/Grayscale'
+import SolidColor from '../shader/SolidColor'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -20,6 +22,9 @@ export default class extends Phaser.Scene {
             },
             active: this.loadingFonts
         })
+
+        this.sys.game.shaders.grayscale = this.sys.game.renderer.addPipeline('Grayscale', new Grayscale(this.sys.game));
+        this.sys.game.shaders.solidColor = this.sys.game.renderer.addPipeline('SolidColor', new SolidColor(this.sys.game));
     }
 
     create () {}
