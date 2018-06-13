@@ -59,6 +59,7 @@ export default class ImageManager {
                 "frame02": "./assets/frame02.png"
             },
             "objects": {
+                "logo": "./assets/logo.png",
                 "krug": "./assets/krug.png",
                 "krug_bg": "./assets/krug_bg.png",
                 "tempel" : "./assets/tempel.png",
