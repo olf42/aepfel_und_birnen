@@ -18,20 +18,13 @@ import SearchScene from './scenes/SearchScene'
 import InstructionScene from './scenes/InstructionScene'
 
 var config = {
-    //type: Phaser.CANVAS,
     type: Phaser.AUTO,
     width:1280,
     height: 720,
     backgroundColor: 0xffdeb9,
     physics: {
-        //default: 'matter',
-        arcade: {
-            gravity: { y: 200 },
-            debug: false
-        },
         matter: {
-            debug: true,
-            gravity: { y: 0.5}
+            gravity: { y: 0.5 }
         }
     },
     scene: [

@@ -1,3 +1,7 @@
+/*
+Simple grayscale shader
+*/
+
 export default class GrayScale extends Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline {
     constructor (game) {
         super( {

@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import WinkingLady from '../images/WinkingLady'
-import Silhouette from '../images/Silhouette'
 import PsychedelicFiler from '../images/PsychedelicFilter'
 
 import RatingBar from './ddr/RatingBar'

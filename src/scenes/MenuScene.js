@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import StickDude from '../images/StickDude'
-import Silhouette from '../images/Silhouette'
 import PsychedelicFilter from '../images/PsychedelicFilter'
 
 export default class extends Phaser.Scene {

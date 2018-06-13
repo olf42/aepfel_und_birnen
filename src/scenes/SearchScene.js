@@ -2,159 +2,213 @@ import Phaser from 'phaser'
 import Countdown from '../gui/Countdown'
 import ScreenMessages from '../gui/ScreenMessages'
 import GameScore from '../gui/GameScore'
+import { randomColor } from '../utils'
+import { sample } from 'lodash'
 
-export default class extends Phaser.Scene{
-    constructor () {
+export default class extends Phaser.Scene {
+    constructor() {
         super({ key: 'SearchScene' })
 
         this.countdown_rest = 0
-        this.found = false
         this.difficulty = 1
-
         this.score = 0
 
         this.hsv = Phaser.Display.Color.HSVColorWheel()
+        this.config = {}
     }
 
-    create () {
+    addObjectTween(obj) {
+        this.tweens.add({
+            targets: obj,
+            x: obj.x + Phaser.Math.Between(-this.config.tween, this.config.tween),
+            y: obj.y + Phaser.Math.Between(-this.config.tween, this.config.tween),
+            ease: function (t) {
+                return Math.pow(Math.sin(t * 3), 3);
+            },
+            duration: 1000,
+            repeat: -1,
+        })
+    }
 
-        this.messages = new ScreenMessages(this)
+    configTint(obj) {
+        switch (this.config.tint) {
+            case 1:
+                obj.setTint(randomColor())
+                break
+            case 2:
+                obj.setTint(randomColor(), randomColor())
+                break
+        }
+    }
 
-        // this.cameras.main.setBackgroundColor(0xcfc4ae)
-        //this.search_score = this.add.text(20, 20, this.sys.game.gc.score)
+    configRenderer(obj) {
+        switch (this.config.renderer) {
+            case 'solid':
+                obj.setPipeline('SolidColor')
+                break
+        }
+    }
 
-        this.appleGroup = this.add.group()
-        this.apples = []
-        this.nApples = 30 + this.difficulty * 5
-        this.pearLayer = 30
+    addPear(i) {
+        const x = Phaser.Math.Between(30, 1180)
+        const y = Phaser.Math.Between(30, 690)
+        const rotation = Phaser.Math.Between(0, 360)
 
-        for (let i = 0; i < this.nApples; i++) {
+        this.time.delayedCall(i * 10, () => {
+            //let color = Phaser.Math.Between(0, 256)
+            this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
+            this.pear.setRotation(rotation).setInteractive()//.setPipeline('SolidColor')
+            this.pear.setAlpha(this.config.alpha)
+            this.configRenderer(this.pear)
+            this.configTint(this.pear)
+            this.addObjectTween(this.pear)
+        }, [], this)
+    }
 
-            const tweendepth = this.difficulty * 20
+    addApple(i) {
+        const x = Phaser.Math.Between(30, 1180)
+        const y = Phaser.Math.Between(30, 690)
+        const scale = Phaser.Math.FloatBetween(0.6, 0.85)
+        const rotation = Phaser.Math.Between(0, 360)
 
-            if (i === this.pearLayer) {
-                const x = Phaser.Math.Between(30, 1180)
-                const y = Phaser.Math.Between(30, 690)
-                const rotation = Phaser.Math.Between(0, 360)
+        this.time.delayedCall(i * 10, () => {
+            this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
+            this.apples[i].setScale(scale)
+            this.apples[i].setRotation(rotation)
+            this.apples[i].setAlpha(this.config.alpha)
+            this.configRenderer(this.apples[i])
+            this.configTint(this.apples[i])
+            this.addObjectTween(this.apples[i])
 
-                setTimeout( () => {
-                    //let color = Phaser.Math.Between(0, 256)
-                    this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
-                    this.pear.setRotation(rotation)
-                    this.pear.setInteractive()//.setPipeline('SolidColor')
-                    this.pear.setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
+        }, [], this)
+    }
 
-                    if (this.difficulty > 5) {
-                        this.pear.setAlpha(0.8)
-                    }
-
-                    this.pearTween = this.tweens.add({
-                        targets: this.pear,
-                        x: x + Phaser.Math.Between(-tweendepth, tweendepth),
-                        y: y + Phaser.Math.Between(-tweendepth, tweendepth),
-                        ease: function (t) {
-                            return Math.pow(Math.sin(t * 3), 3);
-                        },
-                        duration: 1000,
-                        repeat: -1,
-                    })
-                }, i*10)
-            }
-            
-
-            const x = Phaser.Math.Between(30, 1180)
-            const y = Phaser.Math.Between(30, 690)
-            const scale = Phaser.Math.FloatBetween(0.6, 0.85)
-            const rotation = Phaser.Math.Between(0, 360)
-
-            setTimeout( () => {
-                this.apples[i] = this.appleGroup.create(x, y, this.sys.game.im.random('apples'))
-                this.apples[i].setScale(scale)
-                //let color = Phaser.Math.Between(0, 256)
-                this.apples[i].setRotation(rotation)//.setPipeline('SolidColor')
-                this.apples[i].setTint(this.hsv[Phaser.Math.Between(0,359)].color).setAlpha(0.9)
-
-                if (this.difficulty > 5) {
-                    this.apples[i].setAlpha(0.8)
-                }
-                this.appleTween = this.tweens.add({
-                    targets: this.apples[i],
-                    x: x + Phaser.Math.Between(-tweendepth, tweendepth),
-                    y: y + Phaser.Math.Between(-tweendepth, tweendepth),
-                    ease: function (t) {
-                        return Math.pow(Math.sin(t * 3), 3);
-                    },
-                    duration: 1000,
-                    delay: Phaser.Math.Between(0, 200),
-                    repeat: -1,
-                })
-            }, i * 10)
+    setupConfig() {
+        // std config
+        this.config = {
+            n: 30 + this.difficulty * 5,
+            alpha: 1,
+            renderer: 'normal',
+            tint: 0,
+            tween: this.difficulty * 15,
+            rotation: false
         }
 
+        if (this.difficulty >= 3) {
+            this.config.rotation = true
+        }
 
+        if (this.difficulty >= 4 && this.difficulty < 7) {
+            this.config.alpha = 0.8
+        }
+        if (this.difficulty >= 7) {
+            this.config.renderer = sample(['normal', 'solid'])
+            switch (this.config.renderer) {
+                case 'normal':
+                    this.config.alpha = 0.8
+                    this.config.tint = 1
+                    break
+                case 'solid':
+                    this.config.alpha = 0.8
+                    this.config.tint = 1
+                    break
+            }
+        }
+        if (this.difficulty >= 10) {
+            this.config.renderer = sample(['normal', 'solid'])
+            switch (this.config.renderer) {
+                case 'normal':
+                    this.config.alpha = 0.8
+                    this.config.tint = Phaser.Math.Between(1,2)
+                    break
+                case 'solid':
+                    this.config.alpha = 0.9
+                    this.config.tint = Phaser.Math.Between(1,2)
+                    break
+            }
+        }
+        if (this.config.n > 200) {
+            this.config.n = 200
+        }
+    }
+
+    create() {
+
+        this.setupConfig()
+
+        // add game objects
+        this.appleGroup = this.add.group()
+        this.apples = []
+        this.pearLayer = 30
+
+        for (let i = 0; i < this.config.n; i++) {
+            if (i === Math.ceil(this.config.n/2)) {
+                this.addPear(i)
+            }
+            this.addApple(i)
+        }
+
+        // set up input handling
         setTimeout(() => {
+
             this.input.on('pointerup', (event) => {
-                if ((event.x <= this.pear.x-120 || event.x >= this.pear.x+120) || (event.y <= this.pear.y-120 || event.y >= this.pear.y+120)) {
+                if ((event.x <= this.pear.x - 120 || event.x >= this.pear.x + 120) || (event.y <= this.pear.y - 120 || event.y >= this.pear.y + 120)) {
                     this.cameras.main.shake(300)
-                    this.messages.add(event.x+20, event.y, "-50", "#ff2222", 50, 1000)
-                    // this.sys.game.gc.score -= 50
+                    this.messages.add(event.x + 20, event.y, "-50", "#ff2222", 50, 1000)
                     this.score -= 50
-                    //this.search_score.setText(this.sys.game.gc.score)
                 }
-    
-    
             })
-    
+
             this.pear.on('pointerup', (event) => {
-    
+
                 if (this.countdown.running) {
-                    //this.sys.game.gc.score += 50
-                    //this.search_score.setText(this.sys.game.gc.score)
+                    //update score
                     this.score += 50
+                    this.messages.add(event.x + 20, event.y, "+50", "#4e678e", 56, 1000)
 
                     // stop countdown
                     this.countdown.running = false
                     this.countdown_rest = this.countdown.duration
-    
-                    this.messages.add(event.x+20, event.y, "+50", "#4e678e", 56, 1000)
-    
-                    setTimeout(() => { 
+
+                    // restart leven in next difficulty
+                    setTimeout(() => {
                         this.difficulty += 1
-                        this.scene.restart() 
+                        this.scene.restart()
                     }, 600)
-    
+
                 }
-    
+
             })
         }, 1000)
 
-
+        // add gui and screen objetcs
         this.countdown = new Countdown(this, 5 + this.countdown_rest)
         this.scoreGui = new GameScore(this)
-
+        this.messages = new ScreenMessages(this)
     }
 
-    update (time, delta) {
-        //update gui elements
+    update(time, delta) {
+        //update gui and screen elements
         this.countdown.update(delta)
         this.scoreGui.update(time, delta)
+        this.messages.update(time, delta)
 
-        if (this.countdown.duration < 0) {
-            this.difficulty = 1
-            this.countdown_rest = 0
-
-            this.sys.game.gc.addScore('Die Suche', this.score)
-
-            this.scene.start('ScoreScene')
-        }
-
-        if (this.difficulty > 2) {
+        // update game objects
+        if (this.config.rotation) {
             for (const apple of this.apples) {
                 apple.rotation += Phaser.Math.FloatBetween(0.01, 0.05)
             }
             this.pear.rotation += Phaser.Math.FloatBetween(0.01, 0.05)
         }
 
-        this.messages.update(time, delta)
+        // check game end condition
+        if (this.countdown.duration < 0) {
+            // reset game config
+            this.difficulty = 1
+            this.countdown_rest = 0
+            // save score and and move on
+            this.sys.game.gc.addScore('Die Suche', this.score)
+            this.scene.start('ScoreScene')
+        }
     }
 }

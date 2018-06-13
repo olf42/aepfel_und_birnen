@@ -21,6 +21,9 @@ export const randomSpacedValues = (min, max, count, spacing) => {
     return values
 } 
 
+/*
+Returns a random color from the hsv color wheel
+*/
 export const randomColor = () => {
     const hsv = Phaser.Display.Color.HSVColorWheel()
     return hsv[Phaser.Math.Between(0,359)].color

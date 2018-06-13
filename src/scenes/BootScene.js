@@ -9,7 +9,7 @@ export default class extends Phaser.Scene {
     }
 
     preload () {
-
+        //load images and audio
         this.sys.game.im.load(this)
         this.sys.game.ac.load(this)
         
@@ -23,11 +23,12 @@ export default class extends Phaser.Scene {
             active: this.loadingFonts
         })
 
+        // add costum shader pipelines
         this.sys.game.shaders.grayscale = this.sys.game.renderer.addPipeline('Grayscale', new Grayscale(this.sys.game));
         this.sys.game.shaders.solidColor = this.sys.game.renderer.addPipeline('SolidColor', new SolidColor(this.sys.game));
 
-        this.loadingText = this.add.text(800, 550, "... loading 0 %", { font: "18px Courier", fill: "#555"})
-
+        // display loading progress
+        this.loadingText = this.add.text(800, 550, "... loading 0 %", { font: "18px Courier", fill: "#555"})        
         this.load.on(
             'progress', 
             (n) => { this.loadingText.setText("... loading "+Math.ceil(n*100)+" %")  }
