@@ -1,5 +1,4 @@
 export const addBouncyObstacle = (scene, x, y, image, scale, veloX, veloY) => {
-
     const pear = scene.matter.add.image(x, y, image)
     pear.setBody({
         type: 'circle',
@@ -53,6 +52,8 @@ export const addPlatform = (scene, x, y) => {
 }
 
 export const checkCollision = (bodyA, bodyB, targetA, targetsB) => {
+    // check collision -> bodyA and bodyB are the bodies retuned by the event;
+    // targetA (single object) and targetsB (list of objects) are gameobjects to check for collision 
     if (bodyA ===targetA.body || bodyB === targetA.body) {
         for (const target of targetsB) {
             if (target.body) {
@@ -66,7 +67,7 @@ export const checkCollision = (bodyA, bodyB, targetA, targetsB) => {
 }
 
 export const addCloudEmitter = (scene, init=true) => {
-    // this.cloud = this.add.image(500, 500, 'cloud01').setScale(0.7).setAlpha(0.4).setDepth(-19)
+    
     let particles = scene.add.particles('cloud01');
 
     particles.createEmitter({
@@ -81,6 +82,8 @@ export const addCloudEmitter = (scene, init=true) => {
         depth: -15
         //delay: {min: 100, max: 400}
     })
+
+    // populate screen with clouds
     if (init) {
         for (let i = 0; i < Phaser.Math.Between(25,35); i++) {
             particles.emitParticleAt(Phaser.Math.Between(-100, 1300), Phaser.Math.Between(0, 600) )

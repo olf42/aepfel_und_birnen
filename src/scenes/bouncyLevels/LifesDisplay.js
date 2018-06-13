@@ -19,7 +19,7 @@ export default class {
         }
     }
 
-    lostLive () {
+    loseLife () {
         this.liveObjs[this.liveObjs.length-1].destroy()
         this.liveObjs.pop()
     }

@@ -2,10 +2,10 @@ import Phaser from 'phaser'
 import Level1 from './bouncyLevels/Level1'
 import Level2 from './bouncyLevels/Level2'
 import Level3 from './bouncyLevels/Level3'
-import LivesDisplay from './bouncyLevels/LivesDisplay'
+import LifesDisplay from './bouncyLevels/LifesDisplay'
+import { addCloudEmitter } from './bouncyLevels/utils'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
-import { addCloudEmitter } from './bouncyLevels/utils'
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -42,7 +42,7 @@ export default class extends Phaser.Scene {
         // initialize gui elements
         this.scoreGui = new GameScore(this)
         this.messages = new ScreenMessages(this)
-        this.livesDisplay = new LivesDisplay(this, 3-this.fails )
+        this.lifesDisplay = new LifesDisplay(this, 3-this.fails )
 
         this.cloudEmitter = addCloudEmitter(this)
     }
@@ -61,7 +61,7 @@ export default class extends Phaser.Scene {
             this.messages.add(640, 360, ":-(", "#ef3483", 100, 500)
             setTimeout( () => {
                 this.fails++
-                this.livesDisplay.lostLive()
+                this.lifesDisplay.loseLife()
                 this.cameras.main.shake(200)
                 this.level.player.destroy()
                 setTimeout(() => {

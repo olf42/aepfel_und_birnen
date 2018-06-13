@@ -55,14 +55,13 @@ export default class extends Phaser.Scene {
         const rotation = Phaser.Math.Between(0, 360)
 
         this.time.delayedCall(i * 10, () => {
-            //let color = Phaser.Math.Between(0, 256)
             this.pear = this.add.image(x, y, this.sys.game.im.random('pears'))
             this.pear.setRotation(rotation).setInteractive()//.setPipeline('SolidColor')
             this.pear.setAlpha(this.config.alpha)
             this.configRenderer(this.pear)
             this.configTint(this.pear)
             this.addObjectTween(this.pear)
-        }, [], this)
+        })
     }
 
     addApple(i) {
@@ -80,7 +79,7 @@ export default class extends Phaser.Scene {
             this.configTint(this.apples[i])
             this.addObjectTween(this.apples[i])
 
-        }, [], this)
+        })
     }
 
     setupConfig() {
@@ -94,6 +93,8 @@ export default class extends Phaser.Scene {
             rotation: false
         }
 
+        // change configuration based on difficulty
+
         if (this.difficulty >= 3) {
             this.config.rotation = true
         }
@@ -102,18 +103,10 @@ export default class extends Phaser.Scene {
             this.config.alpha = 0.8
         }
         if (this.difficulty >= 7) {
-            this.config.renderer = sample(['normal', 'solid'])
-            switch (this.config.renderer) {
-                case 'normal':
-                    this.config.alpha = 0.8
-                    this.config.tint = 1
-                    break
-                case 'solid':
-                    this.config.alpha = 0.8
-                    this.config.tint = 1
-                    break
-            }
+            this.config.alpha = 0.8
+            this.config.tint = 1
         }
+7
         if (this.difficulty >= 10) {
             this.config.renderer = sample(['normal', 'solid'])
             switch (this.config.renderer) {
@@ -122,11 +115,18 @@ export default class extends Phaser.Scene {
                     this.config.tint = Phaser.Math.Between(1,2)
                     break
                 case 'solid':
-                    this.config.alpha = 0.9
-                    this.config.tint = Phaser.Math.Between(1,2)
+                    this.config.alpha = 0.8
+                    this.config.tint = 2
                     break
             }
         }
+        if (this.diffculty >= 14) {
+            this.config.renderer = sample(['normal', 'solid', 'solid', 'solid'])
+            this.config.tint = sample([1,1,2])
+            this.alpha = 0.9
+        }
+
+        // max 200 objects on screen
         if (this.config.n > 200) {
             this.config.n = 200
         }
@@ -134,6 +134,7 @@ export default class extends Phaser.Scene {
 
     create() {
 
+        // setup level difficulty
         this.setupConfig()
 
         // add game objects

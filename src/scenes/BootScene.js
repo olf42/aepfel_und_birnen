@@ -32,7 +32,12 @@ export default class extends Phaser.Scene {
         this.loadingText.setOrigin(0.5, 0.5) 
         this.load.on(
             'progress', 
-            (n) => { this.loadingText.setText("... loading "+Math.ceil(n*100)+" %")  }
+            (n) => { 
+                this.loadingText.setText("... loading "+Math.ceil(n*100)+" %")  
+                if (n == 1) {
+                    this.loadingText.setText("starting ...")
+                }
+            }
         )
     }
 

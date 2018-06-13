@@ -18,7 +18,7 @@ export default class extends Phaser.Scene {
         const centerX = this.sys.game.config.width / 2
         const centerY = this.sys.game.config.height / 2
 
-        this.logo = this.add.image(centerX, centerY, 'logo').setAlpha(0)
+        this.logo = this.add.image(centerX, centerY-50, 'logo').setAlpha(0)
 
         this.tweens.add({
             targets: this.logo,
@@ -44,7 +44,6 @@ export default class extends Phaser.Scene {
             }).setAlpha(0)
             this.startGameText.setOrigin(0.5, 0.5).setInteractive()
             this.startGameText.on('pointerup', (event) => {
-                this.sys.game.ac.randomSound(this)
                 this.scene.start('InstructionScene')
             })
             this.tweens.add({
@@ -63,12 +62,16 @@ export default class extends Phaser.Scene {
                 case "8":
                     this.scene.start('SearchScene')
                     break
-                case "9":
-                    this.scene.start('BouncyPear9Scene')
+                    case "9":
+                    this.scene.start('BouncyPearScene')
+                    break
+                    case "0":
+                    this.scene.start('EndScene')
                     break
             }    
         })    
 
+        // credits button
         this.time.delayedCall( 5000, () => {
             this.endText = this.add.text(1000, 680, 'Epilog', {
                 font: '24px Bree Serif',
@@ -84,9 +87,9 @@ export default class extends Phaser.Scene {
                 duration: 2000
             })               
         })
-        //music
-        this.music = this.sys.game.ac.play(this, 'menu')
 
+        // start music
+        this.music = this.sys.game.ac.play(this, 'menu')
     }
 
     update (time, delta) {

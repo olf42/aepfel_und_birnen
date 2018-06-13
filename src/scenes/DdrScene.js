@@ -131,7 +131,7 @@ export default class extends Phaser.Scene {
         if (!hit) {
             this.score -= 5
             this.messages.add(queue.x+20, 450, "-5", "#ef3483", 64, 500)
-            this.misses -= 2
+            this.misses -= 8
             this.ratingBar.updateLevel(this.misses)
         }
         else {
@@ -153,7 +153,7 @@ export default class extends Phaser.Scene {
 
             // remove apple element if outside of frame
             if (queue.apples[0].obj.y > 760) {
-                this.misses--
+                this.misses -= 8
                 this.ratingBar.updateLevel(this.misses)
                 queue.apples[0].obj.destroy()
                 queue.apples.shift()
@@ -221,10 +221,10 @@ export default class extends Phaser.Scene {
                             this.addAppleToQueue(this.sQueue)
                             break
                         case 1:
-                            this.addAppleToQueue(this.aQueue)
+                            this.addAppleToQueue(this.sQueue)
                             break
                         case 2:
-                            this.addAppleToQueue(this.dQueue)
+                            this.addAppleToQueue(this.sQueue)
                             break
                     }
                 }
