@@ -242,11 +242,11 @@ export default class extends Phaser.Scene {
         // update gui + screene elements
         this.messages.update(time, delta)
         this.scoreGui.update(time, delta)
-
+        this.ratingBar.update(time, delta)
         this.winkingLady.update(time, delta)
 
         // check gameover condition
-        if (this.misses <= 0) {
+        if (this.ratingBar.yCurrent <= 0) {
             this.sys.game.gc.addScore('Der Tanz', this.score)
             this.scene.start('ScoreScene')
         }
