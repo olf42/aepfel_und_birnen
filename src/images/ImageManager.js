@@ -44,6 +44,7 @@ export default class ImageManager {
                 "appleDudeApple": "./assets/apfel_fuer_dude.png",
                 "appleDudeArm": "./assets/arm.png",
                 "appleDude": "./assets/dude_ohne_apfel_ohne_arm_Ausschnitt.png",
+                "appleDudeFinger": "./assets/finger01.png",
                 "winkingLady": "./assets/lady_zwinker.png",
                 "winkingLadyLid": "./assets/lady_zwinker_lid.png",
                 "measureDude": "./assets/dude_vermessung_des_apfels.png",

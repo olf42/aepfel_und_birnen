@@ -4,7 +4,6 @@ Displays only (white) silhouette of image
 Can be tinted
 */
 
-
 export default class extends Phaser.Renderer.WebGL.Pipelines.TextureTintPipeline {
     constructor (game) {
         super( {

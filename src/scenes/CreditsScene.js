@@ -69,6 +69,7 @@ export default class extends Phaser.Scene {
         this.addLine('ein "the peargroup" Spiel', '36px Bree Serif', '#999', 3000)
         this.addLine('Äpfel und Birnen', '48px Ultra', '#666', 7000)
 
+        // the peargrup <3
         let block = {
             header: "the peargroup",
             lines:[
@@ -89,8 +90,7 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640-250)
 
-        // apple and pears block
-
+        // apple and pears block + random color fruits 
         setTimeout(() => {
             this.apple = this.add.image(1400, Phaser.Math.Between(100,650), this.sys.game.im.random('apples'))
             this.apple.setTint(randomColor()).setAlpha(0.3)
@@ -142,8 +142,7 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640+250)
 
-
-        // bookseller block
+        // bookseller block + stick dude
         const stickDude = new StickDude(this, 890, 360, 240)
         stickDude.fadeIn(5000, this.timer+22000)
         stickDude.fadeOut(5000, this.timer+75000)
@@ -159,6 +158,7 @@ export default class extends Phaser.Scene {
         }
         this.addBlock(block, 4000, 640-250)        
 
+        // start coulds and end credits
         setTimeout(() => {
             this.cloudEmitter = addCloudEmitter(this, false)
         }, this.timer+0)
