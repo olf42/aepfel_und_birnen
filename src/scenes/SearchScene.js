@@ -2,7 +2,8 @@ import Phaser from 'phaser'
 import Countdown from '../gui/Countdown'
 import ScreenMessages from '../gui/ScreenMessages'
 import GameScore from '../gui/GameScore'
-import { randomColor } from '../utils'
+import { congratulations, encouragement, hurry } from '../texts/ScreenMessages'
+import { randomColor, colors } from '../utils'
 import { sample } from 'lodash'
 
 export default class extends Phaser.Scene {
@@ -15,6 +16,7 @@ export default class extends Phaser.Scene {
 
         this.hsv = Phaser.Display.Color.HSVColorWheel()
         this.config = {}
+
     }
 
     addObjectTween(obj) {
@@ -136,6 +138,7 @@ export default class extends Phaser.Scene {
 
         // setup level difficulty
         this.setupConfig()
+        this.hurryMessageCooldown = 2000
 
         // add game objects
         this.appleGroup = this.add.group()
@@ -210,6 +213,16 @@ export default class extends Phaser.Scene {
             // save score and and move on
             this.sys.game.gc.addScore('Die Suche', this.score)
             this.scene.start('ScoreScene')
+        }
+
+        // random screen messages
+        this.hurryMessageCooldown -= delta
+        if (this.countdown.duration < 7 && this.hurryMessageCooldown < 0) {
+            const chance = Phaser.Math.Between(0,600) 
+            if (chance > 590) {
+                this.messages.add(Phaser.Math.Between(350,700), Phaser.Math.Between(250,450), sample(hurry), sample(colors), 70, 1000)
+                this.hurryMessageCooldown = 3500
+            }
         }
     }
 }

@@ -3,11 +3,13 @@ import WinkingLady from '../images/WinkingLady'
 import PsychedelicFiler from '../images/PsychedelicFilter'
 
 import RatingBar from './ddr/RatingBar'
-import { randomSpacedValues } from '../utils'
+import { randomSpacedValues, colors } from '../utils'
 
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
-import PsychedelicFilter from '../images/PsychedelicFilter';
+import PsychedelicFilter from '../images/PsychedelicFilter'
+import { congratulations, encouragement } from '../texts/ScreenMessages'
+import { sample } from 'lodash'
 
 export default class extends Phaser.Scene {
     constructor () {
@@ -17,13 +19,14 @@ export default class extends Phaser.Scene {
     }
 
     create () {
-
+        
         // filters
         this.psychedelicFilter = new PsychedelicFilter()
 
         // level config
         this.misses = 50
         this.appleKey = this.sys.game.im.random("apples")
+        this.messageCooldown = 5000
 
         this.difficulty = {
             tracks: 1,
@@ -116,11 +119,16 @@ export default class extends Phaser.Scene {
     keyPressed (queue) {
         let i = 0
         let hit = false
+        const x = queue.x + Phaser.Math.Between(10,40)
+        console.log(x)
+        const y = Phaser.Math.Between(510, 540)
+
         for (let apple of queue.apples) {
             if ((apple.obj.y <= 630) && (apple.obj.y >= 570)) {
                 // this.sys.game.gc.score += 10
                 this.score += 10
-                this.messages.add(queue.x+20, 450, "+10", "#ef3483", 64, 500)
+
+                this.messages.add(x, y, "+10", sample(colors), 64, 500)
                 apple.obj.destroy()
                 queue.apples.splice(i, 1)
                 hit = true
@@ -130,7 +138,7 @@ export default class extends Phaser.Scene {
         }
         if (!hit) {
             this.score -= 5
-            this.messages.add(queue.x+20, 450, "-5", "#ef3483", 64, 500)
+            this.messages.add(x, y, "-5", "#ef3483", 64, 500)
             this.misses -= 8
             this.ratingBar.updateLevel(this.misses)
         }
@@ -264,6 +272,20 @@ export default class extends Phaser.Scene {
         }
         else {
             this.winkingLady.disco = false
+        }
+
+
+        // random screen messages
+        this.messageCooldown -= delta
+        if (this.messageCooldown < 0) {
+            
+            const chance = Phaser.Math.Between(0,600) 
+            if (chance > 590 && (this.misses < 40 || this.misses > 85) ) {
+                const msg = this.misses > 50 ? sample(congratulations) : sample(encouragement)
+
+                this.messages.add(Phaser.Math.Between(350,700), Phaser.Math.Between(250,450),msg, sample(colors), 60, 1500)
+                this.messageCooldown = 5000
+            }
         }
     }
 }

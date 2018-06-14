@@ -6,6 +6,9 @@ import LifesDisplay from './bouncyLevels/LifesDisplay'
 import { addCloudEmitter } from './bouncyLevels/utils'
 import GameScore from '../gui/GameScore'
 import ScreenMessages from '../gui/ScreenMessages'
+import { congratulations, encouragement } from '../texts/ScreenMessages'
+import { sample } from 'lodash'
+import { colors } from '../utils'
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -58,7 +61,7 @@ export default class extends Phaser.Scene {
 
         // check gameover and level success conditions
         if (this.level.state === 'gameover' && this.state == 'play') {
-            this.messages.add(640, 360, ":-(", "#ef3483", 100, 500)
+            this.messages.add(Phaser.Math.Between(350,700), Phaser.Math.Between(250,450), sample(encouragement), sample(colors), 70, 2000)
             setTimeout( () => {
                 this.fails++
                 this.lifesDisplay.loseLife()
@@ -72,16 +75,17 @@ export default class extends Phaser.Scene {
                     else {
                         this.scene.restart()
                     }
-                }, 1000)
+                }, 1500)
             })
             this.state = 'end'
         }
         else if (this.level.state === 'success' && this.state == 'play') {
             // this.sys.game.gc.score += 100
             this.score += 100
-            this.messages.add(540, 260, "+100", "#ef3483", 100, 1500)
+            const y = Phaser.Math.Between(250,450)
+            this.messages.add(Phaser.Math.Between(350,700), y-100, "+100", sample(colors), 70, 1500)
             setTimeout( () => {
-                this.messages.add(640, 360, "weiter so!", "#ef3483", 100, 1500)
+                this.messages.add(Phaser.Math.Between(490,750), y, sample(congratulations), sample(colors), 70, 2000)
             }, 300)
             setTimeout( () => {
                 this.difficulty += 1
