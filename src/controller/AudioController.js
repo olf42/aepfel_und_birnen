@@ -5,7 +5,7 @@ export default class {
         this.songAssets = {
             "menu": "./assets/music/aub_menu.mp3",
             "120bpm": "./assets/music/120bpm.mp3",
-            "aub_mk17": "./assets/music/aub_mk1.mp3",
+            "ddr": "./assets/music/aub_mk1.mp3",
             "credits": "./assets/music/aub_credits.mp3"
         }
     }
@@ -16,14 +16,14 @@ export default class {
         }
     }
 
-    play (scene, song) {
+    play (scene, song, loop=true) {
         if (song != this.currentSongTitle) {
             if (this.currentSong) {
                 this.currentSong.stop()
             }
             this.currentSongTitle = song
             this.currentSong = scene.sound.add(song)
-            this.currentSong.play()
+            this.currentSong.play({loop: true})
         }
         return this.currentSong
     }

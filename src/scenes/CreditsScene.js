@@ -61,7 +61,7 @@ export default class extends Phaser.Scene {
     }
 
     create () {
-        this.sys.game.ac.play(this, 'credits')
+        this.sys.game.ac.play(this, 'credits', false)
 
         this.timer = 0
 
@@ -92,7 +92,7 @@ export default class extends Phaser.Scene {
 
         // apple and pears block + random color fruits 
         setTimeout(() => {
-            this.apple = this.add.image(1400, Phaser.Math.Between(100,650), this.sys.game.im.random('apples'))
+            this.apple = this.add.image(1400, Phaser.Math.Between(100,720), this.sys.game.im.random('apples'))
             this.apple.setTint(randomColor()).setAlpha(0.3)
             this.tweens.add({
                 targets: this.apple,
@@ -100,9 +100,9 @@ export default class extends Phaser.Scene {
                 y: Phaser.Math.Between(0, 600),
                 duration: 15000
             })
-        }, this.timer + 9000)
+        }, this.timer + 12000)
         setTimeout(() => {
-            this.pear = this.add.image(-200, Phaser.Math.Between(100,650), this.sys.game.im.random('pears'))
+            this.pear = this.add.image(-200, Phaser.Math.Between(100,720), this.sys.game.im.random('pears'))
             this.pear.setTint(randomColor()).setAlpha(0.3)
             this.tweens.add({
                 targets: this.pear,
@@ -110,7 +110,7 @@ export default class extends Phaser.Scene {
                 y: Phaser.Math.Between(0, 600),
                 duration: 15000
             })
-        }, this.timer + 17000)
+        }, this.timer + 20000)
 
         block = {
             header: "Äpfel & Birnen",

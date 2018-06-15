@@ -158,7 +158,7 @@ export default class extends Phaser.Scene {
             this.input.on('pointerup', (event) => {
                 if ((event.x <= this.pear.x - 120 || event.x >= this.pear.x + 120) || (event.y <= this.pear.y - 120 || event.y >= this.pear.y + 120)) {
                     this.cameras.main.shake(300)
-                    this.messages.add(event.x + 20, event.y, "-50", "#ff2222", 50, 1000)
+                    this.messages.add(event.x + 20, event.y, "-50", "#ff2222", 70, 1000)
                     this.score -= 50
                 }
             })
@@ -168,7 +168,7 @@ export default class extends Phaser.Scene {
                 if (this.countdown.running) {
                     //update score
                     this.score += 50
-                    this.messages.add(event.x + 20, event.y, "+50", "#4e678e", 56, 1000)
+                    this.messages.add(event.x + 20, event.y, "+50", sample(colors), 70, 1000)
 
                     // stop countdown
                     this.countdown.running = false

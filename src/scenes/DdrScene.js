@@ -95,7 +95,7 @@ export default class extends Phaser.Scene {
 
 
         //music
-        this.music = this.sys.game.ac.play(this, '120bpm')
+        this.music = this.sys.game.ac.play(this, 'ddr')
         this.beatCount = 0     
 
 
@@ -161,7 +161,7 @@ export default class extends Phaser.Scene {
 
             // remove apple element if outside of frame
             if (queue.apples[0].obj.y > 760) {
-                this.misses -= 8
+                this.misses -= 57
                 this.ratingBar.updateLevel(this.misses)
                 queue.apples[0].obj.destroy()
                 queue.apples.shift()
@@ -215,8 +215,8 @@ export default class extends Phaser.Scene {
 
         // check elapsed song time for new beat
         const elapsed = this.music.source.context.currentTime - this.music.startTime
-        const diff =  elapsed * 1000 - (this.beatCount + 1) * 500
-        if (diff >= 0) {
+        const diff =  elapsed * 1000 - (this.beatCount + 1) * 461 
+        if (diff + 150 >= 0) {
             this.beatCount++
             this.winkingLady.pulse()
             this.updateDifficulty()
@@ -229,10 +229,10 @@ export default class extends Phaser.Scene {
                             this.addAppleToQueue(this.sQueue)
                             break
                         case 1:
-                            this.addAppleToQueue(this.sQueue)
+                            this.addAppleToQueue(this.aQueue)
                             break
                         case 2:
-                            this.addAppleToQueue(this.sQueue)
+                            this.addAppleToQueue(this.dQueue)
                             break
                     }
                 }
