@@ -161,7 +161,7 @@ export default class extends Phaser.Scene {
 
             // remove apple element if outside of frame
             if (queue.apples[0].obj.y > 760) {
-                this.misses -= 57
+                this.misses -= 5
                 this.ratingBar.updateLevel(this.misses)
                 queue.apples[0].obj.destroy()
                 queue.apples.shift()
