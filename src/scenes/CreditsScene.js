@@ -66,12 +66,12 @@ export default class extends Phaser.Scene {
         this.timer = 0
 
         this.addLine('diggr präsentiert',  '36px Bree Serif', '#999', 0)
-        this.addLine('ein "the peargroup" Spiel', '36px Bree Serif', '#999', 3000)
+        this.addLine('eine "the peargroup" Produktion', '36px Bree Serif', '#999', 3000)
         this.addLine('Äpfel und Birnen', '48px Ultra', '#666', 7000)
 
         // the peargrup <3
         let block = {
-            header: "the peargroup",
+            header: '"the peargroup"',
             lines:[
                 "Tracy Hoffmann",
                 "Peter Mühleder",

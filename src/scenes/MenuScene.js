@@ -38,7 +38,7 @@ export default class extends Phaser.Scene {
 
         // add start game text
         this.time.delayedCall( 3000, () => {
-            this.startGameText = this.add.text(centerX, 600, 'Spiel starten', {
+            this.startGameText = this.add.text(centerX, 600, 'Start', {
                 font: '56px Ultra',
                 fill: '#4e678e'
             }).setAlpha(0)
@@ -62,12 +62,17 @@ export default class extends Phaser.Scene {
                 case "8":
                     this.scene.start('SearchScene')
                     break
-                    case "9":
+                case "9":
                     this.scene.start('BouncyPearScene')
                     break
-                    case "0":
+                case "0":
                     this.scene.start('EndScene')
                     break
+                case "2":
+                    this.scene.stop("ScoreScene")
+                    this.scene.stop("DdrScene")
+                    this.scene.stop("SearchScene")
+                    this.scene.start("CreditsScene")
             }    
         })    
 

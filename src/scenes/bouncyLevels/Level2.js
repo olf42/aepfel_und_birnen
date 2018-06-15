@@ -2,13 +2,13 @@ import PlayerApple from './PlayerApple'
 import Pot from './Pot'
 import { randomSpacedValues } from '../../utils'
 import { addBouncyObstacle, addStaticObstacle, addTweenObstacle, addPlatform, checkCollision } from './utils'
-import { ENGINE_METHOD_DIGESTS } from 'constants';
+import { ENGINE_METHOD_DIGESTS, SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 export default class  {
     constructor (scene, difficulty) {
         this.scene = scene
         this.state = 'play'
-        this.difficulty = 0
+        this.difficulty = difficulty
     }
 
     setup () {
@@ -24,7 +24,7 @@ export default class  {
         this.pot = new Pot(this.scene, 1170, 710)
 
         // setup player
-        this.player = new PlayerApple(this.scene, 200, 300)
+        this.player = new PlayerApple(this.scene, 100, 300)
     }
 
     addObstacle () {
@@ -33,13 +33,23 @@ export default class  {
     generateObstacles () {
         this.pears = []
         switch (this.difficulty) {
-            case 0:
+            case 1:
                 let y = Phaser.Math.Between(100, 300)
+                this.pears[0] = addTweenObstacle(this.scene, 275, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)       
+                this.pears[1] = addTweenObstacle(this.scene, 400, 520, this.scene.sys.game.im.random('pears'), 0.5, 1500, 0, 1600, 'Linear').setDepth(30)
+                break        
+            case 0:
+                y = Phaser.Math.Between(100, 300)
                 this.pears[0] = addTweenObstacle(this.scene, 275, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
                 y = Phaser.Math.Between(100, 300)
                 setTimeout(() => {
                     this.pears[1] = addTweenObstacle(this.scene, 625, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
                 }, Phaser.Math.Between(100, 800))
+                break
+            case 2:
+                this.pears[0] = addStaticObstacle(this.scene, 450, 620, this.scene.sys.game.im.random('pears'), 0.3)
+                y = Phaser.Math.Between(100, 300)
+                this.pears[1] = addTweenObstacle(this.scene, 625, y, this.scene.sys.game.im.random('pears'), 0.5, 0, 700, 1200)
                 break
         }
 
@@ -54,6 +64,11 @@ export default class  {
 
     update (time, delta) {
         this.player.update(time, delta)
+
+        for (const pear of this.pears) {
+            pear.rotation += .1
+        }
+
         if (this.player.sprite.body) {
 
             if (this.pot.hit(this.player) && this.state === 'play') {

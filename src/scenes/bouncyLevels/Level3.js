@@ -1,65 +1,85 @@
 import PlayerApple from './PlayerApple'
+import Pot from './Pot'
+import { randomSpacedValues } from '../../utils'
+import { addBouncyObstacle, addStaticObstacle, addTweenObstacle, addPlatform, checkCollision } from './utils'
+import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 export default class  {
-    constructor (scene) {
+    constructor (scene, difficulty) {
         this.scene = scene
-        this.status = 'init'
+        this.state = 'play'
+        this.difficulty = difficulty
     }
 
     setup () {
-        this.background = this.scene.add.image(640, 335, 'bg2')
-        this.ground = this.scene.matter.add.image(640, 768 - 75, 'ground2', null, { isStatic: true })
-        this.ground.setAngle(-2.5)
+        this.background = this.scene.add.image(640, 335, this.scene.sys.game.im.random('korkbg'))
+        this.background.setAlpha(0.6)
 
-        //setup player
-        this.player = new PlayerApple(this.scene, 'matter', 200, 200)
+        this.ground = [
+            addPlatform(this.scene, 100, 300),
+            addPlatform(this.scene, 1130, 200),
+        ]
+
+        this.pot = new Pot(this.scene, 1230, 710)
+
+        // setup player
+        this.player = new PlayerApple(this.scene, 100, 0)
     }
 
     addObstacle () {
-        // set up obstacles
-        const pear = this.scene.matter.add.image(1100, 80, 'pear05')
-
-        pear.setBody({
-            type: 'circle',
-            radius: 90
-        })
-        pear.setScale(0.8)
-        pear.setVelocityX(-2)
-        pear.setFrictionAir(0)
-        pear.setFriction(0.0)
-        pear.setBounce(1)        
-
-        this.pears.push(pear)
     }
 
     generateObstacles () {
         this.pears = []
-        this.addObstacle()
-        setTimeout( () => {
-            this.addObstacle()
-        }, 3000 )
+        switch (this.difficulty) {
+            case 2:
+                this.rotation = true
+                this.pears[0] = addStaticObstacle(this.scene, 500,600, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[1] = addStaticObstacle(this.scene, 700,600, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[2] = addStaticObstacle(this.scene, 900,600, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[3] = addStaticObstacle(this.scene, 600,350, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[4] = addStaticObstacle(this.scene, 800,350, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[5] = addStaticObstacle(this.scene, 1000,350, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[6] = addStaticObstacle(this.scene, 400,350, this.scene.sys.game.im.random('pears'), .5)
+                break
+            case 1:
+                this.rotation=true
+                this.pears[0] =  addTweenObstacle(this.scene, 200, 500, this.scene.sys.game.im.random('pears'), 1, 1200, 0, 1500, 'Linear')
+                this.pears[0].setDepth(50)
+                break
+            case 0:
+                this.rotation=true
+                this.pears[0] = addStaticObstacle(this.scene, 400,500, this.scene.sys.game.im.random('pears'), 1.5)
+                this.pears[1] = addStaticObstacle(this.scene, 850,300, this.scene.sys.game.im.random('pears'), 1.5)
+                break
+        }
 
         this.scene.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
+            if (checkCollision(bodyA, bodyB, this.player.sprite, this.pears)) {
+                this.state = 'gameover'
+            }    
+        })   
 
-            if (bodyA === this.player.sprite.body || bodyB === this.player.sprite.body) {
-                for (const pear of this.pears) {
-                    if (pear.body) {
-                        if (bodyA === pear.body || bodyB === pear.body) {
-                            this.state = 'gameover'
-                        }
-                    }
-                }
-            }
-    
-        })
     }
 
+
     update (time, delta) {
-        for (const pear of this.pears) {
-            if (pear.x < 0) {
-                pear.destroy() 
-                this.pears.shift()
-                this.addObstacle()   
+        this.player.update(time, delta)
+
+        if (this.rotation) {
+            for (const pear of this.pears) {
+                pear.rotation += .1
+            }
+        }
+
+        if (this.player.sprite.body) {
+
+            if (this.pot.hit(this.player) && this.state === 'play') {
+                this.pot.bounce()
+                this.state = 'success'
+            }
+            else if (this.player.sprite.y > 760  || this.player.sprite.x > 1300) {
+                this.state = 'gameover'
             }
         }
     }

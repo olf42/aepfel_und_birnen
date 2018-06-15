@@ -18,7 +18,7 @@ export default class {
     }
 
     addAppleImage (x, y) {
-        let apple = this.scene.matter.add.image(100, 300, this.scene.sys.game.im.random('apples'))
+        let apple = this.scene.matter.add.image(x, y, this.scene.sys.game.im.random('apples'))
 
         apple.setBody({
             type: 'circle',

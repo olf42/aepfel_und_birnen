@@ -38,7 +38,7 @@ export default class extends Phaser.Scene {
         
         // initialize level
         let CurrentLevel = this.levels[this.currentLevel]
-        this.level = new CurrentLevel(this, this.difficulty - (this.currentLevel*2) )
+        this.level = new CurrentLevel(this, this.difficulty)
         this.level.setup()
         this.level.generateObstacles()
 
@@ -91,8 +91,9 @@ export default class extends Phaser.Scene {
                 this.difficulty += 1
                 if (this.difficulty % 3 === 0) {
                     this.currentLevel += 1
+                    this.difficulty = 0
                 }
-                if (this.currentLevel > 1) {
+                if (this.currentLevel > 2) {
                     this.sys.game.gc.addScore('Der Sprung', this.score)
                     this.scene.start('ScoreScene')
                 }

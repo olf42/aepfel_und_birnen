@@ -5,7 +5,7 @@ export const addBouncyObstacle = (scene, x, y, image, scale, veloX, veloY) => {
         radius: 70
     })      
     pear.setScale(scale).setDepth(20) 
-    pear.setFriction(0)
+    pear.setFriction(0).setRotation(Phaser.Math.Between(0, 360))
     pear.setVelocityY(veloY)
     pear.setVelocityX(veloX)
     pear.setFrictionAir(0.012)
@@ -20,11 +20,11 @@ export const addStaticObstacle = (scene, x, y, image, scale) => {
         type: 'circle',
         radius: 70
     })     
-    pear.setScale(scale).setStatic(true).setDepth(20) 
+    pear.setScale(scale).setStatic(true).setDepth(20).setRotation(Phaser.Math.Between(0, 360)) 
     return pear
 }
 
-export const addTweenObstacle = (scene, x, y, image, scale, xGoal, yGoal, duration) => {
+export const addTweenObstacle = (scene, x, y, image, scale, xGoal, yGoal, duration,ease="Power2") => {
     const pear = scene.matter.add.image(x, y, image)
     pear.setBody({
         type: 'circle',
@@ -38,7 +38,7 @@ export const addTweenObstacle = (scene, x, y, image, scale, xGoal, yGoal, durati
         y: y+yGoal,
         duration: duration,
         repeat: -1,
-        ease: 'Power2',
+        ease: ease,
         yoyo: true
     })
     return pear
@@ -66,26 +66,26 @@ export const checkCollision = (bodyA, bodyB, targetA, targetsB) => {
     return false  
 }
 
-export const addCloudEmitter = (scene, init=true) => {
+export const addCloudEmitter = (scene, init=true, alpha=0.15, frequency=400) => {
     
     let particles = scene.add.particles('cloud01');
 
     particles.createEmitter({
         x: { min: 1400, max: 2500 },
-        scale: { min: 0.6, max: 0.8},
-        alpha: 0.3,
+        scale: { min: 0.4, max: 1.0 },
+        alpha: alpha,
         y: { min: 0, max: 4500 },
         lifespan: 500000,
         speedX: { min: -10, max: -20 },
         quantity: 2,
-        frequency: 650,
+        frequency: frequency,
         depth: -15
         //delay: {min: 100, max: 400}
     })
 
     // populate screen with clouds
     if (init) {
-        for (let i = 0; i < Phaser.Math.Between(25,35); i++) {
+        for (let i = 0; i < Phaser.Math.Between(30,55); i++) {
             particles.emitParticleAt(Phaser.Math.Between(-100, 1300), Phaser.Math.Between(0, 600) )
         }
     }
