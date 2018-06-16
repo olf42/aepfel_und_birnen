@@ -218,7 +218,7 @@ export default class extends Phaser.Scene {
 
         // check elapsed song time for new beat
         const elapsed = this.music.source.context.currentTime - this.music.startTime
-        const diff =  elapsed * 1000 - (this.beatCount + 1) * 461 
+        const diff =  elapsed * 1000 - (this.beatCount + 1) * 461.5
         if (diff + 200 >= 0 ) {
             this.beatCount++
             console.log(this.beatCount)
