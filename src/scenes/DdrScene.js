@@ -24,6 +24,7 @@ export default class extends Phaser.Scene {
         this.psychedelicFilter = new PsychedelicFilter()
 
         // level config
+        this.state = 'play'
         this.misses = 50
         this.appleKey = this.sys.game.im.random("apples")
         this.messageCooldown = 5000
@@ -120,7 +121,6 @@ export default class extends Phaser.Scene {
         let i = 0
         let hit = false
         const x = queue.x + Phaser.Math.Between(10,40)
-        console.log(x)
         const y = Phaser.Math.Between(510, 540)
 
         for (let apple of queue.apples) {
@@ -144,7 +144,7 @@ export default class extends Phaser.Scene {
         }
         else {
             if (this.misses < 100) {
-                this.misses += 2
+                this.misses += 3
                 this.ratingBar.updateLevel(this.misses)
             }
         }
@@ -161,7 +161,7 @@ export default class extends Phaser.Scene {
 
             // remove apple element if outside of frame
             if (queue.apples[0].obj.y > 760) {
-                this.misses -= 5
+                this.misses -= 2
                 this.ratingBar.updateLevel(this.misses)
                 queue.apples[0].obj.destroy()
                 queue.apples.shift()
@@ -206,6 +206,9 @@ export default class extends Phaser.Scene {
                 this.difficulty.chance = 0.8
                 break
             case 120:
+                this.difficulty.chance = 0.9
+                break
+            case 240:
                 this.difficulty.chance = 1
                 break
         }
@@ -216,11 +219,12 @@ export default class extends Phaser.Scene {
         // check elapsed song time for new beat
         const elapsed = this.music.source.context.currentTime - this.music.startTime
         const diff =  elapsed * 1000 - (this.beatCount + 1) * 461 
-        if (diff + 150 >= 0) {
+        if (diff + 200 >= 0 ) {
             this.beatCount++
+            console.log(this.beatCount)
             this.winkingLady.pulse()
             this.updateDifficulty()
-            if (this.beatCount % this.difficulty.beat === 0) {
+            if (this.beatCount % this.difficulty.beat === 0 && this.beatCount < 360) {
                 const track = Phaser.Math.Between(0, this.difficulty.tracks-1)
                 const chance = Phaser.Math.FloatBetween(0, 1)
                 if (chance > (1-this.difficulty.chance)) {
@@ -249,6 +253,15 @@ export default class extends Phaser.Scene {
         if (this.ratingBar.yCurrent <= 0) {
             this.sys.game.gc.addScore('Der Tanz', this.score)
             this.scene.start('ScoreScene')
+        }
+
+        if (this.beatCount == 380 && this.state==='play') {
+            this.state == 'end'
+            this.messages.add(4640, 460, sample(congratulations), sample(colors), 76, 2000)
+            setTimeout( () => {
+                this.sys.game.gc.addScore('Der Tanz', this.score)
+                this.scene.start('ScoreScene')
+            }, 2000)
         }
 
         // update apple beat queues
