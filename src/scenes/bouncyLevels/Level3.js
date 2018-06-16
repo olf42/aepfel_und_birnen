@@ -34,13 +34,13 @@ export default class  {
         switch (this.difficulty) {
             case 2:
                 this.rotation = true
-                this.pears[0] = addStaticObstacle(this.scene, 500,600, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[1] = addStaticObstacle(this.scene, 700,600, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[2] = addStaticObstacle(this.scene, 900,600, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[3] = addStaticObstacle(this.scene, 600,350, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[4] = addStaticObstacle(this.scene, 800,350, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[5] = addStaticObstacle(this.scene, 1000,350, this.scene.sys.game.im.random('pears'), .5)
-                this.pears[6] = addStaticObstacle(this.scene, 400,350, this.scene.sys.game.im.random('pears'), .5)
+                this.pears[0] = addStaticObstacle(this.scene, 500,600, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[1] = addStaticObstacle(this.scene, 700,600, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[2] = addStaticObstacle(this.scene, 900,600, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[3] = addStaticObstacle(this.scene, 600,350, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[4] = addStaticObstacle(this.scene, 800,350, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[5] = addStaticObstacle(this.scene, 1000,350, this.scene.sys.game.im.random('pears'), .6)
+                this.pears[6] = addStaticObstacle(this.scene, 400,350, this.scene.sys.game.im.random('pears'), .6)
                 break
             case 1:
                 this.rotation=true
