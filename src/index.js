@@ -8,6 +8,7 @@ import BootScene from './scenes/BootScene'
 import MenuScene from './scenes/MenuScene'
 import ScoreScene from './scenes/ScoreScene'
 import EndScene from './scenes/EndScene'
+import CreditsScene from './scenes/CreditsScene'
 
 // Minigame scenes
 import BouncyScene from './scenes/BouncyScene'
@@ -22,14 +23,8 @@ var config = {
     height: 720,
     backgroundColor: 0xffdeb9,
     physics: {
-        //default: 'matter',
-        arcade: {
-            gravity: { y: 200 },
-            debug: false
-        },
         matter: {
-            debug: true,
-            gravity: { y: 0.5}
+            gravity: { y: 0.5 }
         }
     },
     scene: [
@@ -40,7 +35,8 @@ var config = {
         DdrScene,
         SearchScene,
         EndScene,
-        InstructionScene
+        InstructionScene,
+        CreditsScene
     ]
 }
 
@@ -50,6 +46,7 @@ class Game extends Phaser.Game {
         this.im = new ImageManager()
         this.gc = new GameController()
         this.ac = new AudioController()
+        this.shaders = {}
     }
 }
 

@@ -44,23 +44,36 @@ export default class ImageManager {
                 "appleDudeApple": "./assets/apfel_fuer_dude.png",
                 "appleDudeArm": "./assets/arm.png",
                 "appleDude": "./assets/dude_ohne_apfel_ohne_arm_Ausschnitt.png",
+                "appleDudeFinger": "./assets/finger01.png",
                 "winkingLady": "./assets/lady_zwinker.png",
                 "winkingLadyLid": "./assets/lady_zwinker_lid.png",
                 "measureDude": "./assets/dude_vermessung_des_apfels.png",
                 "stickDude": "./assets/dude_ohne_stock_und_hut_und_mund.png",
                 "stickDudeStick": "./assets/stock.png",
                 "stickDudeCylinder": "./assets/hut.png",
-                "stickDudeMouth": "./assets/mund_dude_mit_stock.png"
+                "stickDudeMouth": "./assets/mund_dude_mit_stock.png",
+                "scoreDude": "./assets/score_dude.png",
+                "randomDude": "./assets/random_dude.png"
             },
-            "instructions": {
-                "frame":"./assets/Frame1.png"
+            "frames": {
+                "frame01": "./assets/Frame1.png",
+                "frame02": "./assets/frame02.png"
             },
             "objects": {
+                "logo": "./assets/logo.png",
                 "krug": "./assets/krug.png",
                 "krug_bg": "./assets/krug_bg.png",
                 "tempel" : "./assets/tempel.png",
                 "baum" : "./assets/baum.png",
-                "blatt" : "./assets/blatt.png"
+                "blatt" : "./assets/blatt.png",
+                "ddr_bar": "./assets/ddr-bar.png"
+            },
+            "lightMasks": {
+                "star01": "./assets/lights/star.png",
+                "flare01": "./assets/lights/flare.png"
+            },
+            "coulds": {
+                "cloud01": "./assets/lights/cloud01.png"
             }
         }
     }

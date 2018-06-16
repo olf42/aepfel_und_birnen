@@ -6,16 +6,16 @@ export default class extends Phaser.Scene {
     }
 
     create () {
+        
         const x = 640
         const y = 360
+
+        // next level information and random facts
         const sceneConfig = this.sys.game.gc.currentScene()
         const level = this.sys.game.gc.level
         const fact = this.sys.game.gc.randomFact()
 
-        //music
-        this.music = this.sys.game.ac.play(this, 'menu')
-
-        this.frame = this.add.image(x, y, 'frame')
+        this.frame = this.add.image(x, y, 'frame01')
         this.frame.setScale(0.7)
         this.frame.setDepth(100)
 
@@ -24,7 +24,6 @@ export default class extends Phaser.Scene {
             fill: '#fff'
         })
         this.heading.setDepth(101)
-
 
         this.controlHeader = this.add.text(250, 250, 'Anweisung:', {
             font: '24px Ultra',
@@ -59,6 +58,9 @@ export default class extends Phaser.Scene {
         this.startGame.setOrigin(0.5, 0.5).setInteractive()
         this.startGame.on('pointerup', (event) => {
             this.scene.start(sceneConfig.key)
-        })        
+        })    
+
+        // (re) start music
+        this.music = this.sys.game.ac.play(this, 'menu')            
     }
 }
