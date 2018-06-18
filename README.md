@@ -31,6 +31,7 @@ The following datasets which were submitted for Coding Da Vinci Ost 2018 were us
 * [Modelle antiker Bauwerke aus Kork](https://casimir.bsz-bw.de/frontdoor/index/index/docId/18) by [Stiftung Schloss Friedenstein](http://www.stiftungfriedenstein.de/) (License: CC0)
 * [Buchhändlerportraits](https://speicherwolke.uni-leipzig.de/index.php/s/HScdv0wr2lQe63e) by [Deutsche Nationalbibliothek, Deutsches Buch- und Schriftmuseum Leipzig](http://www.dnb.de/DE/DBSM/dbsm_node.html) (License: CC0)
 * [Antike Keramik](https://speicherwolke.uni-leipzig.de/index.php/s/IvHiDl76pCQ1ulq) by [Lindenau-Museum Altenburg](https://www.lindenau-museum.de/) (License: CC-BY 4.0 International)
+* [Herbarium in drei Bänden aus den Jahren 1729 bis 1731](http://digishelf.de/ppnresolver?id=796882568) by [Gleimhaus - Museum der deutschen Aufklärung](https://www.gleimhaus.de/) (License: CC-BY)
 
 ## the peargroup
 
