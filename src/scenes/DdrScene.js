@@ -89,6 +89,29 @@ export default class extends Phaser.Scene {
         this.bgApple3 = this.add.image(this.dQueue.x, 600, this.appleKey)
         this.bgApple3.setScale(0.4).setAlpha(0.5)
 
+        this.aText = this.add.text(this.aQueue.x, 650, "(a)", {
+            font: '48px Bree Serif',
+            fill: "#aaa"
+        }).setAlpha(0.75).setOrigin(0.5, 0).setInteractive()
+        this.sText = this.add.text(this.sQueue.x, 650, "(s)", {
+            font: '48px Bree Serif',
+            fill: "#aaa"
+        }).setAlpha(0.75).setOrigin(0.5, 0).setInteractive()
+        this.dText = this.add.text(this.dQueue.x, 650, "(d)", {
+            font: '48px Bree Serif',
+            fill: "#aaa"
+        }).setAlpha(0.75).setOrigin(0.5, 0).setInteractive()
+
+        this.aText.on('pointerup', () => {
+            this.keyPressed(this.aQueue)
+        })
+        this.dText.on('pointerup', () => {
+            this.keyPressed(this.dQueue)
+        })
+        this.sText.on('pointerup', () => {
+            this.keyPressed(this.sQueue)
+        })
+
         //gui
         this.messages = new ScreenMessages(this)
         this.scoreGui = new GameScore(this, '#ff748f', 950)
