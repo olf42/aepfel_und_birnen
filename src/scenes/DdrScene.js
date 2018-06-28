@@ -83,11 +83,21 @@ export default class extends Phaser.Scene {
         }
         
         this.bgApple1 = this.add.image(this.aQueue.x, 600, this.appleKey)
-        this.bgApple1.setScale(0.4).setAlpha(0.5)        
+        this.bgApple1.setScale(0.4).setAlpha(0.5).setInteractive()
         this.bgApple2 = this.add.image(this.sQueue.x, 600, this.appleKey)
-        this.bgApple2.setScale(0.4).setAlpha(0.5)
+        this.bgApple2.setScale(0.4).setAlpha(0.5).setInteractive()
         this.bgApple3 = this.add.image(this.dQueue.x, 600, this.appleKey)
-        this.bgApple3.setScale(0.4).setAlpha(0.5)
+        this.bgApple3.setScale(0.4).setAlpha(0.5).setInteractive()
+
+        this.bgApple1.on('pointerup', () => {
+            this.keyPressed(this.aQueue)
+        })
+        this.bgApple2.on('pointerup', () => {
+            this.keyPressed(this.sQueue)
+        })
+        this.bgApple3.on('pointerup', () => {
+            this.keyPressed(this.dQueue)
+        })
 
         this.aText = this.add.text(this.aQueue.x, 650, "(a)", {
             font: '48px Bree Serif',
